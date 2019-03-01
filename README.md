@@ -18,8 +18,8 @@ Overseas = Anywhere not Philippines
 3. **Customer Side**
 	- [ ] Able to enter details (tracking number, last name etc/ whatever is necessary) to display information about its status (UI: 3 days, logic: 0.5 day)
 	- [ ] Information includes inherently done
-		- [ ]Eta
-		- [ ]What stage of the journey it is in
+		- [ ] Eta
+		- [ ] What stage of the journey it is in
 
 ## Features
 1. **Company side**
