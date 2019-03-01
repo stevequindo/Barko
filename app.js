@@ -1,24 +1,33 @@
+/***************** CONSTANTS *****************/
 // File folder names
 const serverFilesPath = "/server_files/";
 const clientFilesPath = "/client_files/";
 
-// NPM modules
+// Set up express
 const express = require("express");
-const fileUpload = require("express-fileupload");
-const databases = require(__dirname + "/databases.js");
-
 const app = express();
 const port = 3000;
 
+// File uploading
+const fileUpload = require("express-fileupload");
 app.use(fileUpload());
+
+// File processing
+let fileID = "theFile";
+let XLSX = require('xlsx');
+
+// Database operations
+const databases = require(__dirname + "/custom_node_modules/databases.js");
+
+/***************** EXPRESS INITIALISATION *****************/
 
 // Using the EJS as the view engine
 app.set('view engine', 'ejs');
 
-// // Use local resources
-// app.use(express.static("public"));
+// Use local resources
+app.use(express.static("public"));
 
-// SUBMIT PAGE
+/***************** SUBMIT PAGE *****************/
 app.get("/", (req, res) => {
     res.render("upload");
 });
@@ -26,25 +35,49 @@ app.get("/", (req, res) => {
 app.post("/", (req, res) => {
     // Check if no files were uploaded
     if (Object.keys(req.files).length == 0) {
-        return res.status(400).send('No files were uploaded.');
+        return console.error('400: No files were uploaded.');
     }
 
-    // Retrieve file
-    let file = req.files.theFile;
-    let pathName = __dirname + serverFilesPath + file.name;
+    // Retrieve file based on file ID
+    let file = req.files[fileID];
+    let pathName =  "." + serverFilesPath + file.name;
 
-    // Move file to /files
+    // Move file to server_files and return pathname
     file.mv(pathName, (err) => {
         if (err) {
-            return res.status(500).send(err);
+            console.error("Error: 500");
         }
-        databases.parseNewFile(pathName);
-        res.send("File uploaded and parsed!");
-
+        let jsonWorkbook = getJsonWorkbook(pathName);
+        let summary = databases.parseJsonWorkbook(jsonWorkbook);
+        res.send(summary);
     });
 });
 
-// BEGIN LISTENING
+/***************** SERVER *****************/
 app.listen(port, () => {
     console.log(`Server initialised on port ${port}`);
 });
+
+/***************** FUNCTIONS *****************/
+getJsonWorkbook = function(pathName) {
+    /*
+        Params:
+            pathName: File path to the Excel spreadsheet
+        Returns:
+            jsonWorkbook: JSON with key as the individual sheet and value as the array containing the rows (as objects)
+    */
+    let workbook = XLSX.readFile(pathName), sheetNames = workbook.SheetNames;
+    let jsonWorkbook = {};
+
+    // Iterate over every sheet
+    for (let i = 0; i < sheetNames.length; i ++) {
+        let sheet = workbook.Sheets[sheetNames[i]];
+
+        jsonSheet = XLSX.utils.sheet_to_json(sheet);
+
+        // Append to jsonWorkbook with key = sheetName and value = jsonSheet
+        jsonWorkbook[sheetNames[i]] = jsonSheet;
+    }
+
+    return jsonWorkbook;
+}
