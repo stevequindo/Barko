@@ -1,6 +1,6 @@
 # BalikbayanCommFiles
 
-### MVP Functionality Check List (due 25th March)
+## MVP Functionality Check List (due 25th March)
 Overseas = Anywhere not Philippines
 
 1. **Overseas Company side**
@@ -21,7 +21,7 @@ Overseas = Anywhere not Philippines
 		- Eta
 		- What stage of the journey it is in
 
-### Features
+## Features
 1. **Company side**
 	- Parsing data from (standardised) excel sheets
 		- Drag/drop into software → Take all relevant data, organise into an entry for each individual box→ Company can update the individual boxes
