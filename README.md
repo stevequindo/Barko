@@ -16,7 +16,7 @@ Overseas = Anywhere not Philippines
 	- [ ] Any updates are also seen by overseas company **_inherently done_**
 	
 3. **Customer Side**
-	- [ ] Able to enter details (tracking number, last name etc/ whatever is necessary) to display information about its status **_(UI: 3 days, logic: 0.5 day)_**
+	- [x] Able to enter details (tracking number, last name etc/ whatever is necessary) to display information about its status **_(UI: 3 days, logic: 0.5 day)_**
 	- [ ] Information includes inherently done
 		- [ ] Eta
 		- [ ] What stage of the journey it is in
