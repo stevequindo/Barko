@@ -3,7 +3,7 @@
 ## MVP Functionality Check List (due 25th March)
 Overseas = Anywhere not Philippines
 
-1. **Overseas Company side**
+1. **Overseas (NZ) Company side**
 	- [x] Drag and drop excel sheet to a joint communication channel between the agency overseas already done (needs presentation)
 	- [ ] Read only  a day
 	- [ ] Set up database a service a few seconds to a week
@@ -20,6 +20,8 @@ Overseas = Anywhere not Philippines
 	- [ ] Information includes inherently done
 		- [ ] Eta
 		- [ ] What stage of the journey it is in
+
+
 
 ## Features
 1. **Company side**
