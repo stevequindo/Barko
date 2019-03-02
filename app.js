@@ -67,14 +67,12 @@ app.post("/tracking", (req,res) => {
     // Retrieve tracking number from form
     let trackingNumber = req.body.trackingNumber;
     
+
     databases.findStatus(trackingNumber)
-        .then(
-            function(result) {
-                res.render("trackingSuccess", {statusMsg: result});
-        }).catch(
-            function(err){
-                res.render("trackingFailure");
-    });
+        .then(                  // if promise was resolved then it calls this function
+            (result) => {res.render("trackingSuccess", {statusMsg: result});})
+        .catch(                 // if promise was not, it calls this function
+            (err) => {res.render("trackingFailure");});
     
 });
 
