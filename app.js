@@ -19,6 +19,10 @@ let XLSX = require('xlsx');
 // Database operations
 const databases = require(__dirname + "/custom_node_modules/databases.js");
 
+// Body parsing
+let bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({extended:true}));
+
 /***************** EXPRESS INITIALISATION *****************/
 
 // Using the EJS as the view engine
@@ -47,10 +51,31 @@ app.post("/", (req, res) => {
         if (err) {
             console.error("Error: 500");
         }
+    
         let jsonWorkbook = getJsonWorkbook(pathName);
         let summary = databases.parseJsonWorkbook(jsonWorkbook);
         res.send(summary);
     });
+});
+
+/***************** TRACKING PAGE *****************/
+app.get("/tracking", (req,res) => { 
+    res.render("trackingPrompt");
+});
+
+app.post("/tracking", (req,res) => {
+    // Retrieve tracking number from form
+    let trackingNumber = req.body.trackingNumber;
+    
+    databases.findStatus(trackingNumber)
+        .then(
+            function(result) {
+                res.render("trackingSuccess", {statusMsg: result});
+        }).catch(
+            function(err){
+                res.render("trackingFailure");
+    });
+    
 });
 
 /***************** SERVER *****************/
