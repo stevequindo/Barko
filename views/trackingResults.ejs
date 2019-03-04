@@ -11,12 +11,12 @@
         <% if (trackingTable[item] == "") { %>
             <tr>
                 <td><%= item %></td>
-                <td>NO STATUS GIVEN</td>
+                <td style="text-color: red;">No status given</td>
             </tr>
         <% } else if (trackingTable[item] == "No results returned"){%>
             <tr>
                 <td><%= item %></td>
-                <td>No results returned</td>
+                <td style="text-color: red;">No results returned</td>
             </tr>
         <% } else { %>
             <tr>
