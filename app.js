@@ -19,9 +19,10 @@ let XLSX = require('xlsx');
 // Database operations
 const databases = require(__dirname + "/custom_node_modules/databases.js");
 
-// Body parsing
-let bodyParser = require("body-parser");
+// Body parsing and text processing
+let bodyParser = require("body-parser"); let _ = require('lodash');
 app.use(bodyParser.urlencoded({extended:true}));
+
 
 /***************** EXPRESS INITIALISATION *****************/
 
@@ -65,15 +66,46 @@ app.get("/tracking", (req,res) => {
 
 app.post("/tracking", (req,res) => {
     // Retrieve tracking number from form
-    let trackingNumber = req.body.trackingNumber;
-    
+    let trackingNumberString = req.body.trackingNumber;
 
-    databases.findStatus(trackingNumber)
-        .then(                  // if promise was resolved then it calls this function
-            (result) => {res.render("trackingSuccess", {statusMsg: result});})
-        .catch(                 // if promise was not, it calls this function
-            (err) => {res.render("trackingFailure");});
+    // Split the string by newline
+    let trackingNumArray = _.split(trackingNumberString, "\r\n");
     
+    // Split the string by comma
+    function splitComma(elem) {
+        return _.split(elem, ",");
+    }
+    
+    trackingNumArray = _.flatMapDeep(trackingNumArray, splitComma);
+    
+    // Remove all spaces
+    function removeSpace(elem) {
+        return _.replace(elem, " ", "");
+    }
+    
+    trackingNumArray = _.flatMapDeep(trackingNumArray, removeSpace);
+    
+    // Remove empty elements
+    _.remove(trackingNumArray, (elem) => {return elem == ""});
+
+    // Retrieve object with key = tracking num, value = status
+    // fucking source on how to do this bullshit jesus christ
+    // https://lavrton.com/javascript-loops-how-to-handle-async-await-6252dd3c795/
+    
+    async function parseStatus() {
+        let trackingStatus = {};
+        // Iterate over every tracking number
+        for (let elem of trackingNumArray) {
+            try {
+                trackingStatus[elem] = await databases.findStatus(elem);
+            } catch(err) {
+                trackingStatus[elem] = err;
+                continue;
+            }
+        }
+        res.render("trackingResults", {trackingTable: trackingStatus});
+    }
+    parseStatus();
 });
 
 /***************** SERVER *****************/

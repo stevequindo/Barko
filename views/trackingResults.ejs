@@ -1,0 +1,30 @@
+<%- include("header") -%>
+<h1>Success!</h1>
+
+<table style="width:50%;border: 1px solid #dddddd;">
+    <tr>
+        <th>Tracking Number</th>
+        <th>Status</th>
+    </tr>
+
+    <% for (let item in trackingTable) { %>
+        <% if (trackingTable[item] == "") { %>
+            <tr>
+                <td><%= item %></td>
+                <td>NO STATUS GIVEN</td>
+            </tr>
+        <% } else if (trackingTable[item] == "No results returned"){%>
+            <tr>
+                <td><%= item %></td>
+                <td>No results returned</td>
+            </tr>
+        <% } else { %>
+            <tr>
+                <td><%= item %></td>
+                <td><%= trackingTable[item] %></td>
+            </tr>
+        <% }%>
+    <% } %>
+</table>
+
+<%- include("footer") -%>
