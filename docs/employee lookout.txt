@@ -1,0 +1,8 @@
+What we're looking for
+====================
+- Familiar with quality assurance and testing
+- Ability to communicate effectively and openly, especially through online means with team members overseas
+- Basic grasp of UI/UX design
+- Proficient in the MEAN stack (MongoDB, Express, Angular, Node.js), working to create the final product
+- Familiar with Git and version control in general
+- Willing to work flexible hours around team member's uni schedules
