@@ -21,6 +21,11 @@ Overseas = Anywhere not Philippines
 		- [ ] Information includes **_inherently done_**
 			- [ ] Eta
 			- [ ] What stage of the journey it is in
+			
+4. **Additional Features not needed in MVP**
+	- Pinging the user when an update is made.
+	- Saving tracking numbers
+	- Create comms_meta database (table: companies containing company name and dbName, etc.)
 
 ## Features
 1. **Company side**
@@ -35,8 +40,3 @@ Overseas = Anywhere not Philippines
 2. **Customer side**
 	- Typing in tracking number and getting relevant information
 	
-3. **Additional Features not needed in MVP**
-	- Pinging the user when an update is made.
-	- Saving tracking numbers
-
-
