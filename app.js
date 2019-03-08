@@ -6,7 +6,7 @@ const clientFilesPath = "/client_files/";
 // Set up express
 const express = require("express");
 const app = express();
-const port = 3000;
+const port = 3050;
 
 // File uploading
 const fileUpload = require("express-fileupload");
@@ -26,21 +26,28 @@ app.use(bodyParser.urlencoded({extended:true}));
 // Use static files
 app.use(express.static("public"));
 
-
-/***************** EXPRESS INITIALISATION *****************/
-
-// Using the EJS as the view engine
+// Express.js initialisations
 app.set('view engine', 'ejs');
-
-// Use local resources
 app.use(express.static("public"));
 
-/***************** SUBMIT PAGE *****************/
+
+/***************** INDEX PAGE *****************/
 app.get("/", (req, res) => {
+    res.render("index");
+});
+
+/***************** OVERVIEW PAGE *****************/
+app.get("/overview", (req,res) => {
+    //res.render('overview');
+    res.render('overview-main');
+});
+
+/***************** UPLOAD PAGE *****************/
+app.get("/upload", (req, res) => {
     res.render("upload");
 });
 
-app.post("/", (req, res) => {
+app.post("/upload", (req, res) => {
     // Check if no files were uploaded
     if (Object.keys(req.files).length == 0) {
         return console.error('400: No files were uploaded.');
