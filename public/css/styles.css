@@ -1,7 +1,59 @@
-.navbar {
-    background-color: #3FEEE6 !important;
+/***************** BODY PAGE *****************/
+body {
+    font-family: 'Quicksand', sans-serif;
 }
 
 p {
-    color: blue;
+    /*color: blue;*/
+}
+
+/***************** NAVBAR SECTION *****************/
+.navbar {
+    background-color: white;
+}
+
+.navbar-brand {
+    text-decoration: line-through rgba(255, 0, 0, 0.5);
+    font-size: 2.25rem;
+}
+
+.nav-item.active a{
+  text-decoration: line-through rgba(255, 0, 0, 0.5);
+}
+
+.navbar-nav a {
+    font-size: 2.25rem;
+    font-family: 'Libre Barcode 128 Text', cursive;
+}
+
+
+/***************** CONTAINERS  *****************/
+.overview-container-1 {
+    border: 2px solid black;
+    width: 350px;
+    height: 150px;
+    background-color: #D3D3D3;
+}
+
+/* COUNTRY CONTAINER */
+.image {
+    padding: 10px 5px 5px 10px;
+}
+
+.image img{
+    max-width:100%;
+    max-height:100%;
+}
+
+.main-name,.sub-text {
+    color: #282828;
+}
+
+.main-name {
+    padding: 20px 5px;
+    font-size: 100%;
+}
+
+.sub-text {
+    font-size: 90%;
 }
