@@ -23,6 +23,9 @@ const databases = require(__dirname + "/custom_node_modules/databases.js");
 let bodyParser = require("body-parser"); let _ = require('lodash');
 app.use(bodyParser.urlencoded({extended:true}));
 
+// Use static files
+app.use(express.static("public"));
+
 
 /***************** EXPRESS INITIALISATION *****************/
 
