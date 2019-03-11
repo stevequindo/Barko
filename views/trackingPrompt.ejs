@@ -1,16 +1,22 @@
-<%- include("company-header") -%>
-
+<%- include("partials/company-header") -%>
+    <div class="container">
     <h1 >Track your Package!</h1>
+        <div class="row">
+            <p>For multiple tracking numbers,separate with comma or a new line</p>
+        </div>
 
-    <p>For multiple tracking numbers, separate with comma or a new line</p>
+        <div class="row">
+            <form method="post" action="/tracking">
+                <textarea
+                type="text"
+                name="trackingNumber"
+                placeholder="Tracking Number(s)"
+                rows="4" cols="50"></textarea><br>
+            <button type="submit">Submit</button>
+            </form>    
 
-    <form method="post" action="/tracking">
-        <textarea
-        type="text"
-        name="trackingNumber"
-        placeholder="Tracking Number(s)"
-        rows="4" cols="50"></textarea><br>
-    <button type="submit">Submit</button>
-    </form>
+        </div>
+    </div>
+
     
-<%- include("footer") -%>
+<%- include("partials/footer") -%>

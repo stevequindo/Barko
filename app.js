@@ -6,7 +6,7 @@ const clientFilesPath = "/client_files/";
 // Set up express
 const express = require("express");
 const app = express();
-const port = 3050;
+const port = 3000;
 
 // File uploading
 const fileUpload = require("express-fileupload");
@@ -20,7 +20,8 @@ let XLSX = require('xlsx');
 const databases = require(__dirname + "/custom_node_modules/databases.js");
 
 // Body parsing and text processing
-let bodyParser = require("body-parser"); let _ = require('lodash');
+let bodyParser = require("body-parser");
+let _ = require('lodash');
 app.use(bodyParser.urlencoded({extended:true}));
 
 // Use static files
@@ -28,8 +29,6 @@ app.use(express.static("public"));
 
 // Express.js initialisations
 app.set('view engine', 'ejs');
-app.use(express.static("public"));
-
 
 /***************** INDEX PAGE *****************/
 app.get("/", (req, res) => {
@@ -39,7 +38,11 @@ app.get("/", (req, res) => {
 /***************** OVERVIEW PAGE *****************/
 app.get("/overview", (req,res) => {
     //res.render('overview');
-    res.render('overview-main');
+    res.render('overview/main');
+});
+
+app.post('/overview', (req,res) => {
+    res.render("overview/container-1");
 });
 
 /***************** UPLOAD PAGE *****************/
@@ -60,12 +63,12 @@ app.post("/upload", (req, res) => {
     // Move file to server_files and return pathname
     file.mv(pathName, (err) => {
         if (err) {
-            console.error("Error: 500");
+            res.render("uploadFailure");
         }
     
         let jsonWorkbook = getJsonWorkbook(pathName);
         let summary = databases.parseJsonWorkbook(jsonWorkbook);
-        res.send(summary);
+        res.render("uploadSuccess");
     });
 });
 

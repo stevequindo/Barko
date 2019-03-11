@@ -26,6 +26,15 @@ p {
     font-family: 'Libre Barcode 128 Text', cursive;
 }
 
+/***************** SUBHEADER  *****************/
+.dropdown .btn {
+    padding: auto auto;
+}
+
+.dropdown-menu a {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.75rem;
+}
 
 /***************** CONTAINERS  *****************/
 .overview-container-1 {
@@ -33,27 +42,12 @@ p {
     width: 350px;
     height: 150px;
     background-color: #D3D3D3;
+    cursor: pointer;
 }
 
 /* COUNTRY CONTAINER */
-.image {
-    padding: 10px 5px 5px 10px;
-}
-
-.image img{
-    max-width:100%;
-    max-height:100%;
-}
-
 .main-name,.sub-text {
     color: #282828;
 }
 
-.main-name {
-    padding: 20px 5px;
-    font-size: 100%;
-}
 
-.sub-text {
-    font-size: 90%;
-}
