@@ -3,29 +3,18 @@
 <%- include('subheader') -%>
 
 <div class='container'>
-
-    <div class='row d-flex justify-content-around my-3'>
-        <%- include("container-1") -%>
-        <%- include("container-1") -%>
-        <%- include("container-1") -%>
-    </div>
-
-    <div class='row d-flex justify-content-around my-3'>
-        <%- include("container-1") -%>
-        <%- include("container-1") -%>
-        <%- include("container-1") -%>
-    </div>
     
     <div class='row d-flex justify-content-around my-3'>
-        <%- include("container-1") -%>
-        <%- include("container-1") -%>
-        <%- include("container-1") -%>
-    </div>
 
-    <div class='row d-flex justify-content-around my-3'>
-        <%- include("container-1") -%>
-        <%- include("container-1") -%>
-        <%- include("container-1") -%>
+    <!-- Loop over every country in the array and parse info into the individual containers -->
+    <% countryArray.forEach( (item,index) => { %>
+    <%- include('container-1', {countryItem:item})%>
+    <% if ((index + 1) % 3 == 0) { %>
+        </div>
+        <div class='row d-flex justify-content-around my-3'>
+    <% } %>
+    <% }); %>
+
     </div>
 
 </div>

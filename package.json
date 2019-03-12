@@ -10,11 +10,12 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "country-flags-svg": "^0.2.12",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-fileupload": "^1.1.1-alpha.3",
-    "mongoose": "^5.4.16",
-    "node": "^11.10.0",
+    "mongoose": "^5.4.19",
+    "node": "^11.11.0",
     "xlsx": "^0.14.1"
   }
 }
