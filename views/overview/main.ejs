@@ -1,13 +1,18 @@
 <%- include("../partials/company-header") -%>
 
-<%- include('subheader') -%>
+<%- include('subheader', {title: title}) -%>
 
 <div class='container-fluid'>
-    
+
     <div class='row d-flex justify-content-around my-3'>
         <!-- Loop over every country in the array and parse info into the individual containers -->
-        <% countryArray.forEach( (item,index) => { %>
-        <%- include('container-1', {countryItem:item}) %>
+        <% contentArray.forEach( (item,index) => { %>
+        <% if (title == 'Countries') { %>
+            <%- include('container-1', {countryItem:item}) %>
+        <% } else { %>
+            <%- include('container-2', {companyItem: item}) %>
+            <% } %>
+
         <% if ((index + 1) % 4 == 0) { %>
             </div>
             <div class='row d-flex justify-content-around my-3'>

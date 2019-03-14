@@ -39,8 +39,10 @@ app.get("/", (req, res) => {
 /***************** OVERVIEW PAGE *****************/
 app.get("/overview", (req,res) => {
     // Retrieve countries array
-    countryArray = databases.getCountries();
-    res.render('overview/main', {countryArray: countryArray});
+    let countryArray = databases.getCountries();
+    let title = "Countries";
+
+    res.render('overview/main', {contentArray: countryArray, title: title});
 });
 
 app.post('/overview', (req,res) => {
@@ -48,10 +50,14 @@ app.post('/overview', (req,res) => {
 });
 
 app.get('/overview/:country', (req,res) => {
-   let country = req.param.country;
-   res.send(country);
-});
+   let country = req.params.country;
+   let title = `${country}: Companies`;
 
+   let companiesArray = databases.getCompanies(country);
+
+   res.render('overview/main', {contentArray: companiesArray, title: title});
+
+});
 
 /***************** UPLOAD PAGE *****************/
 app.get("/upload", (req, res) => {
