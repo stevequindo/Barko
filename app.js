@@ -44,19 +44,18 @@ app.get("/overview", (req,res) => {
 });
 
 app.post('/overview', (req,res) => {
-    res.render("o-verview/container-1");
+    res.render("overview/container-1");
 });
 
 app.get('/overview/:country', (req,res) => {
-   let country = req.params.country;
-   console.log(country);
+   let country = req.param.country;
    res.send(country);
 });
 
 
 /***************** UPLOAD PAGE *****************/
 app.get("/upload", (req, res) => {
-    res.render("upload");
+    res.render("upload/prompt");
 });
 
 app.post("/upload", (req, res) => {
@@ -72,18 +71,18 @@ app.post("/upload", (req, res) => {
     // Move file to server_files and return pathname
     file.mv(pathName, (err) => {
         if (err) {
-            res.render("uploadFailure");
+            res.render("upload/failure");
         }
     
         let jsonWorkbook = getJsonWorkbook(pathName);
         let summary = databases.parseJsonWorkbook(jsonWorkbook);
-        res.render("uploadSuccess");
+        res.render("upload/success");
     });
 });
 
 /***************** TRACKING PAGE *****************/
 app.get("/tracking", (req,res) => { 
-    res.render("trackingPrompt");
+    res.render("tracking/prompt");
 });
 
 app.post("/tracking", (req,res) => {
@@ -125,7 +124,7 @@ app.post("/tracking", (req,res) => {
                 continue;
             }
         }
-        res.render("trackingResults", {trackingTable: trackingStatus});
+        res.render("tracking/results", {trackingTable: trackingStatus});
     }
     parseStatus();
 });

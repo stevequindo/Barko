@@ -1,10 +1,10 @@
-<a href="/overview/<%=encodeURIComponent(countryItem.name)%>">
-<div class="card" style="width:18rem;">
-    <img src= "<%=countryItem.flagUrl %>" class="card-img-top" alt="<%=countryItem.name%>">
-    <div class="card-body">
-        <h5 class="card-title"><%=countryItem.name%></h5>
-        <h6 class="card-subtitle mb-2 text-muted">Freight Count: <%= countryItem.freightCount%></h6>
-        <a href="" class="card-link">More Info</a>
+<a href="/overview/<%-encodeURIComponent(countryItem.name)%>">
+    <div class="card" style="width:18rem;">
+        <img src= "<%=countryItem.flagUrl %>" class="card-img-top" alt="<%=countryItem.name%>">
+        <div class="card-body">
+            <h5 class="card-title"><%=countryItem.name%></h5>
+            <h6 class="card-subtitle mb-2 text-muted">Freight Count: <%= countryItem.freightCount%></h6>
+            <a href="" class="card-link">More Info</a>
+        </div>
     </div>
-</div>
 </a>
