@@ -4,17 +4,18 @@ body {
 }
 
 p {
-    /*color: blue;*/
+
 }
 
 /***************** NAVBAR SECTION *****************/
 .navbar {
-    background-color: white;
+    border-bottom: floralwhite solid 1px;
 }
 
 .navbar-brand {
     text-decoration: line-through rgba(255, 0, 0, 0.5);
     font-size: 2.25rem;
+    color: floralwhite !important;
 }
 
 .nav-item.active a{
@@ -24,11 +25,17 @@ p {
 .navbar-nav a {
     font-size: 2.25rem;
     font-family: 'Libre Barcode 128 Text', cursive;
+    color: floralwhite !important;
 }
 
 /***************** SUBHEADER  *****************/
+.countries-subheader {
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+}
 .dropdown .btn {
     padding: auto auto;
+    color: floralwhite !important;
 }
 
 .dropdown-menu a {

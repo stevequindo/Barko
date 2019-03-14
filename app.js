@@ -6,7 +6,7 @@ const clientFilesPath = "/client_files/";
 // Set up express
 const express = require("express");
 const app = express();
-const port = 3050;
+const port = 3060;
 
 // File uploading
 const fileUpload = require("express-fileupload");
@@ -20,8 +20,8 @@ let XLSX = require('xlsx');
 const databases = require(__dirname + "/custom_node_modules/databases.js");
 
 // Body parsing and text processing
-let bodyParser = require("body-parser");
-let _ = require('lodash');
+const bodyParser = require("body-parser");
+const _ = require('lodash');
 app.use(bodyParser.urlencoded({extended:true}));
 
 // Use static files
@@ -44,8 +44,15 @@ app.get("/overview", (req,res) => {
 });
 
 app.post('/overview', (req,res) => {
-    res.render("overview/container-1");
+    res.render("o-verview/container-1");
 });
+
+app.get('/overview/:country', (req,res) => {
+   let country = req.params.country;
+   console.log(country);
+   res.send(country);
+});
+
 
 /***************** UPLOAD PAGE *****************/
 app.get("/upload", (req, res) => {
