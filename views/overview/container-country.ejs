@@ -1,5 +1,5 @@
-<a href="/overview/<%-encodeURIComponent(countryItem.name)%>/">
-    <div class="card" style="width:18rem;">
+<a href="overview/<%=encodeURIComponent(countryItem.name)%>/companies">
+<div class="card container-1" style="width:18rem;">
         <img src= "<%=countryItem.flagUrl %>" class="card-img-top" alt="<%=countryItem.name%>">
         <div class="card-body">
             <h5 class="card-title"><%=countryItem.name%></h5>
@@ -8,3 +8,4 @@
         </div>
     </div>
 </a>
+

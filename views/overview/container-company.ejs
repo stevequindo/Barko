@@ -1,6 +1,6 @@
-<a href="<%-encodeURIComponent(companyItem.name)%>">
+<a href="company/<%=encodeURIComponent(companyItem.name)%>" class="container-2">
     <div class="card" style="width:18rem;">
-        <img src= "" class="card-img-top" alt="No logo!">
+        <img src= "images/no_logo.png" class="card-img-top" alt="No logo">
         <div class="card-body">
             <h5 class="card-title"><%=companyItem.name%></h5>
             <h6 class="card-subtitle mb-2 text-muted">Number of containers: <%= companyItem.containerQuantity%></h6>

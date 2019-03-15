@@ -6,7 +6,7 @@ const clientFilesPath = "/client_files/";
 // Set up express
 const express = require("express");
 const app = express();
-const port = 3060;
+const port = process.env.PORT || 3000;
 
 // File uploading
 const fileUpload = require("express-fileupload");
@@ -45,19 +45,34 @@ app.get("/overview", (req,res) => {
     res.render('overview/main', {contentArray: countryArray, title: title});
 });
 
-app.post('/overview', (req,res) => {
-    res.render("overview/container-1");
-});
-
-app.get('/overview/:country', (req,res) => {
+app.get('/overview/:country/companies', (req,res) => {
    let country = req.params.country;
    let title = `${country}: Companies`;
 
    let companiesArray = databases.getCompanies(country);
 
    res.render('overview/main', {contentArray: companiesArray, title: title});
+});
+
+app.get('/overview/:country/company/:company', (req, res) => {
+   let company = req.params.company;
+   let title = `${company}: Containers`;
+
+   // https://medium.com/@rossbulat/using-promises-async-await-with-mongodb-613ed8243900
+
+   databases.getContainers()
+       .then((dbResponse) => {
+            // Clean dbResponse into an array of transactions
+            dbResponse = dbResponse[0].transaction;
+            res.render('overview/table-container', {title: title, contentArray: dbResponse});
+        })
+       .catch((err) =>{
+           console.log(err);
+       })
 
 });
+
+
 
 /***************** UPLOAD PAGE *****************/
 app.get("/upload", (req, res) => {
@@ -65,7 +80,7 @@ app.get("/upload", (req, res) => {
 });
 
 app.post("/upload", (req, res) => {
-    // Check if no files were uploaded
+    // Check if files were uploaded
     if (Object.keys(req.files).length == 0) {
         return console.error('400: No files were uploaded.');
     }
@@ -109,16 +124,15 @@ app.post("/tracking", (req,res) => {
     function removeSpace(elem) {
         return _.replace(elem, " ", "");
     }
-    
+
     trackingNumArray = _.flatMapDeep(trackingNumArray, removeSpace);
-    
+
     // Remove empty elements
     _.remove(trackingNumArray, (elem) => {return elem == ""});
-
     // Retrieve object with key = tracking num, value = status
     // fucking source on how to do this bullshit jesus christ
     // https://lavrton.com/javascript-loops-how-to-handle-async-await-6252dd3c795/
-    
+
     async function parseStatus() {
         let trackingStatus = {};
         // Iterate over every tracking number
@@ -132,8 +146,16 @@ app.post("/tracking", (req,res) => {
         }
         res.render("tracking/results", {trackingTable: trackingStatus});
     }
+
     parseStatus();
 });
+
+
+/***************** ERROR *****************/
+app.get("*", (req,res) => {
+    res.send('Error 404: Page not found');
+});
+
 
 /***************** SERVER *****************/
 app.listen(port, () => {
