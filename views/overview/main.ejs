@@ -6,28 +6,58 @@
 
 <div class='container-fluid main-content'>
 
-    <div class='row d-flex justify-content-around my-3'>
-        <!-- Loop over every country in the array and parse info into the individual containers -->
+    <% if (type == 'country') { %>
+        <div class='row d-flex justify-content-around my-3'>
         <% contentArray.forEach((item,index) => { %>
             <% let lowName = item.lowName%>
-        <% if (type == 'country') { %>
             <% item.subtitle = item.freightCount %>
             <% item.imgUrl = item.flagUrl %>
             <% item.link = link + '?id=' + lowName %>
             <%- include('container', {contentItem:item}) %>
-        <% } else { %>
+            <% if ((index + 1) % 4 == 0) { %>
+                </div>
+                <div class='row d-flex justify-content-around my-3'>
+            <% } %>
+        <% }); %>
+        </div>
+
+    <% } else if (type == 'company') { %>
+        <div class='row d-flex justify-content-around my-3'>
+        <% contentArray.forEach((item,index) => { %>
+            <% let lowName = item.lowName%>
             <% item.subtitle = item.containerQuantity %>
-            <% console.log(link)%>
             <% item.link = link + '&comp=' + lowName %>
             <%- include('container', {contentItem: item}) %>
-        <% } %>
-
-        <% if ((index + 1) % 4 == 0) { %>
-            </div>
-            <div class='row d-flex justify-content-around my-3'>
-        <% } %>
+            <% if ((index + 1) % 4 == 0) { %>
+                </div>
+                <div class='row d-flex justify-content-around my-3'>
+            <% } %>
         <% }); %>
-    </div>
+        </div>
+    <% } else { %>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Batch No.</th>
+                <th scope="col">Count</th>
+                <th scope="col">Status</th>
+                <th scope="col">Area</th>
+                <th scope="col">Sender</th>
+                <th scope="col">Receiver</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+                <% contentArray.forEach((item,index) => { %>
+                    <% console.log(item);%>
+                    <%- include('table', {contentItem:item}) %>
+                <% }); %>
+            </tbody>
+        </table>
+
+    <% } %>
+
+
 </div>
 
 <%- include("../partials/footer") -%>

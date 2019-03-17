@@ -43,18 +43,17 @@ app.get("/overview", (req,res) => {
     let id = req.query.id;
     let comp = req.query.comp;
 
-    console.log(`id: ${id} comp: ${comp}`);
     // Determine what the user wants based on their var paths
     if (comp !== undefined) {
         // Company is defined -> Show the transactions for that company
-        let title = `${id}: Containers`;
+        let title = `${comp}: Containers`;
 
         // https://medium.com/@rossbulat/using-promises-async-await-with-mongodb-613ed8243900
         databases.getContainers()
             .then((dbResponse) => {
                 // Clean dbResponse into an array of transactions
                 dbResponse = dbResponse[0].transaction;
-                res.render('overview/table', {title: title, contentArray: dbResponse, type:'transaction', link: req.originalUrl});
+                res.render('overview/main', {title: title, contentArray: dbResponse, type:'transaction', link: req.originalUrl});
             })
             .catch((err) =>{
                 console.log(err);
