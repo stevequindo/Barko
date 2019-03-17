@@ -37,42 +37,44 @@ app.get("/", (req, res) => {
 });
 
 /***************** OVERVIEW PAGE *****************/
+
 app.get("/overview", (req,res) => {
-    // Retrieve countries array
-    let countryArray = databases.getCountries();
-    let title = "Countries";
+    // https://stackabuse.com/get-query-strings-and-parameters-in-express-js/
+    let id = req.query.id;
+    let comp = req.query.comp;
 
-    res.render('overview/main', {contentArray: countryArray, title: title});
+    console.log(`id: ${id} comp: ${comp}`);
+    // Determine what the user wants based on their var paths
+    if (comp !== undefined) {
+        // Company is defined -> Show the transactions for that company
+        let title = `${id}: Containers`;
+
+        // https://medium.com/@rossbulat/using-promises-async-await-with-mongodb-613ed8243900
+        databases.getContainers()
+            .then((dbResponse) => {
+                // Clean dbResponse into an array of transactions
+                dbResponse = dbResponse[0].transaction;
+                res.render('overview/table', {title: title, contentArray: dbResponse, type:'transaction', link: req.originalUrl});
+            })
+            .catch((err) =>{
+                console.log(err);
+            });
+
+    } else if (id !== undefined){
+        // Country is defined -> Show the companies for that country
+        let title = `${id}: Companies`;
+
+        let companiesArray = databases.getCompanies(id);
+        res.render('overview/main', {contentArray: companiesArray, title: title, type: 'company', link: req.originalUrl});
+    } else {
+        // Show all countries
+        let countryArray = databases.getCountries();
+        let title = "Countries";
+        res.render('overview/main', {contentArray: countryArray, title: title, type: 'country',link: req.originalUrl});
+    };
+
+
 });
-
-app.get('/overview/:country/companies', (req,res) => {
-   let country = req.params.country;
-   let title = `${country}: Companies`;
-
-   let companiesArray = databases.getCompanies(country);
-
-   res.render('overview/main', {contentArray: companiesArray, title: title});
-});
-
-app.get('/overview/:country/company/:company', (req, res) => {
-   let company = req.params.company;
-   let title = `${company}: Containers`;
-
-   // https://medium.com/@rossbulat/using-promises-async-await-with-mongodb-613ed8243900
-
-   databases.getContainers()
-       .then((dbResponse) => {
-            // Clean dbResponse into an array of transactions
-            dbResponse = dbResponse[0].transaction;
-            res.render('overview/table-container', {title: title, contentArray: dbResponse});
-        })
-       .catch((err) =>{
-           console.log(err);
-       })
-
-});
-
-
 
 /***************** UPLOAD PAGE *****************/
 app.get("/upload", (req, res) => {

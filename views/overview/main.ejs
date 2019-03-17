@@ -2,16 +2,25 @@
 
 <%- include('subheader', {title: title}) -%>
 
+<%- include('../partials/pref-retrieval')%>
+
 <div class='container-fluid main-content'>
 
     <div class='row d-flex justify-content-around my-3'>
         <!-- Loop over every country in the array and parse info into the individual containers -->
-        <% contentArray.forEach( (item,index) => { %>
-        <% if (title == 'Countries') { %>
-            <%- include('container-country', {countryItem:item}) %>
+        <% contentArray.forEach((item,index) => { %>
+            <% let lowName = item.lowName%>
+        <% if (type == 'country') { %>
+            <% item.subtitle = item.freightCount %>
+            <% item.imgUrl = item.flagUrl %>
+            <% item.link = link + '?id=' + lowName %>
+            <%- include('container', {contentItem:item}) %>
         <% } else { %>
-            <%- include('container-company', {companyItem: item}) %>
-            <% } %>
+            <% item.subtitle = item.containerQuantity %>
+            <% console.log(link)%>
+            <% item.link = link + '&comp=' + lowName %>
+            <%- include('container', {contentItem: item}) %>
+        <% } %>
 
         <% if ((index + 1) % 4 == 0) { %>
             </div>
@@ -19,9 +28,7 @@
         <% } %>
         <% }); %>
     </div>
-
 </div>
 
-
-
 <%- include("../partials/footer") -%>
+
