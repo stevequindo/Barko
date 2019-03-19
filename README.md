@@ -9,11 +9,11 @@ Overseas = Anywhere not Philippines
 	- [x] Set up database a service **_a few seconds to a week_**
 
 2. **Philippines Company side**
-	- [ ] Show all of the rows **_a week or less_**
-	- [ ] Each row parsed from excel sheet has its unique tracking number **_inherently included_**
-	- [ ] Each row/tracking number has an option to update the status of the box **_takes about a day_**
-		- [ ] Updating status of the box by typing in an input box next to the row (from our software) 
-	- [ ] Any updates are also seen by overseas company **_inherently done_**
+	- [x] Show all of the rows **_a week or less_**
+	- [x] Each row parsed from excel sheet has its unique tracking number **_inherently included_**
+	- [] Each row/tracking number has an option to update the status of the box **_takes about a day_**
+		- [] Updating status of the box by typing in an input box next to the row (from our software) 
+	- [x] Any updates are also seen by overseas company **_inherently done_**
 	
 3. **Customer Side**
 	- [x] Able to enter details (tracking number, last name etc/ whatever is necessary) to display information about its status **_(UI: 3 days, logic: 0.5 day)_**
