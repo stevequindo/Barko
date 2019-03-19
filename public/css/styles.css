@@ -10,11 +10,16 @@ p {
 /***************** NAVBAR SECTION *****************/
 .navbar {
     border-bottom: floralwhite solid 1px;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+}
+
+.navbar-brand, .nav-link {
+    font-size: 2rem;
 }
 
 .navbar-brand {
     text-decoration: line-through rgba(255, 0, 0, 0.5);
-    font-size: 2.25rem;
     color: floralwhite !important;
 }
 
@@ -23,9 +28,13 @@ p {
 }
 
 .navbar-nav a {
-    font-size: 2.25rem;
     font-family: 'Libre Barcode 128 Text', cursive;
     color: floralwhite !important;
+}
+
+.nav-item .btn{
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
 }
 
 /***************** SUBHEADER  *****************/
@@ -36,6 +45,10 @@ p {
 .dropdown .btn {
     padding: auto auto;
     color: floralwhite !important;
+}
+
+.nav-item {
+    color: floralwhite;
 }
 
 .dropdown-menu a {
@@ -49,7 +62,6 @@ p {
     height: 9vw;
     object-fit: cover;
 }
-
 
 .update-btn {
 

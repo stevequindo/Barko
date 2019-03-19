@@ -1,12 +1,12 @@
 <tr>
-  <th scope="row"><%-contentItem.batchNo%></th>
-  <td><%-contentItem.count%></td>
-  <td>
-    <%-contentItem.status%>
+  <th scope="row" class="editable-cell batchNo-cell"><%-contentItem.batchNo%></th>
+  <td class="editable-cell id-cell" style="display:none;"><%-contentItem._id%></td>
+  <td class="editable-cell count-cell"><%-contentItem.count%></td>
+  <td class="editable-cell status-cell"><%-contentItem.status%></td>
+  <td class="editable-cell contentItem-cell"><%-contentItem.area%></td>
+  <td class="editable-cell sender-cell"><%-`${contentItem.sender.firstName} ${contentItem.sender.lastName}`%></td>
+  <td class="editable-cell receiver-cell"><%-`${contentItem.receiver.firstName} ${contentItem.receiver.lastName}`%></td>
+  <td class="table-actions actions-cell" style="display:none;">
+    <button type="button" class="btn btn-danger" onclick>Delete</button>
   </td>
-  <td><%-contentItem.area%></td>
-  <td><%-`${contentItem.sender.firstName} ${contentItem.sender.lastName}`%></td>
-  <td><%-`${contentItem.receiver.firstName} ${contentItem.receiver.lastName}`%></td>
-  <td><button type="button" class="btn btn-primary" onclick="test()">Update</button></td>
-
 </tr>

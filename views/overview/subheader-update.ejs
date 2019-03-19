@@ -1,0 +1,37 @@
+<nav class="navbar navbar-dark bg-dark navbar-expand-md subheader">
+    <a class="navbar-brand" href="/"><%= title%></a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse navbar-toggler-right" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item" onclick="test()">
+                Croc
+            </li>
+            <li class="nav-item">
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" >
+                        Sort By
+                    </button>
+                    <div class="dropdown-menu bg-dark">
+                        <a class="dropdown-item" href="#">Name A ➡ Z</a>
+                        <a class="dropdown-item" href="#">Name Z ➡ A</a>
+                        <a class="dropdown-item" href="#"></a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Go</button>
+                </form>
+            </li>
+
+
+        </ul>
+
+    </div>
+
+</nav>

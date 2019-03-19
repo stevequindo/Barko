@@ -6,7 +6,7 @@ const clientFilesPath = "/client_files/";
 // Set up express
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3003;
 
 // File uploading
 const fileUpload = require("express-fileupload");
@@ -23,6 +23,7 @@ const databases = require(__dirname + "/custom_node_modules/databases.js");
 const bodyParser = require("body-parser");
 const _ = require('lodash');
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 
 // Use static files
 app.use(express.static("public"));
@@ -71,8 +72,16 @@ app.get("/overview", (req,res) => {
         let title = "Countries";
         res.render('overview/main', {contentArray: countryArray, title: title, type: 'country',link: req.originalUrl});
     };
+});
 
+app.post("/overview", (req,res) => {
+    // Get the array of updated fields
+    let updateEntriesArr = req.body;
 
+    // Update the entries
+    databases.updateEntries(updateEntriesArr);
+
+    res.send(JSON.stringify({success: true}));
 });
 
 /***************** UPLOAD PAGE *****************/
@@ -159,9 +168,13 @@ app.get("*", (req,res) => {
 
 
 /***************** SERVER *****************/
-app.listen(port, () => {
+let server = app.listen(port, () => {
     console.log(`Server initialised on port ${port}`);
 });
+
+serverClose = function() {
+    server.close();
+}
 
 /***************** FUNCTIONS *****************/
 getJsonWorkbook = function(pathName) {

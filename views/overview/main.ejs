@@ -4,6 +4,8 @@
 
 <%- include('../partials/pref-retrieval')%>
 
+<%- include('../modals/success')%>
+
 <div class='container-fluid main-content'>
 
     <% if (type == 'country') { %>
@@ -44,21 +46,137 @@
                 <th scope="col">Area</th>
                 <th scope="col">Sender</th>
                 <th scope="col">Receiver</th>
-                <th scope="col">Actions</th>
+                <th scope="col" class="table-action-header" style="display:none;">Actions</th>
             </tr>
             </thead>
             <tbody>
                 <% contentArray.forEach((item,index) => { %>
-                    <% console.log(item);%>
                     <%- include('table', {contentItem:item}) %>
                 <% }); %>
             </tbody>
         </table>
-
     <% } %>
-
-
 </div>
 
+<script>
+$(document).ready(function() {
+	let statusesChanged = [];
+
+    let updateModeOff = function() {
+        //UI Changes
+        $('.update-btn .btn-success').hide();
+        $('.update-btn .btn-danger').hide();
+        $('.update-btn .btn-dark').show();
+        $('.table-actions').hide();
+        $('.table-action-header').hide();
+    }
+
+    let cancelChanges = function() {
+        updateModeOff();
+    };
+
+    let confirmChanges = function() {
+        updateModeOff();
+        let entriesToUpdate = [];
+
+        // Retrieve updated fields
+        if (statusesChanged) {
+            for (let i = 0; i < statusesChanged.length; i++) {
+                let status = statusesChanged[i];
+                let elemWithStatus = $("#"+ status);
+
+                let entry = {
+					_id: elemWithStatus.parent().siblings(".id-cell").text(),
+					senderName: elemWithStatus.parent().siblings(".sender-cell").text(),
+                    receiverName: elemWithStatus.parent().siblings(".receiver-cell").text(),
+                    newStatus: elemWithStatus.val()
+                };
+                entriesToUpdate.push(entry);
+            }
+
+			let rowsHtml = ""
+			for(let i = 0; i < entriesToUpdate.length; i++) {
+				rowsHtml += `
+                <tr>
+                  <td scope="row">${entriesToUpdate[i].newStatus}</td>
+                  <th>${entriesToUpdate[i].senderName}</th>
+                  <td>${entriesToUpdate[i].receiverName}</td>
+                </tr>
+                `
+			}
+
+            let resultHtml = `
+                <table class="table">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Status</th>
+                      <th scope="col">Sender</th>
+                      <th scope="col">Receiver</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  ${rowsHtml}
+                  </tbody>
+                </table>
+            `
+            $('#confirmChangeModal .modal-body').html(resultHtml);
+
+            let makePost = function() {
+                fetch("/overview", {
+                    method: "POST",
+                    headers:{
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(entriesToUpdate)
+                }). then(res => res.json())
+                .then(response => console.log("Success:", JSON.stringify(response)))
+                .catch(error => console.error('Error:', error));
+            };
+
+            $('.save-changes-button').click(makePost);
+        }
+
+        $('#confirmChangeModal').modal('show');
+    };
+
+
+    let updateModeOn = function() {
+        //UI Changes
+        $('.update-btn .btn-success').show();
+        $('.update-btn .btn-danger').show();
+        $('.update-btn .btn-dark').hide();
+        $('.table-actions').show();
+        $('.table-action-header').show();
+
+        // Change status cells to editable rows
+        $( ".status-cell" ).each( function( i, el ) {
+            let elem = $(el);
+            let elemText = elem.text();
+            elem.html("<input type='text' class='form-control'>");
+            elem.children().val(elemText);
+            elem.children().attr("id", "status-" + i);
+        });
+
+        // Set listener for any rows changed
+        $(".status-cell").children().keypress((event) => {
+            let changedBox = event.currentTarget.id;
+
+            // Update the statusesChanged array with the name of the changedBox
+            if (!statusesChanged.includes(changedBox)) {
+                statusesChanged.push(changedBox);
+            }
+        });
+
+    };
+
+    // Set listener to .update-btn
+    $('.update-btn .btn-dark').click(updateModeOn);
+    $('.update-btn .btn-success').click(confirmChanges);
+    $('.update-btn .btn-danger').click(cancelChanges);
+
+});
+</script>
 <%- include("../partials/footer") -%>
+
+
 
