@@ -11,16 +11,16 @@ Overseas = Anywhere not Philippines
 2. **Philippines Company side**
 	- [x] Show all of the rows **_a week or less_**
 	- [x] Each row parsed from excel sheet has its unique tracking number **_inherently included_**
-	- [] Each row/tracking number has an option to update the status of the box **_takes about a day_**
-		- [] Updating status of the box by typing in an input box next to the row (from our software) 
+	- [x] Each row/tracking number has an option to update the status of the box **_takes about a day_**
+		- [x] Updating status of the box by typing in an input box next to the row (from our software) 
 	- [x] Any updates are also seen by overseas company **_inherently done_**
 	
 3. **Customer Side**
 	- [x] Able to enter details (tracking number, last name etc/ whatever is necessary) to display information about its status **_(UI: 3 days, logic: 0.5 day)_**
 		- [x] ADDITIONAL: Ability to add multiple tracking numbers
-		- [ ] Information includes **_inherently done_**
-			- [ ] Eta
-			- [ ] What stage of the journey it is in
+		- [x] Information includes **_inherently done_**
+			- [x] Eta
+			- [x] What stage of the journey it is in
 			
 4. **Additional Features not needed in MVP**
 	- Pinging the user when an update is made.
