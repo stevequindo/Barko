@@ -52,9 +52,9 @@ app.get("/overview", (req,res) => {
         // https://medium.com/@rossbulat/using-promises-async-await-with-mongodb-613ed8243900
         databases.getContainers()
             .then((dbResponse) => {
-                // Clean dbResponse into an array of transactions
-                dbResponse = dbResponse[0].transaction;
-                res.render('overview/main', {title: title, contentArray: dbResponse, type:'transaction', link: req.originalUrl});
+                // Get response
+                dbTransactionsArr = dbResponse[0].transactions;
+                res.render('overview/main', {title: title, contentArray: dbTransactionsArr, type:'transaction', link: req.originalUrl});
             })
             .catch((err) =>{
                 console.log(err);

@@ -51,7 +51,7 @@
             </thead>
             <tbody>
                 <% contentArray.forEach((item,index) => { %>
-                    <%- include('table', {contentItem:item}) %>
+                    <%- include('table', {contentItem:item})%>
                 <% }); %>
             </tbody>
         </table>
@@ -69,6 +69,8 @@ $(document).ready(function() {
         $('.update-btn .btn-dark').show();
         $('.table-actions').hide();
         $('.table-action-header').hide();
+
+
     }
 
     let cancelChanges = function() {
@@ -76,7 +78,6 @@ $(document).ready(function() {
     };
 
     let confirmChanges = function() {
-        updateModeOff();
         let entriesToUpdate = [];
 
         // Retrieve updated fields
@@ -122,6 +123,7 @@ $(document).ready(function() {
             $('#confirmChangeModal .modal-body').html(resultHtml);
 
             let makePost = function() {
+            	console.log(entriesToUpdate);
                 fetch("/overview", {
                     method: "POST",
                     headers:{
@@ -129,7 +131,12 @@ $(document).ready(function() {
                     },
                     body: JSON.stringify(entriesToUpdate)
                 }). then(res => res.json())
-                .then(response => console.log("Success:", JSON.stringify(response)))
+                .then(response => {
+                	if (response.success) {
+                        location.reload();
+                    }
+
+                })
                 .catch(error => console.error('Error:', error));
             };
 
@@ -158,8 +165,12 @@ $(document).ready(function() {
         });
 
         // Set listener for any rows changed
-        $(".status-cell").children().keypress((event) => {
+        $(".status-cell").children().keyup((event) => {
+			if (event.keyCode == 8 || event.keyCode == 46) {
+				console.log("del/backpress tapped");
+			}
             let changedBox = event.currentTarget.id;
+            console.log(changedBox);
 
             // Update the statusesChanged array with the name of the changedBox
             if (!statusesChanged.includes(changedBox)) {
@@ -175,6 +186,7 @@ $(document).ready(function() {
     $('.update-btn .btn-danger').click(cancelChanges);
 
 });
+
 </script>
 <%- include("../partials/footer") -%>
 
