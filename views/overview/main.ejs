@@ -9,7 +9,7 @@
 <div class='container-fluid main-content'>
 
     <% if (type == 'country') { %>
-        <div class='row d-flex justify-content-around my-3'>
+        <div class='row no-gutters d-flex justify-content-around my-3'>
         <% contentArray.forEach((item,index) => { %>
             <% let lowName = item.lowName%>
             <% item.subtitle = item.freightCount %>
@@ -18,21 +18,21 @@
             <%- include('container', {contentItem:item}) %>
             <% if ((index + 1) % 4 == 0) { %>
                 </div>
-                <div class='row d-flex justify-content-around my-3'>
+                <div class='row no-gutters d-flex justify-content-around my-3'>
             <% } %>
         <% }); %>
         </div>
 
     <% } else if (type == 'company') { %>
-        <div class='row d-flex justify-content-around my-3'>
+        <div class='row no-gutters d-flex justify-content-around my-3'>
         <% contentArray.forEach((item,index) => { %>
             <% let lowName = item.lowName%>
             <% item.subtitle = item.containerQuantity %>
             <% item.link = link + '&comp=' + lowName %>
-            <%- include('container', {contentItem: item}) %>
+            <%- include('container-manifest', {contentItem: item}) %>
             <% if ((index + 1) % 4 == 0) { %>
                 </div>
-                <div class='row d-flex justify-content-around my-3'>
+                <div class='row no-gutters d-flex justify-content-around my-3'>
             <% } %>
         <% }); %>
         </div>
@@ -69,8 +69,6 @@ $(document).ready(function() {
         $('.update-btn .btn-dark').show();
         $('.table-actions').hide();
         $('.table-action-header').hide();
-
-
     }
 
     let cancelChanges = function() {

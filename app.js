@@ -6,7 +6,7 @@ const clientFilesPath = "/client_files/";
 // Set up express
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3003;
+const port = process.env.PORT || 3005;
 
 // File uploading
 const fileUpload = require("express-fileupload");
@@ -38,7 +38,6 @@ app.get("/", (req, res) => {
 });
 
 /***************** OVERVIEW PAGE *****************/
-
 app.get("/overview", (req,res) => {
     // https://stackabuse.com/get-query-strings-and-parameters-in-express-js/
     let id = req.query.id;
@@ -53,7 +52,7 @@ app.get("/overview", (req,res) => {
         databases.getContainers()
             .then((dbResponse) => {
                 // Get response
-                dbTransactionsArr = dbResponse[0].transactions;
+                let dbTransactionsArr = dbResponse[0].transactions;
                 res.render('overview/main', {title: title, contentArray: dbTransactionsArr, type:'transaction', link: req.originalUrl});
             })
             .catch((err) =>{
@@ -62,7 +61,7 @@ app.get("/overview", (req,res) => {
 
     } else if (id !== undefined){
         // Country is defined -> Show the companies for that country
-        let title = `${id}: Companies`;
+        let title = `${id}: Manifest Files`;
 
         let companiesArray = databases.getCompanies(id);
         res.render('overview/main', {contentArray: companiesArray, title: title, type: 'company', link: req.originalUrl});
@@ -82,6 +81,36 @@ app.post("/overview", (req,res) => {
     databases.updateEntries(updateEntriesArr);
 
     res.send(JSON.stringify({success: true}));
+});
+
+/***************** FOREIGN PAGE *****************/
+app.get('/foreign', (req, res) => {
+    // https://stackabuse.com/get-query-strings-and-parameters-in-express-js
+    let id = req.query.id;
+    let comp = req.query.comp;
+
+    if (comp !== undefined) {
+        // Company is defined -> Show the transactions for that company
+        // https://medium.com/@rossbulat/using-promises-async-await-with-mongodb-613ed8243900
+        let title = `${comp} Containers`;
+        databases.getContainers()
+            .then((dbResponse) => {
+                // Get response
+                let dbTransactionsArr = dbResponse[0].transactions;
+                res.render('overview/main', {title: title, contentArray: dbTransactionsArr, type:'transaction', link: req.originalUrl});
+            })
+            .catch((err) =>{
+                console.log(err);
+            });
+    } else if (id !== undefined) {
+        // Country is defined -> Show the companies for that country
+        let title = `Your Manifest Files`;
+        id = 'Spain';
+        let companiesArray = databases.getCompanies(id);
+        res.render('overview/main', {contentArray: companiesArray, title: title, type: 'company', link: req.originalUrl});
+    } else {
+        res.redirect("/foreign?id=main")
+    }
 });
 
 /***************** UPLOAD PAGE *****************/

@@ -6904,7 +6904,7 @@ button.bg-dark:focus {
   justify-content: center !important;
 }
 
-.justify-content-between {
+.justify-content-around {
   -ms-flex-pack: justify !important;
   justify-content: space-between !important;
 }
