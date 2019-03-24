@@ -5,7 +5,7 @@ Overseas = Anywhere not Philippines
 
 1. **Overseas (NZ) Company side**
 	- [x] Drag and drop excel sheet to a joint communication channel between the agency overseas **_already done (needs presentation)_**
-	- [ ] Read only **_a day_**
+	- [x] Read only **_a day_**
 	- [x] Set up database a service **_a few seconds to a week_**
 
 2. **Philippines Company side**
