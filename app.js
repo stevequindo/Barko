@@ -43,6 +43,8 @@ app.get("/overview", (req,res) => {
     let id = req.query.id;
     let comp = req.query.comp;
 
+    let view = 'phillipines';
+
     // Determine what the user wants based on their var paths
     if (comp !== undefined) {
         // Company is defined -> Show the transactions for that company
@@ -53,7 +55,7 @@ app.get("/overview", (req,res) => {
             .then((dbResponse) => {
                 // Get response
                 let dbTransactionsArr = dbResponse[0].transactions;
-                res.render('overview/main', {title: title, contentArray: dbTransactionsArr, type:'transaction', link: req.originalUrl});
+                res.render('overview/main', {title: title, contentArray: dbTransactionsArr, type:'transaction', link: req.originalUrl, view: view});
             })
             .catch((err) =>{
                 console.log(err);
@@ -64,12 +66,12 @@ app.get("/overview", (req,res) => {
         let title = `${id}: Manifest Files`;
 
         let companiesArray = databases.getPhManifestFiles(id);
-        res.render('overview/main', {contentArray: companiesArray, title: title, type: 'manifest', link: req.originalUrl});
+        res.render('overview/main', {contentArray: companiesArray, title: title, type: 'manifest', link: req.originalUrl, view: view});
     } else {
         // Show all countries
         let countryArray = databases.getCountries();
         let title = "Countries";
-        res.render('overview/main', {contentArray: countryArray, title: title, type: 'country',link: req.originalUrl});
+        res.render('overview/main', {contentArray: countryArray, title: title, type: 'country',link: req.originalUrl, view: view});
     };
 });
 
@@ -97,7 +99,7 @@ app.get('/foreign', (req, res) => {
             .then((dbResponse) => {
                 // Get response
                 let dbTransactionsArr = dbResponse[0].transactions;
-                res.render('overview/main', {title: title, contentArray: dbTransactionsArr, type:'transaction', link: req.originalUrl});
+                res.render('overview/main', {title: title, contentArray: dbTransactionsArr, type:'transaction', link: req.originalUrl, view: 'foreign'});
             })
             .catch((err) =>{
                 console.log(err);
@@ -107,7 +109,7 @@ app.get('/foreign', (req, res) => {
         let title = `Your Manifest Files`;
         id = 'Spain';
         let companiesArray = databases.getForeignManifestFiles(id);
-        res.render('overview/main', {contentArray: companiesArray, title: title, type: 'manifest', link: req.originalUrl});
+        res.render('overview/main', {contentArray: companiesArray, title: title, type: 'manifest', link: req.originalUrl, view: 'foreign'});
     } else {
         res.redirect("/foreign?id=main");
     }

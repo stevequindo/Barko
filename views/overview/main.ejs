@@ -1,6 +1,10 @@
 <%- include("../partials/company-header") -%>
 
-<%- include('subheader', {title: title}) -%>
+<% if (view == 'foreign') { %>
+    <%- include('subheader-foreign', {title: title}) -%>
+<% } else { %>
+    <%- include('subheader', {title: title}) -%>
+<% } %>
 
 <%- include('../partials/pref-retrieval')%>
 
