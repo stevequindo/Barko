@@ -22,13 +22,13 @@
             <% } %>
         <% }); %>
         </div>
-
-    <% } else if (type == 'company') { %>
+    <% } else if (type == 'manifest') { %>
         <div class='row no-gutters d-flex justify-content-around my-3'>
         <% contentArray.forEach((item,index) => { %>
-            <% let lowName = item.lowName%>
-            <% item.subtitle = item.containerQuantity %>
-            <% item.link = link + '&comp=' + lowName %>
+            <% let manifestId = item.manifestId%>
+            <% item.subtitle = item.date %>
+            <% item.content = item.transaction%>
+            <% item.link = link + '&comp=' + manifestId %>
             <%- include('container-manifest', {contentItem: item}) %>
             <% if ((index + 1) % 4 == 0) { %>
                 </div>

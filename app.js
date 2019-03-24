@@ -6,7 +6,7 @@ const clientFilesPath = "/client_files/";
 // Set up express
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3005;
+const port = process.env.PORT || 3000;
 
 // File uploading
 const fileUpload = require("express-fileupload");
@@ -60,11 +60,11 @@ app.get("/overview", (req,res) => {
             });
 
     } else if (id !== undefined){
-        // Country is defined -> Show the companies for that country
+        // Country is defined -> Show the MANIFEST FILES FOR THE COMPANY
         let title = `${id}: Manifest Files`;
 
-        let companiesArray = databases.getCompanies(id);
-        res.render('overview/main', {contentArray: companiesArray, title: title, type: 'company', link: req.originalUrl});
+        let companiesArray = databases.getPhManifestFiles(id);
+        res.render('overview/main', {contentArray: companiesArray, title: title, type: 'manifest', link: req.originalUrl});
     } else {
         // Show all countries
         let countryArray = databases.getCountries();
@@ -92,7 +92,7 @@ app.get('/foreign', (req, res) => {
     if (comp !== undefined) {
         // Company is defined -> Show the transactions for that company
         // https://medium.com/@rossbulat/using-promises-async-await-with-mongodb-613ed8243900
-        let title = `${comp} Containers`;
+        let title = `${comp}: Containers`;
         databases.getContainers()
             .then((dbResponse) => {
                 // Get response
@@ -106,10 +106,10 @@ app.get('/foreign', (req, res) => {
         // Country is defined -> Show the companies for that country
         let title = `Your Manifest Files`;
         id = 'Spain';
-        let companiesArray = databases.getCompanies(id);
-        res.render('overview/main', {contentArray: companiesArray, title: title, type: 'company', link: req.originalUrl});
+        let companiesArray = databases.getForeignManifestFiles(id);
+        res.render('overview/main', {contentArray: companiesArray, title: title, type: 'manifest', link: req.originalUrl});
     } else {
-        res.redirect("/foreign?id=main")
+        res.redirect("/foreign?id=main");
     }
 });
 
