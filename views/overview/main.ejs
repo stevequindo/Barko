@@ -1,5 +1,7 @@
 <%- include("../partials/company-header") -%>
 
+
+
 <% if (view == 'foreign') { %>
     <%- include('subheader-foreign', {title: title}) -%>
 <% } else { %>
@@ -41,10 +43,11 @@
         <% }); %>
         </div>
     <% } else { %>
-        <table class="table table-hover">
+        <table class="table table-hover table-striped">
             <thead>
             <tr>
                 <th scope="col">Batch No.</th>
+                <th scope="col">Tracking No.</th>
                 <th scope="col">Count</th>
                 <th scope="col">Status</th>
                 <th scope="col">Area</th>

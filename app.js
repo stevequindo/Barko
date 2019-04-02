@@ -6,7 +6,7 @@ const clientFilesPath = "/client_files/";
 // Set up express
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3055;
+const port = process.env.PORT || 4000;
 
 // File uploading
 const fileUpload = require("express-fileupload");
@@ -30,7 +30,6 @@ app.use(express.static("public"));
 
 // Express.js initialisations
 app.set('view engine', 'ejs');
-
 
 /***************** INDEX PAGE *****************/
 app.get("/", (req, res) => {

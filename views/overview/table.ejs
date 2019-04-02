@@ -1,10 +1,11 @@
 <tr>
-  <th scope="row" class="editable-cell batchNo-cell"><%-contentItem.batchNo%></th>
+  <td class="editable-cell batchNo-cell"><%-contentItem.batchNo%></td>
+  <td class="editable-cell tracking-cell"><%-contentItem.trackingNumber%></td>
   <td class="editable-cell id-cell" style="display:none;"><%-contentItem._id%></td>
   <td class="editable-cell count-cell"><%-contentItem.count%></td>
   <td class="editable-cell status-cell"><%-contentItem.status%></td>
   <td class="editable-cell contentItem-cell"><%-contentItem.area%></td>
-  <td class="editable-cell sender-cell"><% if (contentItem.sender_link !== null) { %><%-`${contentItem.sender_link.firstName} ${contentItem.sender_link.lastName}`%></td><% }%>
+  <td class="editable-cell sender-cell"><% if (contentItem.isender_link !== null) { %><%-`${contentItem.sender_link.firstName} ${contentItem.sender_link.lastName}`%></td><% }%>
   <td class="editable-cell receiver-cell"><% if (contentItem.receiver_link !== null) { %><%-`${contentItem.receiver_link.firstName} ${contentItem.receiver_link.lastName}`%><% }%></td>
   <td>
     <button type="button" class="btn btn-danger" style="display:none;">Delete</button>
