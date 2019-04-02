@@ -1,4 +1,4 @@
-/***************** CONSTANTS *****************/
+/***************** CONSTANTS/NODE SETUP *****************/
 // File folder names
 const serverFilesPath = "/server_files/";
 const clientFilesPath = "/client_files/";
@@ -6,7 +6,7 @@ const clientFilesPath = "/client_files/";
 // Set up express
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4030;
 
 // File uploading
 const fileUpload = require("express-fileupload");
@@ -134,7 +134,7 @@ app.post("/upload", (req, res) => {
         if (err) {
             res.render("upload/failure");
         }
-    
+
         let jsonWorkbook = getJsonWorkbook(pathName);
         let summary = databases.parseJsonWorkbook(jsonWorkbook);
         res.render("upload/success");
@@ -214,7 +214,8 @@ getJsonWorkbook = function(pathName) {
         Returns:
             jsonWorkbook: JSON with key as the individual sheet and value as the array containing the rows (as objects)
     */
-    let workbook = XLSX.readFile(pathName), sheetNames = workbook.SheetNames;
+    let workbook = XLSX.readFile(pathName);
+    let sheetNames = workbook.SheetNames;
     let jsonWorkbook = {};
 
     // Iterate over every sheet
@@ -227,5 +228,6 @@ getJsonWorkbook = function(pathName) {
         jsonWorkbook[sheetNames[i]] = jsonSheet;
     }
 
+    console.log(jsonWorkbook);
     return jsonWorkbook;
 }

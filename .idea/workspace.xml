@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a54d1fd5-fc9a-4aae-8dc4-cbea6c937221" name="Default Changelist" comment="Remove update option for the foreign company side">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/employee lookout.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/script.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/custom_node_modules/databases.js" beforeDir="false" afterPath="$PROJECT_DIR$/custom_node_modules/databases.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/test_excel.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/test_excel.xlsx" afterDir="false" />
     </list>
     <list id="338ace60-c579-474e-9e2a-a7e9739b3f9c" name="Revert: Add business summary and sketch" comment="" />
     <list id="a439949b-6adc-4e2d-aeb4-cd203eb47cec" name="Revert: Add tracking number column" comment="" />
@@ -35,21 +35,21 @@
     <favorites_list name="comms" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/overview/table.ejs">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="85" selection-start-line="10" selection-start-column="85" selection-end-line="10" selection-end-column="85" />
+            <state relative-caret-position="136">
+              <caret line="8" column="37" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/views/overview/main.ejs">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/custom_node_modules/databases.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="65" column="6" selection-start-line="65" selection-start-column="6" selection-end-line="65" selection-end-column="6" />
+            <state relative-caret-position="2363">
+              <caret line="139" column="21" selection-start-line="139" selection-start-column="21" selection-end-line="139" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -85,6 +85,7 @@
       <find>companies</find>
       <find>ma</find>
       <find>dropdown</find>
+      <find>jsonworkbook</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -120,8 +121,6 @@
         <option value="$PROJECT_DIR$/views/overview/subheader-foreign.ejs" />
         <option value="$PROJECT_DIR$/views/tracking/results.ejs" />
         <option value="$PROJECT_DIR$/views/upload/success.ejs" />
-        <option value="$PROJECT_DIR$/custom_node_modules/databases.js" />
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/views/overview/subheader.ejs" />
         <option value="$PROJECT_DIR$/views/tracking/prompt.ejs" />
         <option value="$PROJECT_DIR$/public/css/styles.css" />
@@ -131,6 +130,8 @@
         <option value="$PROJECT_DIR$/views/partials/company-header.ejs" />
         <option value="$PROJECT_DIR$/views/overview/table.ejs" />
         <option value="$PROJECT_DIR$/views/overview/main.ejs" />
+        <option value="$PROJECT_DIR$/custom_node_modules/databases.js" />
+        <option value="$PROJECT_DIR$/app.js" />
       </list>
     </option>
   </component>
@@ -140,7 +141,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-12" />
     <option name="width" value="981" />
     <option name="height" value="1032" />
@@ -157,6 +158,16 @@
             <path>
               <item name="comms" type="b2602c69:ProjectViewProjectNode" />
               <item name="comms" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="comms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="comms" type="462c0819:PsiDirectoryNode" />
+              <item name="custom_node_modules" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="comms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="comms" type="462c0819:PsiDirectoryNode" />
+              <item name="demo" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="comms" type="b2602c69:ProjectViewProjectNode" />
@@ -189,7 +200,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554025244449" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554210694844" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JavaScript 1.8&#10;GenericSQL" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs.mocha.mocha_node_package_dir" value="" />
@@ -270,7 +281,7 @@
       <workItem from="1554078012920" duration="2952000" />
       <workItem from="1554098695588" duration="25000" />
       <workItem from="1554162958698" duration="1771000" />
-      <workItem from="1554202389000" duration="255000" />
+      <workItem from="1554202389000" duration="5828000" />
     </task>
     <task id="LOCAL-00001" summary="Created basic getCompanies function. Updated database model. Adjusted styles into dark theme.Adjusted formatting/spacing for subheaders and headers.">
       <created>1552550530944</created>
@@ -353,7 +364,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="140083000" />
+    <option name="totallyTimeSpent" value="145656000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -365,9 +376,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="7" />
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4973357" visible="true" weight="0.25910932" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4973357" weight="0.25910932" />
       <window_info id="Structure" order="1" sideWeight="0.5026643" side_tool="true" weight="0.22834007" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -397,7 +408,7 @@
       <window_info anchor="right" id="Database" order="6" weight="0.32955465" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info anchor="right" x="216" y="136" width="990" height="402" id="Terminal" order="9" type="FLOATING" weight="0.27935222" />
+      <window_info active="true" anchor="right" x="257" y="98" width="984" height="533" id="Terminal" order="9" type="FLOATING" visible="true" weight="0.27935222" />
       <window_info anchor="right" id="SciView" order="10" weight="0.32955465" />
       <window_info anchor="right" id="Flutter Inspector" order="11" />
       <window_info anchor="right" id="Flutter Outline" order="12" />
@@ -660,20 +671,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/custom_node_modules/databases.js">
+    <entry file="file://$PROJECT_DIR$/views/overview/main.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4706">
-          <caret line="61" column="18" selection-start-line="61" selection-start-column="4" selection-end-line="61" selection-end-column="18" />
-          <folding>
-            <element signature="e#4776#5676#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="58" column="28" lean-forward="true" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
+        <state relative-caret-position="1105">
+          <caret line="65" column="6" selection-start-line="65" selection-start-column="6" selection-end-line="65" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -684,10 +685,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/overview/main.ejs">
+    <entry file="file://$PROJECT_DIR$/custom_node_modules/databases.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="65" column="6" selection-start-line="65" selection-start-column="6" selection-end-line="65" selection-end-column="6" />
+        <state relative-caret-position="2363">
+          <caret line="139" column="21" selection-start-line="139" selection-start-column="21" selection-end-line="139" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="37" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
         </state>
       </provider>
     </entry>
