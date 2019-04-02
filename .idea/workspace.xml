@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a54d1fd5-fc9a-4aae-8dc4-cbea6c937221" name="Default Changelist" comment="Remove update option for the foreign company side">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/employee lookout.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script.txt" beforeDir="false" />
     </list>
     <list id="338ace60-c579-474e-9e2a-a7e9739b3f9c" name="Revert: Add business summary and sketch" comment="" />
     <list id="a439949b-6adc-4e2d-aeb4-cd203eb47cec" name="Revert: Add tracking number column" comment="" />
@@ -46,8 +48,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/overview/main.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="65" column="6" lean-forward="true" selection-start-line="65" selection-start-column="6" selection-end-line="65" selection-end-column="6" />
+            <state relative-caret-position="442">
+              <caret line="65" column="6" selection-start-line="65" selection-start-column="6" selection-end-line="65" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -148,6 +150,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -155,11 +158,32 @@
               <item name="comms" type="b2602c69:ProjectViewProjectNode" />
               <item name="comms" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="comms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="comms" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="comms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="comms" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="comms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="comms" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="comms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="comms" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="overview" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -245,7 +269,8 @@
       <workItem from="1554027586211" duration="129000" />
       <workItem from="1554078012920" duration="2952000" />
       <workItem from="1554098695588" duration="25000" />
-      <workItem from="1554162958698" duration="1087000" />
+      <workItem from="1554162958698" duration="1771000" />
+      <workItem from="1554202389000" duration="255000" />
     </task>
     <task id="LOCAL-00001" summary="Created basic getCompanies function. Updated database model. Adjusted styles into dark theme.Adjusted formatting/spacing for subheaders and headers.">
       <created>1552550530944</created>
@@ -328,7 +353,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="139144000" />
+    <option name="totallyTimeSpent" value="140083000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -342,7 +367,7 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="7" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4973357" visible="true" weight="0.25506073" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4973357" visible="true" weight="0.25910932" />
       <window_info id="Structure" order="1" sideWeight="0.5026643" side_tool="true" weight="0.22834007" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -372,7 +397,7 @@
       <window_info anchor="right" id="Database" order="6" weight="0.32955465" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info active="true" anchor="right" x="216" y="136" width="990" height="402" id="Terminal" order="9" type="FLOATING" visible="true" weight="0.27935222" />
+      <window_info anchor="right" x="216" y="136" width="990" height="402" id="Terminal" order="9" type="FLOATING" weight="0.27935222" />
       <window_info anchor="right" id="SciView" order="10" weight="0.32955465" />
       <window_info anchor="right" id="Flutter Inspector" order="11" />
       <window_info anchor="right" id="Flutter Outline" order="12" />
@@ -661,8 +686,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/overview/main.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="65" column="6" lean-forward="true" selection-start-line="65" selection-start-column="6" selection-end-line="65" selection-end-column="6" />
+        <state relative-caret-position="442">
+          <caret line="65" column="6" selection-start-line="65" selection-start-column="6" selection-end-line="65" selection-end-column="6" />
         </state>
       </provider>
     </entry>
