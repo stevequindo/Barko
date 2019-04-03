@@ -6,7 +6,7 @@ const clientFilesPath = "/client_files/";
 // Set up express
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 4030;
+const port = process.env.PORT || 4200;
 
 // File uploading
 const fileUpload = require("express-fileupload");
@@ -120,29 +120,33 @@ app.get("/upload", (req, res) => {
 });
 
 app.post("/upload", (req, res) => {
-    // Check if files were uploaded
-    if (Object.keys(req.files).length == 0) {
-        return console.error('400: No files were uploaded.');
-    }
-
-    // Retrieve file based on file ID
-    let file = req.files[fileID];
-    let pathName =  "." + serverFilesPath + file.name;
-
-    // Move file to server_files and return pathname
-    file.mv(pathName, (err) => {
-        if (err) {
-            res.render("upload/failure");
+    try {
+        // Check if files were uploaded
+        if (Object.keys(req.files).length == 0) {
+            throw("No files were uploaded");
         }
 
-        let jsonWorkbook = getJsonWorkbook(pathName);
-        let summary = databases.parseJsonWorkbook(jsonWorkbook);
-        res.render("upload/success");
-    });
+        // Retrieve file based on file ID
+        let file = req.files[fileID];
+        let pathName =  "." + serverFilesPath + file.name;
+
+        // Move file to server_files and return pathname
+        file.mv(pathName, (err) => {
+            if (err) {
+                throw err;
+            }
+            let jsonWorkbook = getJsonWorkbook(pathName);
+            let summary = databases.parseJsonWorkbook(jsonWorkbook);
+            res.render("upload/success", {summary: summary});
+        });
+    } catch(e) {
+
+        res.render('upload/failure', {errorMessage: e});
+    }
 });
 
 /***************** TRACKING PAGE *****************/
-app.get("/tracking", (req,res) => { 
+app.get("/tracking", (req,res) => {
     res.render("tracking/prompt");
 });
 
@@ -220,14 +224,13 @@ getJsonWorkbook = function(pathName) {
 
     // Iterate over every sheet
     for (let i = 0; i < sheetNames.length; i ++) {
-        let sheet = workbook.Sheets[sheetNames[i]];
-
-        jsonSheet = XLSX.utils.sheet_to_json(sheet);
+        const sheet = workbook.Sheets[sheetNames[i]];
+        const jsonSheet = XLSX.utils.sheet_to_json(sheet);
 
         // Append to jsonWorkbook with key = sheetName and value = jsonSheet
         jsonWorkbook[sheetNames[i]] = jsonSheet;
     }
 
-    console.log(jsonWorkbook);
+
     return jsonWorkbook;
 }

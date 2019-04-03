@@ -2,8 +2,29 @@
 
 <div class="container">
     <div class="row">
-        <h1>Upload Successful!</h1>
+        <h2>Upload Successful!</h2>
     </div>
+
+    <table class="table table-sm">
+        <tbody>
+            <tr>
+                <th scope="row">Containers added</th>
+                <td><%=summary.containersAdded%></td>
+            </tr>
+            <tr>
+                <th scope="row">Senders added</th>
+                <td><%=summary.sendersAdded%></td>
+            </tr>
+            <tr>
+                <th scope="row">Receivers added</th>
+                <td><%=summary.receiversAdded%></td>
+            </tr>
+            <tr>
+                <th scope="row">Empty Sheets</th>
+                <td><%=summary.emptySheets%></td>
+            </tr>
+        </tbody>
+    </table>
 
     <div class="row">
         <a class="btn btn-primary mr-3" href="/foreign">Go to overview</a>

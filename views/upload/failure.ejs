@@ -2,12 +2,19 @@
 
 <div class="container">
     <div class="row">
-        <h1>UH OH, something went wrong BRO</h1>
+        <h2>Upload Failed</h2>
     </div>
 
     <div class="row">
-        <a class="btn btn-primary" href="/upload">Try again</a>
+        <p><%= errorMessage %></p>
     </div>
+
+    <div class="row">
+        <a class="btn btn-primary" href="/upload">Please try again</a>
+    </div>
+
+
+
 </div>
 
 <%- include("../partials/footer")%>
