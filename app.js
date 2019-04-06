@@ -6,7 +6,7 @@ const clientFilesPath = "/client_files/";
 // Set up express
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3030;
 
 // File uploading
 const fileUpload = require("express-fileupload");
@@ -135,12 +135,17 @@ app.post("/upload", (req, res) => {
             if (err) {
                 throw err;
             }
+
             let jsonWorkbook = getJsonWorkbook(pathName);
             let summary = databases.parseJsonWorkbook(jsonWorkbook);
+
+            if (summary.containersAdded == 0) {
+                res.render('upload/failure', {errorMessage: "File was empty"})
+            }
+
             res.render("upload/success", {summary: summary});
         });
     } catch(e) {
-
         res.render('upload/failure', {errorMessage: e});
     }
 });
