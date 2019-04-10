@@ -1,7 +1,5 @@
 <%- include("../partials/company-header") -%>
 
-
-
 <% if (view == 'foreign') { %>
     <%- include('subheader-foreign', {title: title}) -%>
 <% } else { %>
@@ -10,12 +8,12 @@
 
 <%- include('../partials/pref-retrieval')%>
 
-<%- include('../modals/success')%>
+<%- include('../modals/success') %>
 
 <div class='container-fluid main-content'>
 
     <% if (type == 'country') { %>
-        <div class='row no-gutters d-flex justify-content-around my-3'>
+        <div class='row no-gutters d-flex align-content-start my-3'>
         <% contentArray.forEach((item,index) => { %>
             <% let lowName = item.lowName%>
             <% item.subtitle = item.freightCount %>
@@ -24,12 +22,12 @@
             <%- include('container', {contentItem:item}) %>
             <% if ((index + 1) % 4 == 0) { %>
                 </div>
-                <div class='row no-gutters d-flex justify-content-around my-3'>
+                <div class='row no-gutters d-flex align-content-start my-3'>
             <% } %>
         <% }); %>
         </div>
     <% } else if (type == 'manifest') { %>
-        <div class='row no-gutters d-flex justify-content-around my-3'>
+        <div class='row no-gutters d-flex align-content-start my-3'>
         <% contentArray.forEach((item,index) => { %>
             <% let manifestId = item.manifestId%>
             <% item.subtitle = item.date %>
@@ -38,7 +36,7 @@
             <%- include('container-manifest', {contentItem: item}) %>
             <% if ((index + 1) % 4 == 0) { %>
                 </div>
-                <div class='row no-gutters d-flex justify-content-around my-3'>
+                <div class='row no-gutters d-flex align-content-start my-3'>
             <% } %>
         <% }); %>
         </div>
