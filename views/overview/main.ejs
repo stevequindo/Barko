@@ -43,10 +43,8 @@
                 <th>Tracking No.</th>
                 <th>Count</th>
                 <th>Area</th>
-                <th>Sender First Name</th>
-                <th>Sender Last Name</th>
-                <th>Receiver First Name</th>
-                <th>Receiver Last Name</th>
+                <th>Sender Name</th>
+                <th>Receiver Name</th>
                 <th>Status</th>
                 <th>Comments</th>
             </tr>
@@ -61,27 +59,38 @@
 
 $(document).ready(function() {
 	// Initialise data table
-	$('#comm-table').DataTable( {
+	let table = $('#comm-table').DataTable( {
+        paginate : true,
+        processing: true,
+        stateSave : true,
         "data":<%-contentArray%>,
         "columns": [
             {"data" :"batchNo"},
 			{"data" :"trackingNumber"},
 			{"data" :"count"},
 			{"data" :"area"},
-            {"data" : "sender_link.firstName"},
-			{"data" : "sender_link.lastName"},
+            {
+            	"data" : "sender_link.firstName",
+				render: function (data, type, row) {
+					let firstName = row.sender_link.firstName;
+					let lastName = row.sender_link.lastName;
+					return firstName != undefined ? `${firstName} ${lastName}` : "<i>Not provided</i>";
+				}
+            },
             {
             	"data" : "receiver_link.firstName",
-                "defaultContent": "<i>Not provided</i>"
+				render: function (data, type, row) {
+            		let firstName = row.receiver_link.firstName;
+            		let lastName = row.receiver_link.lastName;
+					return firstName != undefined ? `${firstName} ${lastName}` : "<i>Not provided</i>";
+				}
             },
-			{
-				"data" : "receiver_link.lastName",
-				"defaultContent": "<i>Not provided</i>"
-			},
 			{"data" :"status"},
 			{"data" :"status"}
 		]
     });
+
+	table.show();
 
 	// let statusesChanged = [];
     //

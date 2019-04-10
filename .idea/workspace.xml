@@ -6,12 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a54d1fd5-fc9a-4aae-8dc4-cbea6c937221" name="Default Changelist" comment="Remove update option for the foreign company side">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sandbox.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/views/overview/main.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/overview/main.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/overview/subheader-foreign.ejs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/overview/subheader-update.ejs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/overview/subheader.ejs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/overview/table.ejs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/partials/company-header.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/company-header.ejs" afterDir="false" />
     </list>
     <list id="338ace60-c579-474e-9e2a-a7e9739b3f9c" name="Revert: Add business summary and sketch" comment="" />
     <list id="a439949b-6adc-4e2d-aeb4-cd203eb47cec" name="Revert: Add tracking number column" comment="" />
@@ -43,8 +39,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/overview/main.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="39" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
+            <state relative-caret-position="255">
+              <caret line="77" column="17" selection-start-line="77" selection-start-column="17" selection-end-line="77" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -181,7 +177,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554935134120" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554936958042" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JavaScript 1.8&#10;GenericSQL" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../untitled" />
     <property name="nodejs.mocha.mocha_node_package_dir" value="" />
@@ -287,7 +283,7 @@
       <workItem from="1554768430631" duration="1297000" />
       <workItem from="1554861577703" duration="10533000" />
       <workItem from="1554873736802" duration="20000" />
-      <workItem from="1554934259259" duration="872000" />
+      <workItem from="1554934259259" duration="2648000" />
     </task>
     <task id="LOCAL-00001" summary="Created basic getCompanies function. Updated database model. Adjusted styles into dark theme.Adjusted formatting/spacing for subheaders and headers.">
       <created>1552550530944</created>
@@ -370,7 +366,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="169704000" />
+    <option name="totallyTimeSpent" value="171480000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -415,7 +411,7 @@
       <window_info anchor="right" id="Database" order="6" weight="0.32955465" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info anchor="right" x="88" y="348" width="1129" height="493" id="Terminal" order="9" type="FLOATING" weight="0.27935222" />
+      <window_info active="true" anchor="right" x="879" y="121" width="1129" height="493" id="Terminal" order="9" type="FLOATING" visible="true" weight="0.27935222" />
       <window_info anchor="right" id="SciView" order="10" weight="0.32955465" />
       <window_info anchor="right" id="Flutter Inspector" order="11" />
       <window_info anchor="right" id="Flutter Outline" order="12" />
@@ -563,13 +559,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="56" column="70" selection-start-line="56" selection-start-column="70" selection-end-line="56" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/overview/table.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -689,10 +678,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="748">
+          <caret line="56" column="70" selection-start-line="56" selection-start-column="70" selection-end-line="56" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/views/overview/main.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="39" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
+        <state relative-caret-position="255">
+          <caret line="77" column="17" selection-start-line="77" selection-start-column="17" selection-end-line="77" selection-end-column="17" />
         </state>
       </provider>
     </entry>
