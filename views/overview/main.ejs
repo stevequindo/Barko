@@ -1,12 +1,7 @@
 <%- include("../partials/company-header") -%>
 
-<% if (view == 'foreign') { %>
-    <%- include('subheader-foreign', {title: title}) -%>
-<% } else { %>
-    <%- include('subheader', {title: title}) -%>
-<% } %>
-
-<%- include('../partials/pref-retrieval')%>
+<!--Preferences retrieval not used-->
+<!--include('../partials/pref-retrieval')-->
 
 <%- include('../modals/success') %>
 
@@ -41,152 +36,179 @@
         <% }); %>
         </div>
     <% } else { %>
-        <table class="table table-hover table-striped">
+        <table class="table table-striped thead-dark table-bordered" id="comm-table">
             <thead>
             <tr>
-                <th scope="col">Batch No.</th>
-                <th scope="col">Tracking No.</th>
-                <th scope="col">Count</th>
-                <th scope="col">Status</th>
-                <th scope="col">Area</th>
-                <th scope="col">Sender</th>
-                <th scope="col">Receiver</th>
-                <th scope="col" class="table-action-header" style="display:none;">Actions</th>
+                <th>Batch No.</th>
+                <th>Tracking No.</th>
+                <th>Count</th>
+                <th>Area</th>
+                <th>Sender First Name</th>
+                <th>Sender Last Name</th>
+                <th>Receiver First Name</th>
+                <th>Receiver Last Name</th>
+                <th>Status</th>
+                <th>Comments</th>
+                <!--<th class="table-action-header" style="display:none;">Actions</th>-->
             </tr>
             </thead>
             <tbody>
-                <% contentArray.forEach((item,index) => { %>
-                    <%- include('table', {contentItem:item})%>
-                <% }); %>
+                <!--contentArray.forEach((item,index) => {-->
+                    <!--include('table', {contentItem:item})-->
+                <!--});-->
             </tbody>
         </table>
     <% } %>
 </div>
 
 <script>
+
 $(document).ready(function() {
-	let statusesChanged = [];
+	// Initialise data table
+	$('#comm-table').DataTable( {
+        "data":<%-contentArray%>,
+        "columns": [
+            {"data" :"batchNo"},
+			{"data" :"trackingNumber"},
+			{"data" :"count"},
+			{"data" :"area"},
+            {"data" : "sender_link.firstName"},
+			{"data" : "sender_link.lastName"},
+            {
+            	"data" : "receiver_link.firstName",
+                "defaultContent": "<i>Not provided</i>"
+            },
+			{
+				"data" : "receiver_link.lastName",
+				"defaultContent": "<i>Not provided</i>"
+			},
+			{"data" :"status"},
+			{"data" :"status"}
+		]
+    });
 
-    let updateModeOff = function() {
-        //UI Changes
-        $('.update-btn .btn-success').hide();
-        $('.update-btn .btn-danger').hide();
-        $('.update-btn .btn-dark').show();
-        $('.table-actions').hide();
-        $('.table-action-header').hide();
-    }
-
-    let cancelChanges = function() {
-        updateModeOff();
-    };
-
-    let confirmChanges = function() {
-        let entriesToUpdate = [];
-
-        // Retrieve updated fields
-        if (statusesChanged) {
-            for (let i = 0; i < statusesChanged.length; i++) {
-                let status = statusesChanged[i];
-                let elemWithStatus = $("#"+ status);
-
-                let entry = {
-					_id: elemWithStatus.parent().siblings(".id-cell").text(),
-					senderName: elemWithStatus.parent().siblings(".sender-cell").text(),
-                    receiverName: elemWithStatus.parent().siblings(".receiver-cell").text(),
-                    newStatus: elemWithStatus.val()
-                };
-                entriesToUpdate.push(entry);
-            }
-
-			let rowsHtml = ""
-			for(let i = 0; i < entriesToUpdate.length; i++) {
-				rowsHtml += `
-                <tr>
-                  <td scope="row">${entriesToUpdate[i].newStatus}</td>
-                  <th>${entriesToUpdate[i].senderName}</th>
-                  <td>${entriesToUpdate[i].receiverName}</td>
-                </tr>
-                `
-			}
-
-            let resultHtml = `
-                <table class="table">
-                  <thead class="thead-light">
-                    <tr>
-                      <th scope="col">Status</th>
-                      <th scope="col">Sender</th>
-                      <th scope="col">Receiver</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  ${rowsHtml}
-                  </tbody>
-                </table>
-            `
-            $('#confirmChangeModal .modal-body').html(resultHtml);
-
-            let makePost = function() {
-            	console.log(entriesToUpdate);
-                fetch("/overview", {
-                    method: "POST",
-                    headers:{
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(entriesToUpdate)
-                }). then(res => res.json())
-                .then(response => {
-                	if (response.success) {
-                        location.reload();
-                    }
-
-                })
-                .catch(error => console.error('Error:', error));
-            };
-
-            $('.save-changes-button').click(makePost);
-        }
-
-        $('#confirmChangeModal').modal('show');
-    };
-
-
-    let updateModeOn = function() {
-        //UI Changes
-        $('.update-btn .btn-success').show();
-        $('.update-btn .btn-danger').show();
-        $('.update-btn .btn-dark').hide();
-        $('.table-actions').show();
-        $('.table-action-header').show();
-
-        // Change status cells to editable rows
-        $( ".status-cell" ).each( function( i, el ) {
-            let elem = $(el);
-            let elemText = elem.text();
-            elem.html("<input type='text' class='form-control'>");
-            elem.children().val(elemText);
-            elem.children().attr("id", "status-" + i);
-        });
-
-        // Set listener for any rows changed
-        $(".status-cell").children().keyup((event) => {
-			if (event.keyCode == 8 || event.keyCode == 46) {
-				console.log("del/backpress tapped");
-			}
-            let changedBox = event.currentTarget.id;
-            console.log(changedBox);
-
-            // Update the statusesChanged array with the name of the changedBox
-            if (!statusesChanged.includes(changedBox)) {
-                statusesChanged.push(changedBox);
-            }
-        });
-
-    };
-
-    // Set listener to .update-btn
-    $('.update-btn .btn-dark').click(updateModeOn);
-    $('.update-btn .btn-success').click(confirmChanges);
-    $('.update-btn .btn-danger').click(cancelChanges);
+	// let statusesChanged = [];
+    //
+    // let updateModeOff = function() {
+    //     //UI Changes
+    //     $('.update-btn .btn-success').hide();
+    //     $('.update-btn .btn-danger').hide();
+    //     $('.update-btn .btn-dark').show();
+    //     $('.table-actions').hide();
+    //     $('.table-action-header').hide();
+    // }
+    //
+    // let cancelChanges = function() {
+    //     updateModeOff();
+    // };
+    //
+    // let confirmChanges = function() {
+    //     let entriesToUpdate = [];
+    //
+    //     // Retrieve updated fields
+    //     if (statusesChanged) {
+    //         for (let i = 0; i < statusesChanged.length; i++) {
+    //             let status = statusesChanged[i];
+    //             let elemWithStatus = $("#"+ status);
+    //
+    //             let entry = {
+	// 				_id: elemWithStatus.parent().siblings(".id-cell").text(),
+	// 				senderName: elemWithStatus.parent().siblings(".sender-cell").text(),
+    //                 receiverName: elemWithStatus.parent().siblings(".receiver-cell").text(),
+    //                 newStatus: elemWithStatus.val()
+    //             };
+    //             entriesToUpdate.push(entry);
+    //         }
+    //
+	// 		let rowsHtml = ""
+	// 		for(let i = 0; i < entriesToUpdate.length; i++) {
+	// 			rowsHtml += `
+    //             <tr>
+    //               <td scope="row">${entriesToUpdate[i].newStatus}</td>
+    //               <th>${entriesToUpdate[i].senderName}</th>
+    //               <td>${entriesToUpdate[i].receiverName}</td>
+    //             </tr>
+    //             `
+	// 		}
+    //
+    //         let resultHtml = `
+    //             <table class="table">
+    //               <thead class="thead-light">
+    //                 <tr>
+    //                   <th scope="col">Status</th>
+    //                   <th scope="col">Sender</th>
+    //                   <th scope="col">Receiver</th>
+    //                 </tr>
+    //               </thead>
+    //               <tbody>
+    //               ${rowsHtml}
+    //               </tbody>
+    //             </table>
+    //         `
+    //         $('#confirmChangeModal .modal-body').html(resultHtml);
+    //
+    //         let makePost = function() {
+    //         	console.log(entriesToUpdate);
+    //             fetch("/overview", {
+    //                 method: "POST",
+    //                 headers:{
+    //                     'Content-Type': 'application/json'
+    //                 },
+    //                 body: JSON.stringify(entriesToUpdate)
+    //             }). then(res => res.json())
+    //             .then(response => {
+    //             	if (response.success) {
+    //                     location.reload();
+    //                 }
+    //
+    //             })
+    //             .catch(error => console.error('Error:', error));
+    //         };
+    //
+    //         $('.save-changes-button').click(makePost);
+    //     }
+    //
+    //     $('#confirmChangeModal').modal('show');
+    // };
+    //
+    //
+    // let updateModeOn = function() {
+    //     //UI Changes
+    //     $('.update-btn .btn-success').show();
+    //     $('.update-btn .btn-danger').show();
+    //     $('.update-btn .btn-dark').hide();
+    //     $('.table-actions').show();
+    //     $('.table-action-header').show();
+    //
+    //     // Change status cells to editable rows
+    //     $( ".status-cell" ).each( function( i, el ) {
+    //         let elem = $(el);
+    //         let elemText = elem.text();
+    //         elem.html("<input type='text' class='form-control'>");
+    //         elem.children().val(elemText);
+    //         elem.children().attr("id", "status-" + i);
+    //     });
+    //
+    //     // Set listener for any rows changed
+    //     $(".status-cell").children().keyup((event) => {
+	// 		if (event.keyCode == 8 || event.keyCode == 46) {
+	// 			console.log("del/backpress tapped");
+	// 		}
+    //         let changedBox = event.currentTarget.id;
+    //         console.log(changedBox);
+    //
+    //         // Update the statusesChanged array with the name of the changedBox
+    //         if (!statusesChanged.includes(changedBox)) {
+    //             statusesChanged.push(changedBox);
+    //         }
+    //     });
+    //
+    // };
+    //
+    // // Set listener to .update-btn
+    // $('.update-btn .btn-dark').click(updateModeOn);
+    // $('.update-btn .btn-success').click(confirmChanges);
+    // $('.update-btn .btn-danger').click(cancelChanges);
 
 });
 

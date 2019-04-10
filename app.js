@@ -54,6 +54,7 @@ app.get("/overview", (req,res) => {
             .then((dbResponse) => {
                 // Get response
                 let dbTransactionsArr = dbResponse[0].transactions;
+                dbTransactionsArr = JSON.stringify(dbTransactionsArr);
                 res.render('overview/main', {title: title, contentArray: dbTransactionsArr, type:'transaction', link: req.originalUrl, view: view});
             })
             .catch((err) =>{

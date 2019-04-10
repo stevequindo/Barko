@@ -10,7 +10,10 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "browserify": "^16.2.3",
     "country-flags-svg": "^0.2.12",
+    "datatables.net": "^1.10.19",
+    "datatables.net-dt": "^1.10.19",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-fileupload": "^1.1.1-alpha.3",
