@@ -1,13 +1,13 @@
 /***************** BODY PAGE *****************/
 body {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 /***************** NAVBAR SECTION *****************/
 .navbar {
     background: #ffffff;
     box-shadow: 0px 7px  17px rgba(0,0,0,0.07);
-    font-family: 'Lato', 'sans-serif';
+    font-family: 'Roboto', 'sans-serif';
     height: 5rem;
 }
 
@@ -77,22 +77,6 @@ a:focus {
     margin: 40px 0;
 }
 
-
-/***************** SUBHEADER  *****************/
-.countries-subheader {
-    padding-top: 0.3rem;
-    padding-bottom: 0.3rem;
-}
-.dropdown .btn {
-    padding: auto auto;
-    color: floralwhite !important;
-}
-
-.dropdown-menu a {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 0.75rem;
-}
-
 /***************** CONTAINERS  *****************/
 .card-img-top {
     width: 100%;
@@ -112,4 +96,12 @@ a:focus {
 
 .tracking-submit {
     margin-top: 0.5rem;
+}
+
+/******************
+
+ */
+
+.buttons-copy {
+    margin-left: 10px;
 }
