@@ -4,7 +4,9 @@
     <bookmark url="file://$PROJECT_DIR$/app.js" line="116" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a54d1fd5-fc9a-4aae-8dc4-cbea6c937221" name="Default Changelist" comment="Remove update option for the foreign company side" />
+    <list default="true" id="a54d1fd5-fc9a-4aae-8dc4-cbea6c937221" name="Default Changelist" comment="Remove update option for the foreign company side">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <list id="338ace60-c579-474e-9e2a-a7e9739b3f9c" name="Revert: Add business summary and sketch" comment="" />
     <list id="a439949b-6adc-4e2d-aeb4-cd203eb47cec" name="Revert: Add tracking number column" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,7 +37,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
+            <state relative-caret-position="-374">
               <caret line="62" column="70" lean-forward="true" selection-start-line="62" selection-start-column="70" selection-end-line="62" selection-end-column="70" />
             </state>
           </provider>
@@ -45,7 +47,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>c</find>
       <find>getcontainer</find>
       <find>CONSOLE.LOG</find>
       <find>transaction</find>
@@ -75,6 +76,7 @@
       <find>comments</find>
       <find>comment</find>
       <find>console.log</find>
+      <find>node_mo</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -190,7 +192,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555035301910" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555035571674" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JavaScript 1.8&#10;GenericSQL" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../untitled" />
     <property name="nodejs.mocha.mocha_node_package_dir" value="" />
@@ -298,7 +300,7 @@
       <workItem from="1554873736802" duration="20000" />
       <workItem from="1554934259259" duration="3715000" />
       <workItem from="1554957683779" duration="27000" />
-      <workItem from="1554966408810" duration="18527000" />
+      <workItem from="1554966408810" duration="18784000" />
     </task>
     <task id="LOCAL-00001" summary="Created basic getCompanies function. Updated database model. Adjusted styles into dark theme.Adjusted formatting/spacing for subheaders and headers.">
       <created>1552550530944</created>
@@ -381,7 +383,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="191101000" />
+    <option name="totallyTimeSpent" value="191358000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -394,9 +396,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4973357" weight="0.23967612" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4973357" visible="true" weight="0.23967612" />
       <window_info id="Structure" order="1" sideWeight="0.5026643" side_tool="true" weight="0.22834007" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -426,7 +427,7 @@
       <window_info anchor="right" id="Database" order="6" weight="0.32955465" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info anchor="right" x="44" y="110" width="1193" height="460" id="Terminal" order="9" type="WINDOWED" visible="true" weight="0.27935222" />
+      <window_info active="true" anchor="right" x="600" y="171" width="1193" height="460" id="Terminal" order="9" type="WINDOWED" visible="true" weight="0.27935222" />
       <window_info anchor="right" id="SciView" order="10" weight="0.32955465" />
       <window_info anchor="right" id="Flutter Inspector" order="11" />
       <window_info anchor="right" id="Flutter Outline" order="12" />
@@ -724,9 +725,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="39" column="7" selection-start-line="39" selection-end-line="39" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
+        <state relative-caret-position="-374">
           <caret line="62" column="70" lean-forward="true" selection-start-line="62" selection-start-column="70" selection-end-line="62" selection-end-column="70" />
         </state>
       </provider>
