@@ -31,6 +31,13 @@ app.use(express.static("public"));
 // Express.js initialisations
 app.set('view engine', 'ejs');
 
+let e = require('datatables.net-editor-server');
+
+let Editor = e.Editor;
+let Field = e.Field;
+let Validate = e.Validate;
+let Format = e.Format;
+
 /***************** INDEX PAGE *****************/
 app.get("/", (req, res) => {
     res.render("index");
@@ -74,15 +81,14 @@ app.get("/overview", (req,res) => {
     };
 });
 
-app.post("/overview", (req,res) => {
-    // Get the array of updated fields
+app.post("/overview", async (req,res) => {
+    // Get JSON data
     let updateEntriesArr = req.body;
 
-    console.log(updateEntriesArr);
     // Update the entries
-    // databases.updateEntries(updateEntriesArr);
+    const resultsJSON = await databases.updateEntries(updateEntriesArr);
 
-    res.send(JSON.stringify({success: true}));
+    res.send(JSON.stringify(resultsJSON));
 });
 
 /***************** FOREIGN PAGE *****************/

@@ -61,17 +61,25 @@ $(document).ready(function() {
 	let editor = new $.fn.dataTable.Editor({
 		table: '#comm-table',
 		idSrc: "_id",
+        // serverSide: true,
 		fields: [ {
 			label: "Status:",
 			name: "status"
 		}, {
 			label: "Additional Comments: ",
-            name: "comments"
+            name: "comment"
         }],
         ajax: {
-			edit: {
-				type: 'PUT',
-                url: '/overview'
+            edit: {
+            	type: 'POST',
+                url: '/overview',
+				contentType: 'application/json',
+                data: (d) => {
+            		d = d.data;
+            		const jsonData = JSON.stringify(d);
+            		console.log(jsonData);
+            		return jsonData;
+                }
             }
         }
 	});
@@ -89,7 +97,6 @@ $(document).ready(function() {
 		select: true,
 		stateSave: true,
 		"data":<%- contentArray %>,
-
 		"columns": [
 			{"data": "batchNo"},
 			{"data": "trackingNumber"},
@@ -116,6 +123,8 @@ $(document).ready(function() {
 		],
 
 	});
+
+
 });
 
 	// let statusesChanged = [];
