@@ -85,3 +85,9 @@ typings/
 
 # Website
 website/
+
+# VSCODE
+.vscode/
+
+# IDEA
+.idea/
