@@ -10,11 +10,14 @@
         <thead>
             <tr>
                 <th>Tracking Number</th>
+                <th>Sender</th>
+                <th>Receiver</th>
                 <th>Status</th>
+                <th>ETA</th>
             </tr>
         </thead>
 
-        <tbody>
+<tbody>
             <% for (let item in trackingTable) { %>
                 <% if (trackingTable[item] == "") { %>
                     <tr>
@@ -29,8 +32,79 @@
                 <% } else { %>
                     <tr>
                         <td><%= item %></td>
+                        <td><%= trackingSender[item] %></td>
+                        <td><%= trackingReceiver[item] %></td>
+                        <td>
+                        <% if (trackingTable[item] == "NZ Port") {  %>
 
-                        <td><%= trackingTable[item] %></td>
+                            <ul class="progressbar">
+                                <li class="active">NZ Port</li>
+                                <li>On Ship</li>
+                                <li>PH Port</li>
+                                <li>Customs</li>
+                                <li>Delivery</li>
+                                <li>Arrived</li>
+                            </ul>
+
+                        <% } else if (trackingTable[item] == "On Ship") { %>
+
+                            <ul class="progressbar">
+                                <li class="active">NZ Port</li>
+                                <li class="active">On Ship</li>
+                                <li>PH Port</li>
+                                <li>Customs</li>
+                                <li>Delivery</li>
+                                <li>Arrived</li>
+                            </ul>
+
+                        <% } else if (trackingTable[item] == "PH Port") { %>
+
+                            <ul class="progressbar">
+                                <li class="active">NZ Port</li>
+                                <li class="active">On Ship</li>
+                                <li class="active">PH Port</li>
+                                <li>Customs</li>
+                                <li>Delivery</li>
+                                <li>Arrived</li>
+                            </ul>
+
+                        <% } else if (trackingTable[item] == "Customs") { %>
+
+                            <ul class="progressbar">
+                                <li class="active">NZ Port</li>
+                                <li class="active">On Ship</li>
+                                <li class="active">PH Port</li>
+                                <li class="active">Customs</li>
+                                <li>Delivery</li>
+                                <li>Arrived</li>
+                            </ul>
+
+                        <% } else if (trackingTable[item] == "Delivery") { %>
+
+                            <ul class="progressbar">
+                                <li class="active">NZ Port</li>
+                                <li class="active">On Ship</li>
+                                <li class="active">PH Port</li>
+                                <li class="active">Customs</li>
+                                <li class="active">Delivery</li>
+                                <li>Arrived</li>
+                            </ul>
+
+                        <% } else if (trackingTable[item] == "Arrived") { %>
+
+                            <ul class="progressbar">
+                                <li class="active">NZ Port</li>
+                                <li class="active">On Ship</li>
+                                <li class="active">PH Port</li>
+                                <li class="active">Customs</li>
+                                <li class="active">Delivery</li>
+                                <li class="active">Arrived</li>
+                            </ul>
+
+                        <% } %>
+                        </td>
+                        <td>30-45 days</td>
+                        <!-- <td><%= trackingTable[item] %></td> -->
                     </tr>
                 <% }%>
             <% } %>

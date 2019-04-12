@@ -7,7 +7,7 @@ const clientFilesPath = "/client_files/";
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
-
+app.set('view engine', 'ejs');
 // File uploading
 const fileUpload = require("express-fileupload");
 app.use(fileUpload());
@@ -25,6 +25,30 @@ const _ = require('lodash');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
+// For Login Authentication
+var mongoose = require('mongoose');
+var passport = require('passport');
+var flash    = require('connect-flash');
+var morgan       = require('morgan');
+var cookieParser = require('cookie-parser');
+var session      = require('express-session');
+
+var configDB = require('./custom_node_modules/database.js');
+
+mongoose.connect(configDB.url);
+require('./custom_node_modules/passport')(passport);
+
+app.use(morgan('dev')); // log every request to the console
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(bodyParser.urlencoded({extended: false})); // get information from html forms
+app.use(session({resave: false, saveUninitialized: true, secret: 'secretsession' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash());
+
+require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+
+
 // Use static files
 app.use(express.static("public"));
 
@@ -39,8 +63,8 @@ let Validate = e.Validate;
 let Format = e.Format;
 
 /***************** INDEX PAGE *****************/
-app.get("/", (req, res) => {
-    res.render("index");
+app.get("/index2", (req, res) => {
+    res.render("index2");
 });
 /***************** OVERVIEW PAGE *****************/
 app.get("/overview", (req,res) => {
@@ -191,16 +215,23 @@ app.post("/tracking", (req,res) => {
 
     async function parseStatus() {
         let trackingStatus = {};
+        let trackingSender = {};
+        let trackingReceiver = {};
+
         // Iterate over every tracking number
         for (let elem of trackingNumArray) {
             try {
                 trackingStatus[elem] = await databases.findStatus(elem);
+                trackingSender[elem] = await databases.findSender(elem);
+                trackingReceiver[elem] = await databases.findReceiver(elem);
             } catch(err) {
                 trackingStatus[elem] = err;
+                trackingSender[elem] = err;
+                trackingReceiver[elem] = err;
                 continue;
             }
         }
-        res.render("tracking/results", {trackingTable: trackingStatus});
+        res.render("tracking/results", {trackingTable: trackingStatus, trackingSender: trackingSender, trackingReceiver: trackingReceiver});
     }
 
     parseStatus();
