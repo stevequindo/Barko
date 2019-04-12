@@ -19,13 +19,13 @@
 <body id="background">
     <div >
     <div class="d-flex justify-content-center align-items-center" style="margin-top: 4%;">
-        <form class="text-center border border-light p-5" style="border-radius: 5px; background-color: #FFFFFF">
+        <form class="text-center border border-light p-5" action="/tracking"  method="post" style="border-radius: 5px; background-color: #FFFFFF">
 
             <p class="h4 mb-4" style="margin-right: 20px"><img src="images/icon.png" height="25px" style="margin: 0 5px 4px">Comms</p>
 
-            <input type="text" class="form-control mb-3" placeholder="Enter your tracking number" style="width: 250px; font-size: 12px;">
-
-            <a href="/tracking" class="btn btn-block my-3 btn-sm" style="background-color: #C0C0C0; color: #FFFFFF">Track parcel</a><br />
+            <input type="text" class="form-control mb-3" name="trackingNumber" placeholder="Enter your tracking number" style="width: 250px; font-size: 12px;">
+            <button type="submit" class="btn btn-block my-3 btn-sm" style="background-color: #C0C0C0; color: #FFFFFF">Track parcel</button>
+            <p>or</p>
             <a href="/login" class="btn btn-block my-3 btn-sm" style="background-color: #D6E7D9; color: #000000">Log in</a>
 
         </form>
