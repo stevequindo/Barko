@@ -249,10 +249,6 @@ let server = app.listen(port, () => {
     console.log(`Server initialised on port ${port}`);
 });
 
-serverClose = function() {
-    server.close();
-}
-
 /***************** FUNCTIONS *****************/
 getJsonWorkbook = function(pathName) {
     /*
