@@ -1,0 +1,17 @@
+phillipines company video
+=========================
+-starts at countries page -> click on United States
+- Gets to Manifest Files for United States -> Clicks on SuperFreight
+- Will then see all of the transactions, can then adjust the status of one transaction to "Customs Delay" and another to "Delivering to Door"
+- Will click confirm to see the changelog and then confirm the update, showing how the statuses are updated
+
+foreign company video
+=======================
+- Starts at file upload page where the user will upload an excel file and will lead to a success page
+- Will go to the foreign company's overview where user can immediately see the manifest files
+- Then clicks on a manfiest file and can see that all of the info (with no chances of editing)
+
+customer side
+=====================
+- start at the tracking page and will enter in a sample of tracking numbers
+- will reveal a table of the tracking numbers and their corresponding status

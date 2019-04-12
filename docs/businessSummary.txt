@@ -1,0 +1,7 @@
+NZ customer wants to send boxes-> NZ company needs container to put box-> FREIGHT company (will get container/ship)
+										-> SHIPPING LINE (lends container and ship)
+										-> TRANSPORT COMPANY (bring container to ship)
+								       -> PHILLIPINES company (deliver boxes @ Phillipines)
+										-> Unloads container/does customs/delivers
+
+

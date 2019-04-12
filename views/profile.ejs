@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+    <title>Node Authentication</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body { padding-top:80px; word-wrap:break-word; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="page-header text-center">
+        <img src="images/comms_logo.png">
+        <h1>Profile</h1>
+        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+
+    <div class="row">
+
+        <!-- LOCAL INFORMATION -->
+        <div class="col-sm-6">
+            <div class="well">
+                <h3><span class="fa fa-user"></span> Local</h3>
+                <p>
+                    <strong>id</strong>: <%= user._id %><br>
+                    <strong>email</strong>: <%= user.local.email %><br>
+                    <strong>password</strong>: <%= user.local.password %>
+                </p>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <p>Link to Index page:</p>
+            <a href="/index2">Index2 page</a><br />
+            <p>Or go to the links directly:</p>
+            <a href="/overview">Philippines Overview</a><br />
+            <a href="/foreign">Foreign Company Overview</a><br />
+            <a href="/tracking">Track your Package</a><br />
+            <a href="/upload">Upload your existing Excel sheets</a>
+        </div>
+    </div>
+</body>
+</html
+

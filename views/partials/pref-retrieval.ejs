@@ -1,0 +1,32 @@
+<script>
+	let preferences;
+	if (typeof(Storage) !== "undefined") {
+		preferences = localStorage.getItem("preferences");
+
+		if (preferences == undefined) {
+			console.log(`Creating new preferences file`);
+			preferences = {
+				overviewPreferences: {
+					countryViewBox: true,
+					companyViewBox: true,
+					transactionViewBox: false
+				}
+			};
+
+			localStorage.setItem('preferences', JSON.stringify(preferences));
+
+			console.log(`Preferences saved`);
+			console.table(preferences);
+
+		} else {
+			preferences = JSON.parse(preferences);
+
+			console.log('Previous preferences retrieved');
+			console.table(preferences);
+		}
+
+	} else {
+		console.log(`Local storage is not available`);
+
+	}
+</script>
