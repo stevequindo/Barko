@@ -1,45 +1,76 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-    <title>Your Profile</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-    <style>
-        body { padding-top:80px; word-wrap:break-word; }
-    </style>
-</head>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <link rel="shortcut icon" href="images/icon.png"/>
+        <title>Balikbayan Comms</title>
+
+        <!-- Roboto Font -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <!-- Sidebar CSS -->
+        <link rel="stylesheet" type="text/css" href="css/sidebar.css">
+    </head>
 <body>
-<div class="container">
+    <div class="s-layout">
+        <!-- Sidebar -->
+        <div class="s-layout__sidebar">
+          <a class="s-sidebar__trigger" href="#0">
+             <i class="fa fa-bars" style="color: #f4f5f6;"></i>
+          </a>
 
-    <div class="page-header text-center">
-        <img src="images/comms_logo.png">
-        <h1>Profile</h1>
-        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-    </div>
+          <nav class="s-sidebar__nav">
+             <ul>
+                <li>
+                    <h4 style="color: #000000; margin: 5% 0 10% 20%;"><img src="images/icon.png" height="30px" style="margin-top: -2%"><strong> Comms</strong></h4>
+                </li>
+                <li>
+                   <a class="s-sidebar__nav-link" href="/upload">
+                     <em><strong>Recent Manifest</strong></em>
+                   </a>
+                </li>
+                <li><a class="s-sidebar__nav-link" href="/overview">
+                     <em><strong>Countries</strong></em></a>
+                </li>
+                <li><a class="s-sidebar__nav-link" href="/tracking">
+                      <em><strong>Tracking</strong></em></a>
+                </li>
+                <li><a class="s-sidebar__nav-link" href="/logout">
+                      <em><strong>Logout</strong></em></a>
+                </li>
+             </ul>
+          </nav>
+        </div>
 
-    <div class="row">
-
-        <!-- LOCAL INFORMATION -->
-        <div class="col-sm-6">
-            <div class="well">
-                <h3><span class="fa fa-user"></span> Local</h3>
+        <!-- Content -->
+        <main class="s-layout__content">
+            <div class="container">
+                <h3><span class="fa fa-user"></span> Account Details: </h3>
                 <p>
                     <strong>id</strong>: <%= user._id %><br>
                     <strong>email</strong>: <%= user.local.email %><br>
                     <strong>password</strong>: <%= user.local.password %>
                 </p>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <p>Link to Index page:</p>
-            <a href="/index2">Index page</a><br />
-            <p>Or go to the links directly:</p>
-            <a href="/overview">Philippines Overview</a><br />
-            <a href="/foreign">Foreign Company Overview</a><br />
-            <a href="/tracking">Track your Package</a><br />
-            <a href="/upload">Upload your existing Excel sheets</a>
-        </div>
-    </div>
-</body>
-</html
+                <br />
+                <br />
+                <br />
+                <a href="/overview">Philippines Overview</a><br />
+                <a href="/foreign">Foreign Company Overview</a><br />
+                <a href="/tracking">Track your Package</a><br />
+                <a href="/upload">Upload your existing Excel sheets</a>
 
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

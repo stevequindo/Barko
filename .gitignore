@@ -1,3 +1,7 @@
+
+# to ignore /node_module when pushing to git
+/node_modules
+
 # Logs
 logs
 *.log

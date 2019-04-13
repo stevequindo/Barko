@@ -1,61 +1,65 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <title>Balikbayan Comms</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <!--Bootstrap CDN-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="shortcut icon" href="images/icon.png"/>
+        <title>Balikbayan Comms</title>
 
-    <!-- FONTS -->
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <!-- FONTS -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
 
-    <!--Custom CSS-->
-    <link rel="stylesheet" href="css/styles.css"></link>
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
 
-    <!--OUR FAVICON BOI-->
-    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <!-- Sidebar CSS -->
+        <link rel="stylesheet" type="text/css" href="css/sidebar.css">
+        <!--Custom CSS-->
+        <link rel="stylesheet" href="css/styles.css"></link>
 
-    <!--jQuery-->
-    <script
-            src="https://code.jquery.com/jquery-3.4.0.js"
-            integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo="
-            crossorigin="anonymous"></script>
+        <!--jQuery-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.0.js"></script>
 
-    <!--Datatables-->
-    <link rel="stylesheet" type="text/css" href="/DataTables/datatables.min.css"/>
-
-    <script type="text/javascript" src="/DataTables/datatables.min.js"></script>
-
-</head>
+        <!--Datatables-->
+        <link rel="stylesheet" type="text/css" href="/DataTables/datatables.min.css"/>
+        <script type="text/javascript" src="/DataTables/datatables.min.js"></script>
+    </head>
 <body>
+    <div class="s-layout">
+        <!-- Sidebar -->
+        <div class="s-layout__sidebar">
+          <a class="s-sidebar__trigger" href="#0">
+             <i class="fa fa-bars" style="color: #f4f5f6;"></i>
+          </a>
 
-<!-- NAVBAR -->
-<nav class="navbar navbar-light bg-light navbar-expand-lg sticky-top">
+          <nav class="s-sidebar__nav">
+             <ul>
+                <li>
+                    <h4 style="color: #000000; margin: 5% 0 10% 20%;"><img src="images/icon.png" height="30px" style="margin-top: -2%"><strong> Comms</strong></h4>
+                </li>
+                <li>
+                   <a class="s-sidebar__nav-link" href="/upload">
+                     <em><strong>Recent Manifest</strong></em>
+                   </a>
+                </li>
+                <li><a class="s-sidebar__nav-link" href="/overview">
+                     <em><strong>Countries</strong></em></a>
+                </li>
+                <li><a class="s-sidebar__nav-link" href="/tracking">
+                      <em><strong>Tracking</strong></em></a>
+                </li>
+                <li><a class="s-sidebar__nav-link" href="/logout">
+                      <em><strong>Logout</strong></em></a>
+                </li>
+             </ul>
+          </nav>
+        </div>
 
-    <a class="navbar-brand" href="/Profile"><img class="company-logo" src="images/comms_logo.png"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Navbar content -->
-    <div class="collapse navbar-collapse navbar-toggler-right" id="navbarResponsive">
-        <ul class="navbar-nav abs-center-x my-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/overview">overview</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">search</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">staff</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#login" data-toggle="modal" data-target="#loginModal">login</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-
+        <!-- Content -->
+        <main class="s-layout__content">
+            <div class="container">
