@@ -162,3 +162,17 @@ a:focus {
   background-size: cover;
   width: 100%;
 }
+
+/***************** TABLE ********************/
+.main-content .dataTables_wrapper {
+    margin-top: 2.5rem;
+}
+
+div.dt-buttons {
+    margin-left: 0.5rem;
+}
+
+#comm-table_length {
+    display: inline-block;
+    padding: 0.3rem;
+}

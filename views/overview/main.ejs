@@ -87,10 +87,11 @@ $(document).ready(function() {
 	let table = $('#comm-table').DataTable({
 		dom: 'lBfrtip',
 		buttons: [
-		    'copy',
+            'selectAll',
 			{ extend: "edit",   editor: editor },
             'pdf',
 	    ],
+        lengthMenu: [[25, 50,100, -1], [25, 50,100, "All"]],
 		paginate: true,
 		processing: true,
 		select: true,
