@@ -179,4 +179,12 @@ div.dt-buttons {
 
 #comm-table {
     font-family: 'Roboto', 'sans-serif';
+    font-size: 15px;
+}
+
+#comm-table th {
+    font-size: 14px;
+    position: relative;
+    margin: auto;
+    vertical-align: middle;
 }

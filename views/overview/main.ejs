@@ -32,7 +32,7 @@
         </div>
     <% } else { %>
             <!--table table-striped thead-dark table-bordered-->
-        <table class="mdl-data-table mdl-js-data-table" id="comm-table" style="width:100%">
+        <table class="mdl-data-table mdl-js-data-table row-border compact" id="comm-table" style="width:100%">
             <thead>
             <tr>
                 <th>BATCH NO.</th>
@@ -96,6 +96,12 @@ $(document).ready(function() {
 		select: true,
 		stateSave: true,
 		"data":<%- contentArray %>,
+        columnDefs: [
+			{
+				targets: "_all",
+				className: 'dt-left'
+			}
+        ],
 		"columns": [
 			{"data": "batchNo"},
 			{"data": "trackingNumber"},
