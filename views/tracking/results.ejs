@@ -1,116 +1,176 @@
-<%- include("../partials/company-header") -%>
-    <div class="container">
-      <div class="row">
-        <h1>Success!</h1>
-      </div>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-      <div class="row">
+        <link rel="shortcut icon" href="images/icon.png"/>
+        <title>Tracking</title>
 
-        <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Tracking Number</th>
-                <th>Sender</th>
-                <th>Receiver</th>
-                <th>Status</th>
-                <th>ETA</th>
-            </tr>
-        </thead>
+        <!-- FONTS -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
 
-<tbody>
-            <% for (let item in trackingTable) { %>
-                <% if (trackingTable[item] == "") { %>
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <!-- Sidebar CSS -->
+        <link rel="stylesheet" type="text/css" href="css/sidebar.css">
+        <!--Custom CSS-->
+        <link rel="stylesheet" href="css/styles.css"></link>
+
+        <!--jQuery-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.0.js"></script>
+
+        <!--Datatables-->
+        <link rel="stylesheet" type="text/css" href="/DataTables/datatables.min.css"/>
+        <script type="text/javascript" src="/DataTables/datatables.min.js"></script>
+    </head>
+<body>
+    <div class="s-layout">
+        <!-- Sidebar -->
+        <div class="s-layout__sidebar">
+          <a class="s-sidebar__trigger" href="#0">
+             <i class="fa fa-bars" style="color: #f4f5f6;"></i>
+          </a>
+
+          <nav class="s-sidebar__nav">
+             <ul>
+                <li>
+                    <h4 style="color: #000000; margin: 5% 0 10% 20%;"><img src="images/icon.png" height="30px" style="margin-top: -2%"><strong> Comms</strong></h4>
+                </li>
+                <li>
+                   <a class="s-sidebar__nav-link" href="/upload">
+                     <em><strong>Recent Manifest</strong></em>
+                   </a>
+                </li>
+                <li><a class="s-sidebar__nav-link" href="/overview">
+                     <em><strong>Countries</strong></em></a>
+                </li>
+                <li><a class="s-sidebar__nav-link" href="/tracking">
+                      <em><strong>Tracking</strong></em></a>
+                </li>
+             </ul>
+          </nav>
+        </div>
+
+        <!-- Content -->
+        <main class="s-layout__content">
+            <div class="container">
+              <div class="row">
+                <h1>Success!</h1>
+              </div>
+
+              <div class="row">
+
+                <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td><%= item %></td>
-                        <td style="color: red;">No status given</td>
+                        <th>Tracking Number</th>
+                        <th>Sender</th>
+                        <th>Receiver</th>
+                        <th>Status</th>
+                        <th>ETA</th>
                     </tr>
-                <% } else if (trackingTable[item] == "No results returned"){%>
-                    <tr>
-                        <td><%= item %></td>
-                        <td style="color: red;">No results returned</td>
-                    </tr>
-                <% } else { %>
-                    <tr>
-                        <td><%= item %></td>
-                        <td><%= trackingSender[item] %></td>
-                        <td><%= trackingReceiver[item] %></td>
-                        <td>
-                        <% if (trackingTable[item] == "NZ Port") {  %>
+                </thead>
 
-                            <ul class="progressbar">
-                                <li class="active">NZ Port</li>
-                                <li>On Ship</li>
-                                <li>PH Port</li>
-                                <li>Customs</li>
-                                <li>Delivery</li>
-                                <li>Arrived</li>
-                            </ul>
+                <tbody>
+                    <% for (let item in trackingTable) { %>
+                        <% if (trackingTable[item] == "") { %>
+                            <tr>
+                                <td><%= item %></td>
+                                <td style="color: red;">No status given</td>
+                            </tr>
+                        <% } else if (trackingTable[item] == "No results returned"){%>
+                            <tr>
+                                <td><%= item %></td>
+                                <td style="color: red;">No results returned</td>
+                            </tr>
+                        <% } else { %>
+                            <tr>
+                                <td><%= item %></td>
+                                <td><%= trackingSender[item] %></td>
+                                <td><%= trackingReceiver[item] %></td>
+                                <td>
+                                <% if (trackingTable[item] == "NZ Port") {  %>
 
-                        <% } else if (trackingTable[item] == "On Ship") { %>
+                                    <ul class="progressbar">
+                                        <li class="active">NZ Port</li>
+                                        <li>On Ship</li>
+                                        <li>PH Port</li>
+                                        <li>Customs</li>
+                                        <li>Delivery</li>
+                                        <li>Arrived</li>
+                                    </ul>
 
-                            <ul class="progressbar">
-                                <li class="active">NZ Port</li>
-                                <li class="active">On Ship</li>
-                                <li>PH Port</li>
-                                <li>Customs</li>
-                                <li>Delivery</li>
-                                <li>Arrived</li>
-                            </ul>
+                                <% } else if (trackingTable[item] == "On Ship") { %>
 
-                        <% } else if (trackingTable[item] == "PH Port") { %>
+                                    <ul class="progressbar">
+                                        <li class="active">NZ Port</li>
+                                        <li class="active">On Ship</li>
+                                        <li>PH Port</li>
+                                        <li>Customs</li>
+                                        <li>Delivery</li>
+                                        <li>Arrived</li>
+                                    </ul>
 
-                            <ul class="progressbar">
-                                <li class="active">NZ Port</li>
-                                <li class="active">On Ship</li>
-                                <li class="active">PH Port</li>
-                                <li>Customs</li>
-                                <li>Delivery</li>
-                                <li>Arrived</li>
-                            </ul>
+                                <% } else if (trackingTable[item] == "PH Port") { %>
 
-                        <% } else if (trackingTable[item] == "Customs") { %>
+                                    <ul class="progressbar">
+                                        <li class="active">NZ Port</li>
+                                        <li class="active">On Ship</li>
+                                        <li class="active">PH Port</li>
+                                        <li>Customs</li>
+                                        <li>Delivery</li>
+                                        <li>Arrived</li>
+                                    </ul>
 
-                            <ul class="progressbar">
-                                <li class="active">NZ Port</li>
-                                <li class="active">On Ship</li>
-                                <li class="active">PH Port</li>
-                                <li class="active">Customs</li>
-                                <li>Delivery</li>
-                                <li>Arrived</li>
-                            </ul>
+                                <% } else if (trackingTable[item] == "Customs") { %>
 
-                        <% } else if (trackingTable[item] == "Delivery") { %>
+                                    <ul class="progressbar">
+                                        <li class="active">NZ Port</li>
+                                        <li class="active">On Ship</li>
+                                        <li class="active">PH Port</li>
+                                        <li class="active">Customs</li>
+                                        <li>Delivery</li>
+                                        <li>Arrived</li>
+                                    </ul>
 
-                            <ul class="progressbar">
-                                <li class="active">NZ Port</li>
-                                <li class="active">On Ship</li>
-                                <li class="active">PH Port</li>
-                                <li class="active">Customs</li>
-                                <li class="active">Delivery</li>
-                                <li>Arrived</li>
-                            </ul>
+                                <% } else if (trackingTable[item] == "Delivery") { %>
 
-                        <% } else if (trackingTable[item] == "Arrived") { %>
+                                    <ul class="progressbar">
+                                        <li class="active">NZ Port</li>
+                                        <li class="active">On Ship</li>
+                                        <li class="active">PH Port</li>
+                                        <li class="active">Customs</li>
+                                        <li class="active">Delivery</li>
+                                        <li>Arrived</li>
+                                    </ul>
 
-                            <ul class="progressbar">
-                                <li class="active">NZ Port</li>
-                                <li class="active">On Ship</li>
-                                <li class="active">PH Port</li>
-                                <li class="active">Customs</li>
-                                <li class="active">Delivery</li>
-                                <li class="active">Arrived</li>
-                            </ul>
+                                <% } else if (trackingTable[item] == "Arrived") { %>
 
-                        <% } %>
-                        </td>
-                        <td>30-45 days</td>
-                        <!-- <td><%= trackingTable[item] %></td> -->
-                    </tr>
-                <% }%>
-            <% } %>
-        </tbody>
-        </table>
-      </div>
-    </div>
+                                    <ul class="progressbar">
+                                        <li class="active">NZ Port</li>
+                                        <li class="active">On Ship</li>
+                                        <li class="active">PH Port</li>
+                                        <li class="active">Customs</li>
+                                        <li class="active">Delivery</li>
+                                        <li class="active">Arrived</li>
+                                    </ul>
+
+                                <% } %>
+                                </td>
+                                <td>30-45 days</td>
+                                <!-- <td><%= trackingTable[item] %></td> -->
+                            </tr>
+                        <% }%>
+                    <% } %>
+                </tbody>
+                </table>
+              </div>
+            </div>
 
 <%- include("../partials/footer") -%>
