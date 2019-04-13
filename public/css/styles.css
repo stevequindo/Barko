@@ -176,3 +176,7 @@ div.dt-buttons {
     display: inline-block;
     padding: 0.3rem;
 }
+
+#comm-table {
+    font-family: 'Roboto', 'sans-serif';
+}

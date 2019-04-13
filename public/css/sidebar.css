@@ -3,10 +3,9 @@
    box-sizing: border-box;
 }
 
-body {
-   font-family: 'Roboto';
+.s-sidebar__nav-link {
+   font-family: 'Roboto',sans-serif;
 }
-
 
 em {
    font-style: normal;
@@ -85,7 +84,7 @@ em {
 .s-sidebar__nav-link em {
    position: absolute;
    top: 50%;
-   left: 4em;
+   left: 3.3rem;
    transform: translateY(-50%);
 }
 

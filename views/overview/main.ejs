@@ -1,7 +1,5 @@
 <%- include("../partials/company-header") -%>
 
-<%- include('../modals/success') %>
-
 <div class='container-fluid main-content'>
 
     <% if (type == 'country') { %>
@@ -33,17 +31,18 @@
         <% }); %>
         </div>
     <% } else { %>
-        <table class="table table-striped thead-dark table-bordered" id="comm-table">
+            <!--table table-striped thead-dark table-bordered-->
+        <table class="mdl-data-table mdl-js-data-table" id="comm-table" style="width:100%">
             <thead>
             <tr>
-                <th>Batch No.</th>
-                <th>Tracking No.</th>
-                <th>Count</th>
-                <th>Area</th>
-                <th>Sender Name</th>
-                <th>Receiver Name</th>
-                <th>Status</th>
-                <th>Comments</th>
+                <th>BATCH NO.</th>
+                <th class="mdl-data-table__cell--non-numeric">TRACKING NO.</th>
+                <th class="">COUNT</th>
+                <th class="mdl-data-table__cell--non-numeric">AREA</th>
+                <th class="mdl-data-table__cell--non-numeric">SENDER</th>
+                <th class="mdl-data-table__cell--non-numeric">RECEIVER</th>
+                <th class="mdl-data-table__cell--non-numeric">STATUS</th>
+                <th class="mdl-data-table__cell--non-numeric">COMMENTS</th>
             </tr>
             </thead>
             <tbody>
