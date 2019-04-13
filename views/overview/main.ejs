@@ -61,10 +61,12 @@ $(document).ready(function() {
         // serverSide: true,
 		fields: [ {
 			label: "Status:",
-			name: "status"
+			name: "status",
+            type: "select",
+            options: ["NZ Port", "On Ship", "PH Port", "Customs", "Delivery", "Arrived"]
 		}, {
 			label: "Additional Comments: ",
-            name: "comment"
+            name: "comment",
         }],
         ajax: {
             edit: {
@@ -76,7 +78,7 @@ $(document).ready(function() {
             		const jsonData = JSON.stringify(d);
             		console.log(jsonData);
             		return jsonData;
-                }
+                },
             }
         }
 	});
@@ -115,7 +117,9 @@ $(document).ready(function() {
 					return firstName != undefined ? `${firstName} ${lastName}` : "<i>Not provided</i>";
 				}
 			},
-			{"data": "status"},
+			{
+				"data": "status"
+            },
 			{"data": "comment"}
 		],
 

@@ -22,7 +22,10 @@ const databases = require(__dirname + "/custom_node_modules/databases.js");
 // Body parsing and text processing
 const bodyParser = require("body-parser");
 const _ = require('lodash');
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({
+    extended:true,
+    useNewUrlParser : true
+}));
 app.use(bodyParser.json());
 
 // For Login Authentication
@@ -40,7 +43,6 @@ require('./custom_node_modules/passport')(passport);
 
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
-app.use(bodyParser.urlencoded({extended: false})); // get information from html forms
 app.use(session({resave: false, saveUninitialized: true, secret: 'secretsession' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
@@ -85,6 +87,7 @@ app.get("/overview", (req,res) => {
                 // Get response
                 let dbTransactionsArr = dbResponse[0].transactions;
                 dbTransactionsArr = JSON.stringify(dbTransactionsArr);
+                console.log(dbTransactionsArr);
                 res.render('overview/main', {title: title, contentArray: dbTransactionsArr, type:'transaction', link: req.originalUrl, view: view});
             })
             .catch((err) =>{
@@ -209,8 +212,8 @@ app.post("/tracking", (req,res) => {
 
     // Remove empty elements
     _.remove(trackingNumArray, (elem) => {return elem == ""});
+
     // Retrieve object with key = tracking num, value = status
-    // fucking source on how to do this bullshit jesus christ
     // https://lavrton.com/javascript-loops-how-to-handle-async-await-6252dd3c795/
 
     async function parseStatus() {
