@@ -48,9 +48,6 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash());
 
-require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
-
-
 // Use static files
 app.use(express.static("public"));
 
@@ -64,12 +61,49 @@ let Field = e.Field;
 let Validate = e.Validate;
 let Format = e.Format;
 
-/***************** INDEX PAGE *****************/
-app.get("/index2", (req, res) => {
-    res.render("index2");
+
+/***************** LOGIN PAGE *****************/
+app.get('/', function(req,res){
+    res.render('index.ejs', {message: req.flash('loginMessage')});
 });
+
+app.post('/login', passport.authenticate('local-login', {
+    successRedirect : '/profile', // redirect to the secure profile section
+    failureRedirect : '/', // redirect back to the signup page if there is an error
+    failureFlash : true // allow flash messages
+}));
+
+app.get('/signup', function(req,res){
+    res.render('signup.ejs', {message: req.flash('signupMessage')});
+});
+
+app.post('/signup', passport.authenticate('local-signup', {
+    successRedirect: '/profile',
+    failureFlash : true,
+    failureRedirect : '/signup'
+}));
+
+app.get('/profile', isLoggedIn, function(req, res){
+    res.render('profile.ejs', {
+        user: req.user
+    });
+});
+
+app.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+});
+
+// Function to authenticate page routes, else redirects to login page
+function isLoggedIn(req, res, next){ 
+    if(req.isAuthenticated())
+        return next();
+
+    res.redirect('/');
+}
+
 /***************** OVERVIEW PAGE *****************/
-app.get("/overview", (req,res) => {
+app.get("/overview", isLoggedIn, (req,res) => {
     // https://stackabuse.com/get-query-strings-and-parameters-in-express-js/
     let id = req.query.id;
     let comp = req.query.comp;
@@ -108,7 +142,7 @@ app.get("/overview", (req,res) => {
     };
 });
 
-app.post("/overview", async (req,res) => {
+app.post("/overview", isLoggedIn, async (req,res) => {
     // Get JSON data
     let updateEntriesArr = req.body;
 
@@ -149,11 +183,11 @@ app.get('/foreign', (req, res) => {
 });
 
 /***************** UPLOAD PAGE *****************/
-app.get("/upload", (req, res) => {
+app.get("/upload", isLoggedIn, (req, res) => {
     res.render("upload/prompt");
 });
 
-app.post("/upload", (req, res) => {
+app.post("/upload", isLoggedIn, (req, res) => {
     try {
         // Check if files were uploaded
         if (Object.keys(req.files).length == 0) {
@@ -185,11 +219,17 @@ app.post("/upload", (req, res) => {
 });
 
 /***************** TRACKING PAGE *****************/
-app.get("/tracking", (req,res) => {
-    res.render("tracking/prompt");
+app.get("/tracking", isLoggedIn, (req,res) => { 
+    res.render("tracking/prompt"); // this tracking search view is for loggedin users only
 });
 
 app.post("/tracking", (req,res) => {
+    let loggedin;
+    //check if user is a logged in user
+    if(req.isAuthenticated()) {
+        loggedin = true;
+    }
+
     // Retrieve tracking number from form
     let trackingNumberString = req.body.trackingNumber;
 
@@ -234,7 +274,12 @@ app.post("/tracking", (req,res) => {
                 continue;
             }
         }
-        res.render("tracking/results", {trackingTable: trackingStatus, trackingSender: trackingSender, trackingReceiver: trackingReceiver});
+        res.render("tracking/results", {
+            trackingTable: trackingStatus, 
+            trackingSender: trackingSender, 
+            trackingReceiver: trackingReceiver,
+            loggedin: loggedin
+        });
     }
 
     parseStatus();
