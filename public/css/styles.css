@@ -112,7 +112,7 @@ a:focus {
       text-transform: uppercase;
       color: #79889d; /* light blue */
   }
-  .progressbar li:before {
+  .progressbar li:before { /* for the circle */
       width: 30px;
       height: 30px;
       content: counter(step);
@@ -125,7 +125,7 @@ a:focus {
       border-radius: 50%;
       background-color: white;
   }
-  .progressbar li:after {
+  .progressbar li:after { /*for the line*/
       width: 100%;
       height: 3px;
       content: '';
@@ -141,24 +141,24 @@ a:focus {
   .progressbar li.active {
       color: #2039bc; /* blue */
   }
-  .progressbar li.active:before {
+  .progressbar li.active:before { /* for the circle */
       border-color: #2039bc; /* blue */
       background-color: #2039bc; /* blue */
       color: white;
   }
-  .progressbar li.active + li:after {
-      background-color: #2039bc; /* blue */
+  .progressbar li.active + li:after { /*for the line*/
+      background-color: #79889d; /* grey */
   }
 
-  .progressbar li.passive {
+  .progressbar li.passive { 
       color: #C4C4C4; /* grey */
   }
-  .progressbar li.passive:before {
+  .progressbar li.passive:before { /* for the circle */
       border-color: #C4C4C4; /* grey */
       background-color: #C4C4C4; /* grey */
       color: white;
   }
-  .progressbar li.passive + li:after {
+  .progressbar li.passive + li:after { /*for the line*/
       background-color: #C4C4C4; /* grey */
   }
 

@@ -277,7 +277,8 @@ app.post("/tracking", (req,res) => {
             trackingTable: trackingStatus, 
             trackingSender: trackingSender, 
             trackingReceiver: trackingReceiver,
-            loggedin: loggedin
+            loggedin: loggedin,
+            trackingNum: req.body.trackingNumber
         });
     }
 

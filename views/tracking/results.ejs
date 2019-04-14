@@ -66,7 +66,7 @@
             <div class="container">
                 <div>
                     <div class="row">
-                        <div style="width: 350px;">
+                        <div style="width: 360px;">
                             <form action="/tracking"  method="post">
                             <h3>Parcel Tracking</h3>
                             <input type="text" class="form-control mb-3" name="trackingNumber" placeholder="Enter your tracking number" style="font-size: 12px;" required>
@@ -77,11 +77,11 @@
                         </div>
                     </div>
                     <div class="row">
-                        <p style="color:grey width: 400px;">For multiple tracking numbers, separate with comma or a new line</p>
+                        <p style="color:grey width: 400px; font-size: 12px">For multiple tracking numbers, separate with comma or a new line</p>
                     </div>
                 </div>
                 <div class="row">
-                <h3>Details:</h3>
+                <h4>Details for <%=trackingNum%>:</h4>
                     <table class="table table-striped">
                         <thead>
                             <tr>
