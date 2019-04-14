@@ -143,6 +143,8 @@ a:focus {
   }
   .progressbar li.active:before {
       border-color: #2039bc;
+      background-color: #2039bc;
+      color: white;
   }
   .progressbar li.active + li:after {
       background-color: #2039bc;
