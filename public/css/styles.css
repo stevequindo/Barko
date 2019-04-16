@@ -175,14 +175,14 @@ a:focus {
     margin-left: 10px;
 }
 
+
 /***************** Home Page *****************/
 #background {
-  background-image: url('../images/Home.png');    
+  background: url('../images/Home.png') no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  width: 100%;
 }
 
 /***************** TABLE ********************/
