@@ -54,6 +54,7 @@ em {
    width: 15em;
    height: 100%;
    background: #f4f5f6;
+   z-index: 1;
 }
 
 .s-sidebar__nav:hover,
