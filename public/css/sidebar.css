@@ -111,7 +111,7 @@ em {
    transform: translate(-50%, -50%);
 }
 
-/* Mobile First */
+/* Mobile view */
 @media (min-width: 42em) {
    .s-layout__content {
       margin-left: 15em;
@@ -134,7 +134,7 @@ em {
       width: 15em;
    }
 }
-
+/* Tablet View */
 @media (min-width: 68em) {
    .s-layout__content {
       margin-left: 15em;
@@ -146,10 +146,16 @@ em {
    }
    
    .s-sidebar__nav {
-      width: 15em;
+      /*width: 15em;*/
    }
    
    .s-sidebar__nav ul {
       top: 1.3em;
+   }
+}
+@media (max-width:641px)  {  
+   .s-layout__content {
+      margin-top: 100px;
+      margin-left: -2%;
    }
 }

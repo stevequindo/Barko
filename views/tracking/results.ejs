@@ -89,7 +89,7 @@
                                 <th style="width: 160px">Tracking Number</th>
                                 <th style="width: 150px">Sender</th>
                                 <th style="width: 150px">Receiver</th>
-                                <th>Status</th>
+                                <th class="status-col">Status</th>
                                 <th>ETA</th>
                             </tr>
                         </thead>
@@ -117,7 +117,7 @@
                                         <td><%= item %></td>
                                         <td><%= trackingSender[item] %></td>
                                         <td><%= trackingReceiver[item] %></td>
-                                        <td>
+                                        <td class="status-item-col" >
                                         <% if (trackingTable[item] == "NZ Port") {  %>
 
                                             <ul class="progressbar">
