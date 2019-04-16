@@ -17,10 +17,14 @@ em {
    width: 100%;
    min-height: 100vh;
 }
+.container {
+   margin: 0 3% 0 3%;
+}
 
 .s-layout__content {
    display: flex;
    margin-top: 4%;
+   margin-left: 20%;
    flex: 1;
 }
 
@@ -120,7 +124,6 @@ em {
    }
    
    .s-sidebar__nav {
-      /*width: 4em;*/
       left: 0;
    }
    

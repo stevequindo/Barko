@@ -92,6 +92,14 @@ a:focus {
     width:18rem;
 }
 
+.container-text {
+  
+  color: #000000;
+}
+.container-text:hover {
+  color: #2039bc;
+}
+
 /***************** TRACKING *****************/
 
 .tracking-submit {
