@@ -66,13 +66,23 @@
             <div class="container">
                 <div>
                     <div class="row">
-                        <div style="width: 360px;">
+                        <div class="tracking-form-container">
                             <form action="/tracking"  method="post">
-                            <h3>Parcel Tracking</h3>
-                            <input type="text" class="form-control mb-3" name="trackingNumber" placeholder="Enter your tracking number" style="font-size: 12px;" required>
-                            <button type="submit" class="btn btn-block my-3 btn-sm" style="background-color: #2039bc; color: #FFFFFF">
-                                Track parcel
-                            </button>
+                                <h3>Parcel Tracking</h3>
+                                <div class="form-horizontal" style="margin-bottom: -20px;">
+                                    <div class="row">
+                                        <div>
+                                            <input class="form-control mb-3" type="text" name="trackingNumber" placeholder="Enter your tracking number" style="font-size: 12px;" required>
+                                        </div>
+                                        <label class="tracking-error-message"><img src="images/error_circle_icon.png" height="30px"> 
+                                            Invalid tracking number. Please try again.
+                                        </label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-block my-3 btn-sm track-btn" 
+                                    style="width: 365px; background-color: #2039bc; color: #FFFFFF;">
+                                    Track parcel
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -82,118 +92,173 @@
                 </div>
                 <div><br /></div>
                 <div class="row">
-                <h4>Tracking: <%=trackingNum%>:</h4>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th style="width: 160px">Tracking Number</th>
-                                <th style="width: 150px">Sender</th>
-                                <th style="width: 150px">Receiver</th>
-                                <th class="status-col">Status</th>
-                                <th>ETA</th>
-                            </tr>
-                        </thead>
+                 <%  
+                    let isValid = false;
+                    let validTrackingNum = [];
+                    let invalidTrackingNum = [];
 
-                        <tbody>
-                            <% for (let item in trackingTable) { %>
-                                <% if (trackingTable[item] == "") { %>
-                                    <tr style="color: red;">
-                                        <td>No status given for "<%= item %>".</td>
-                                        <td>N/A</td>
-                                        <td>N/A</td>
-                                        <td>N/A</td>
-                                        <td>N/A</td>
-                                    </tr>
-                                <% } else if (trackingTable[item] == "No results returned"){%>
-                                    <tr style="color: red;">
-                                        <td>No results returned for "<%= item %>"</td>
-                                        <td>N/A</td>
-                                        <td>N/A</td>
-                                        <td>N/A</td>
-                                        <td>N/A</td>
-                                    </tr>
-                                <% } else { %>
-                                    <tr>
-                                        <td><%= item %></td>
-                                        <td><%= trackingSender[item] %></td>
-                                        <td><%= trackingReceiver[item] %></td>
-                                        <td class="status-item-col" >
-                                        <% if (trackingTable[item] == "NZ Port") {  %>
+                    for (let item in trackingTable) {
+                        if (trackingTable[item] == "") { 
 
-                                            <ul class="progressbar">
-                                                <li class="active">NZ Port</li>
-                                                <li>On Ship</li>
-                                                <li>PH Port</li>
-                                                <li>Customs</li>
-                                                <li>Delivery</li>
-                                                <li>Arrived</li>
-                                            </ul>
+                            invalidTrackingNum.push(item);
+                        
+                        } else if (trackingTable[item] == "No results returned") {
 
-                                        <% } else if (trackingTable[item] == "On Ship") { %>
+                            invalidTrackingNum.push(item);
 
-                                            <ul class="progressbar">
-                                                <li class="passive">NZ Port</li>
-                                                <li class="active">On Ship</li>
-                                                <li>PH Port</li>
-                                                <li>Customs</li>
-                                                <li>Delivery</li>
-                                                <li>Arrived</li>
-                                            </ul>
+                        } else {
 
-                                        <% } else if (trackingTable[item] == "PH Port") { %>
+                            validTrackingNum.push(item);
+                            isValid = true;
+                        }
+                    } 
 
-                                            <ul class="progressbar">
-                                                <li class="passive">NZ Port</li>
-                                                <li class="passive">On Ship</li>
-                                                <li class="active">PH Port</li>
-                                                <li>Customs</li>
-                                                <li>Delivery</li>
-                                                <li>Arrived</li>
-                                            </ul>
+                    if(isValid) { %>
+                    
+                        <!-- Output all valid tracking numbers (testing purpose)-->
+                        <!-- <%  if(validTrackingNum.length > 0) { %>
+                                <h5>Valid Tracking Numbers: </h5>
+                                <% validTrackingNum.forEach(function(j) { %>
+                                    <h5><%- j %>, </h5>
+                        <%      });
+                            } 
+                        %> -->
 
-                                        <% } else if (trackingTable[item] == "Customs") { %>
+                        <!-- Output all invalid tracking numbers (testing purpose) -->
+                        <!-- <%  if(invalidTrackingNum.length > 0) { %>
+                                <h5>Invalid Tracking Numbers: </h5>
+                                <% invalidTrackingNum.forEach(function(i) { %>
+                                    <h5><%- i %>, </h5>
+                        <%      });
+                            } 
+                        %> -->
 
-                                            <ul class="progressbar">
-                                                <li class="passive">NZ Port</li>
-                                                <li class="passive">On Ship</li>
-                                                <li class="passive">PH Port</li>
-                                                <li class="active">Customs</li>
-                                                <li>Delivery</li>
-                                                <li>Arrived</li>
-                                            </ul>
+                        <h5>Tracking: <%= trackingNum%></h5>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="width: 160px">Tracking Number</th>
+                                    <th style="width: 150px">Sender</th>
+                                    <th style="width: 150px">Receiver</th>
+                                    <th class="status-col">Status</th>
+                                    <th>ETA</th>
+                                </tr>
+                            </thead>
 
-                                        <% } else if (trackingTable[item] == "Delivery") { %>
+                            <tbody>
+                                <% for (let item in trackingTable) { %>
+                                    <% if (trackingTable[item] == "") { %>
+                                        <tr style="color: red;">
+                                            <td>No status given for "<%= item %>".</td>
+                                            <td>N/A</td>
+                                            <td>N/A</td>
+                                            <td>N/A</td>
+                                            <td>N/A</td>
+                                        </tr>
+                                    <% } else if (trackingTable[item] == "No results returned") { %>
+                                        <tr style="color: red;">
+                                            <td>No results returned for "<%= item %>"</td>
+                                            <td>N/A</td>
+                                            <td>N/A</td>
+                                            <td>N/A</td>
+                                            <td>N/A</td>
+                                        </tr>
+                                    <% } else { %>
+                                        <tr>
+                                            <td><%= item %></td>
+                                            <td><%= trackingSender[item] %></td>
+                                            <td><%= trackingReceiver[item] %></td>
+                                            <td class="status-item-col" >
+                                            <% if (trackingTable[item] == "NZ Port") {  %>
 
-                                            <ul class="progressbar">
-                                                <li class="passive">NZ Port</li>
-                                                <li class="passive">On Ship</li>
-                                                <li class="passive">PH Port</li>
-                                                <li class="passive">Customs</li>
-                                                <li class="active">Delivery</li>
-                                                <li>Arrived</li>
-                                            </ul>
+                                                <ul class="progressbar">
+                                                    <li class="active">NZ Port</li>
+                                                    <li>On Ship</li>
+                                                    <li>PH Port</li>
+                                                    <li>Customs</li>
+                                                    <li>Delivery</li>
+                                                    <li>Arrived</li>
+                                                </ul>
 
-                                        <% } else if (trackingTable[item] == "Arrived") { %>
+                                            <% } else if (trackingTable[item] == "On Ship") { %>
 
-                                            <ul class="progressbar">
-                                                <li class="passive">NZ Port</li>
-                                                <li class="passive">On Ship</li>
-                                                <li class="passive">PH Port</li>
-                                                <li class="passive">Customs</li>
-                                                <li class="passive">Delivery</li>
-                                                <li class="active">Arrived</li>
-                                            </ul>
+                                                <ul class="progressbar">
+                                                    <li class="passive">NZ Port</li>
+                                                    <li class="active">On Ship</li>
+                                                    <li>PH Port</li>
+                                                    <li>Customs</li>
+                                                    <li>Delivery</li>
+                                                    <li>Arrived</li>
+                                                </ul>
 
-                                        <% } %>
-                                        </td>
-                                        <td>30-45 days</td>
-                                        <!-- <td><%= trackingTable[item] %></td> -->
-                                    </tr>
-                                <% }%>
-                            <% } %>
-                        </tbody>
-                    </table>
+                                            <% } else if (trackingTable[item] == "PH Port") { %>
+
+                                                <ul class="progressbar">
+                                                    <li class="passive">NZ Port</li>
+                                                    <li class="passive">On Ship</li>
+                                                    <li class="active">PH Port</li>
+                                                    <li>Customs</li>
+                                                    <li>Delivery</li>
+                                                    <li>Arrived</li>
+                                                </ul>
+
+                                            <% } else if (trackingTable[item] == "Customs") { %>
+
+                                                <ul class="progressbar">
+                                                    <li class="passive">NZ Port</li>
+                                                    <li class="passive">On Ship</li>
+                                                    <li class="passive">PH Port</li>
+                                                    <li class="active">Customs</li>
+                                                    <li>Delivery</li>
+                                                    <li>Arrived</li>
+                                                </ul>
+
+                                            <% } else if (trackingTable[item] == "Delivery") { %>
+
+                                                <ul class="progressbar">
+                                                    <li class="passive">NZ Port</li>
+                                                    <li class="passive">On Ship</li>
+                                                    <li class="passive">PH Port</li>
+                                                    <li class="passive">Customs</li>
+                                                    <li class="active">Delivery</li>
+                                                    <li>Arrived</li>
+                                                </ul>
+
+                                            <% } else if (trackingTable[item] == "Arrived") { %>
+
+                                                <ul class="progressbar">
+                                                    <li class="passive">NZ Port</li>
+                                                    <li class="passive">On Ship</li>
+                                                    <li class="passive">PH Port</li>
+                                                    <li class="passive">Customs</li>
+                                                    <li class="passive">Delivery</li>
+                                                    <li class="active">Arrived</li>
+                                                </ul>
+
+                                            <% } %>
+                                            </td>
+                                            <td>30-45 days</td>
+                                            <!-- <td><%= trackingTable[item] %></td> -->
+                                        </tr>
+                                    <% }%>
+                                <% } %>
+                            </tbody>
+                        </table>
+                <%  } %>
                 </div>
             </div>
 
 <%- include("../partials/footer") -%>
+<script type="text/javascript">
+
+$( ".track-btn" ).click(function() {
+
+});
+
+<% if(invalidTrackingNum.length > 0) { %>
+
+        $('.tracking-error-message').show();
+
+<% } %>
+
+</script>
