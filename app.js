@@ -7,7 +7,9 @@ const clientFilesPath = "/client_files/";
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3030;
+
 app.set('view engine', 'ejs');
+
 // File uploading
 const fileUpload = require("express-fileupload");
 app.use(fileUpload());
@@ -103,6 +105,7 @@ function isLoggedIn(req, res, next){
 }
 
 /***************** OVERVIEW PAGE *****************/
+
 app.get("/overview", isLoggedIn, (req,res) => {
     // https://stackabuse.com/get-query-strings-and-parameters-in-express-js/
     let id = req.query.id;
@@ -224,6 +227,7 @@ app.get("/tracking", isLoggedIn, (req,res) => {
 
 app.post("/tracking", (req,res) => {
     let loggedin;
+
     //check if user is a logged in user
     if(req.isAuthenticated()) {
         loggedin = true;
@@ -273,6 +277,7 @@ app.post("/tracking", (req,res) => {
                 continue;
             }
         }
+
         res.render("tracking/results", {
             trackingTable: trackingStatus, 
             trackingSender: trackingSender, 
@@ -284,6 +289,9 @@ app.post("/tracking", (req,res) => {
 
     parseStatus();
 });
+
+
+/***************** RECENT MANIFEST *****************/
 
 
 /***************** ERROR *****************/
