@@ -40,7 +40,7 @@ var session      = require('express-session');
 
 var configDB = require('./custom_node_modules/database.js');
 
-mongoose.connect(configDB.url);
+mongoose.connect(configDB.url, {useNewUrlParser: true});
 require('./custom_node_modules/passport')(passport);
 
 app.use(morgan('dev')); // log every request to the console
@@ -115,10 +115,9 @@ app.get('/overview', isLoggedIn, (req,res) => {
 app.get("/overview/country/:country", isLoggedIn, async (req,res) => {
     // Country is defined -> Show the manifest files for that country
     let country = decodeURIComponent(req.params.country.toLowerCase());
-
-    console.log("Displaying for one country");
-
     let companiesArray = await databases.getContainers(country);
+
+    // Render the container files
     res.render('overview/containers', {contentArray: companiesArray, country: country});
 });
 
@@ -129,9 +128,8 @@ app.get("/overview/country/:country/id/:id", isLoggedIn, (req,res) => {
     databases.getTransactions(id, country)
         .then((dbResponse) => {
             // Get response
-            let transactionsArray = JSON.stringify(dbResponse[0].transactions);
+            let transactionsArray = JSON.stringify(dbResponse.transactions);
             res.render('overview/transactions', {contentArray: transactionsArray, country: country, id: id});
-            // res.send(transactionsArray);
         })
         .catch((err) => {
             console.log(err);
@@ -150,8 +148,9 @@ app.post("/overview", isLoggedIn, async (req,res) => {
 });
 
 /***************** RECENT PAGE *****************/
-app.get('/recent', (req,res) => {
-
+app.get('/recent', isLoggedIn, async (req,res) => {
+    const results = await databases.getLatestTransactionInfo();
+    res.redirect(`/overview/country/${results.departureCountry}/id/${results._id}`);
 });
 
 /***************** FOREIGN PAGE *****************/
@@ -289,10 +288,6 @@ app.post("/tracking", (req,res) => {
 
     parseStatus();
 });
-
-
-/***************** RECENT MANIFEST *****************/
-
 
 /***************** ERROR *****************/
 app.get("*", (req,res) => {
