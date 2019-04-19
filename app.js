@@ -6,7 +6,7 @@ const clientFilesPath = "/client_files/";
 // Set up express
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3030;
+const port = process.env.PORT || 3050;
 
 app.set('view engine', 'ejs');
 
@@ -105,44 +105,57 @@ function isLoggedIn(req, res, next){
 }
 
 /***************** OVERVIEW PAGE *****************/
-
-app.get("/overview", isLoggedIn, (req,res) => {
-    // https://stackabuse.com/get-query-strings-and-parameters-in-express-js/
-    let id = req.query.id;
-    let comp = req.query.comp;
-
-    let view = 'phillipines';
-
-    // Determine what the user wants based on their var paths
-    if (comp !== undefined) {
-        // Company is defined -> Show the transactions for that company
-        let title = `${comp}: Containers`;
-
-        // https://medium.com/@rossbulat/using-promises-async-await-with-mongodb-613ed8243900
-        databases.getContainers()
-            .then((dbResponse) => {
-                // Get response
-                let dbTransactionsArr = dbResponse[0].transactions;
-                dbTransactionsArr = JSON.stringify(dbTransactionsArr);
-                res.render('overview/main', {title: title, contentArray: dbTransactionsArr, type:'transaction', link: req.originalUrl, view: view});
-            })
-            .catch((err) =>{
-                console.log(err);
-            });
-
-    } else if (id !== undefined){
-        // Country is defined -> Show the MANIFEST FILES FOR THE COMPANY
-        let title = `${id}: Manifest Files`;
-
-        let companiesArray = databases.getPhManifestFiles(id);
-        res.render('overview/main', {contentArray: companiesArray, title: title, type: 'manifest', link: req.originalUrl, view: view});
-    } else {
-        // Show all countries
-        let countryArray = databases.getCountries();
-        let title = "Countries";
-        res.render('overview/main', {contentArray: countryArray, title: title, type: 'country',link: req.originalUrl, view: view});
-    };
+app.get('/overview', isLoggedIn, (req,res) => {
+    // Show all countries
+    let countryArray = databases.getCountries();
+    let title = "Countries";
+    res.render('overview/countries', {contentArray: countryArray, title: title});
 });
+
+app.get("/overview/country/:country", isLoggedIn, async (req,res) => {
+    // Country is defined -> Show the manifest files for that country
+    let country = decodeURIComponent(req.params.country.toLowerCase());
+
+    console.log("Displaying for one country");
+
+    let companiesArray = await databases.getContainers(country);
+    res.render('overview/containers', {contentArray: companiesArray, country: country});
+});
+
+app.get("/overview/country/:country/id/:id", isLoggedIn, (req,res) => {
+    let country = decodeURIComponent(req.params.country);
+    let id = decodeURIComponent(req.params.id);
+
+    databases.getTransactions(id, country)
+        .then((dbResponse) => {
+            // Get response
+            let transactionsArray = JSON.stringify(dbResponse[0].transactions);
+            res.render('overview/transactions', {contentArray: transactionsArray, country: country, id: id});
+            // res.send(transactionsArray);
+        })
+        .catch((err) => {
+            console.log(err);
+            // TODO: Add 404 and error page
+        });
+});
+
+// app.get("/overview/:country/:id", isLoggedIn, (req,res) => {
+//     // -> Show the transactions for that company
+//     let title = `${comp}: Containers`;
+//
+//     // https://medium.com/@rossbulat/using-promises-async-await-with-mongodb-613ed8243900
+//     databases.getContainers()
+//         .then((dbResponse) => {
+//             // Get response
+//             let dbTransactionsArr = dbResponse[0].transactions;
+//             dbTransactionsArr = JSON.stringify(dbTransactionsArr);
+//             res.render('overview/main', {title: title, contentArray: dbTransactionsArr, type:'transaction', link: req.originalUrl, view: view});
+//         })
+//         .catch((err) =>{
+//             console.log(err);
+//         });
+// });
+
 
 app.post("/overview", isLoggedIn, async (req,res) => {
     // Get JSON data
