@@ -70,6 +70,7 @@ app.get('/', function(req,res){
 });
 
 app.post('/login', passport.authenticate('local-login', {
+
     successRedirect : '/profile', // redirect to the secure profile section
     failureRedirect : '/', // redirect back to the signup page if there is an error
     failureFlash : true // allow flash messages
@@ -86,9 +87,17 @@ app.post('/signup', passport.authenticate('local-signup', {
 }));
 
 app.get('/profile', isLoggedIn, function(req, res){
-    res.render('profile.ejs', {
-        user: req.user
-    });
+    
+	let user = req.user.local.email;
+
+	if(user == "overseas") {
+
+		res.redirect('/upload');
+
+	} else {
+		res.redirect('/recent');
+	}
+    
 });
 
 app.get('/logout', function(req, res){
@@ -185,7 +194,11 @@ app.get('/foreign', (req, res) => {
 
 /***************** UPLOAD PAGE *****************/
 app.get("/upload", isLoggedIn, (req, res) => {
-    res.render("upload/prompt");
+
+	let user = req.user.local.email;
+    res.render("upload/prompt", {
+        user: user
+    });
 });
 
 app.post("/upload", isLoggedIn, (req, res) => {
