@@ -6,7 +6,7 @@
     <% item.subtitle = item.freightCount %>
     <% item.imgUrl = item.flagUrl %>
     <% item.link = `/overview/country/${encodeURIComponent(item.countryName)}` %>
-    <%- include('container', {contentItem:item}) %>
+    <%- include('country-container', {contentItem:item}) %>
     <% if ((index + 1) % 4 == 0) { %>
         </div>
     <div class='row no-gutters d-flex align-content-start my-3'>
