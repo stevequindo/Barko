@@ -8,61 +8,16 @@
         <link rel="shortcut icon" href="images/icon.png"/>
         <title>Tracking</title>
 
-        <!-- Roboto Font -->
-        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <%- include("../partials/style-declarations")%>
 
         <!-- Input Tag CSS -->
         <link rel="stylesheet" href="css/bootstrap-tagsinput.css">
-        <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'> -->
-        
-        <!-- Sidebar CSS -->
-        <link rel="stylesheet" type="text/css" href="css/sidebar.css">
-        <!--Custom CSS-->
-        <link rel="stylesheet" href="css/styles.css"></link>
 
-        <!--jQuery-->
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.0.js"></script>
-
-        <!--Datatables-->
-        <link rel="stylesheet" type="text/css" href="/DataTables/datatables.min.css"/>
-        <script type="text/javascript" src="/DataTables/datatables.min.js"></script>
     </head>
 <body>
     <div class="s-layout">
         <!-- Sidebar -->
-        <div class="s-layout__sidebar">
-          <a class="s-sidebar__trigger" href="#0">
-             <i class="fa fa-bars" style="color: #f4f5f6;"></i>
-          </a>
-
-          <nav class="s-sidebar__nav">
-             <ul>
-                <li><a href="/">
-                    <h4 style="color: #000000; margin: 5% 0 10% 20%;"><img src="images/icon.png" height="30px" style="margin-top: -2%"><strong> Comms</strong></a></h4>
-                </li>
-                <!-- display side bar links only if user is logged in -->
-                 <% if(loggedin) { %> 
-                    <li><a class="s-sidebar__nav-link" href="/upload">
-                         <em><strong>Recent Manifest</strong></em></a>
-                    </li>
-                    <li><a class="s-sidebar__nav-link" href="/overview">
-                         <em><strong>Countries</strong></em></a>
-                    </li>
-                    <li><a class="s-sidebar__nav-link" href="/tracking">
-                          <em><strong>Tracking</strong></em></a>
-                    </li>
-                    <li><a class="s-sidebar__nav-link" href="/logout">
-                          <em><strong>Logout</strong></em></a>
-                    </li>
-                <% } %>
-             </ul>
-          </nav>
-        </div>
+        <%- include("../partials/sidebar")%>
 
         <!-- Content -->
         <main class="s-layout__content">
