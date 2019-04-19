@@ -139,24 +139,6 @@ app.get("/overview/country/:country/id/:id", isLoggedIn, (req,res) => {
         });
 });
 
-// app.get("/overview/:country/:id", isLoggedIn, (req,res) => {
-//     // -> Show the transactions for that company
-//     let title = `${comp}: Containers`;
-//
-//     // https://medium.com/@rossbulat/using-promises-async-await-with-mongodb-613ed8243900
-//     databases.getContainers()
-//         .then((dbResponse) => {
-//             // Get response
-//             let dbTransactionsArr = dbResponse[0].transactions;
-//             dbTransactionsArr = JSON.stringify(dbTransactionsArr);
-//             res.render('overview/main', {title: title, contentArray: dbTransactionsArr, type:'transaction', link: req.originalUrl, view: view});
-//         })
-//         .catch((err) =>{
-//             console.log(err);
-//         });
-// });
-
-
 app.post("/overview", isLoggedIn, async (req,res) => {
     // Get JSON data
     let updateEntriesArr = req.body;
@@ -165,6 +147,11 @@ app.post("/overview", isLoggedIn, async (req,res) => {
     const resultsJSON = await databases.updateEntries(updateEntriesArr);
 
     res.send(JSON.stringify(resultsJSON));
+});
+
+/***************** RECENT PAGE *****************/
+app.get('/recent', (req,res) => {
+
 });
 
 /***************** FOREIGN PAGE *****************/
