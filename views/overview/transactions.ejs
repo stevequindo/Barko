@@ -1,0 +1,105 @@
+<%- include("../partials/company-header") -%>
+
+<table class="mdl-data-table mdl-js-data-table row-border compact" id="comm-table" style="width:100%">
+	<thead>
+	<tr>
+		<th>BATCH NO.</th>
+		<th class="mdl-data-table__cell--non-numeric">TRACKING NO.</th>
+		<th class="">COUNT</th>
+		<th class="mdl-data-table__cell--non-numeric">AREA</th>
+		<th class="mdl-data-table__cell--non-numeric">SENDER</th>
+		<th class="mdl-data-table__cell--non-numeric">RECEIVER</th>
+		<th class="mdl-data-table__cell--non-numeric">STATUS</th>
+		<th class="mdl-data-table__cell--non-numeric">COMMENTS</th>
+	</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+</div>
+
+<script>
+$(document).ready(function() {
+	// Initialise editor
+	let editor = new $.fn.dataTable.Editor({
+		table: '#comm-table',
+		idSrc: "_id",
+        // serverSide: true,
+		fields: [ {
+			label: "Status:",
+			name: "status",
+            type: "select",
+            options: ["NZ Port", "On Ship", "PH Port", "Customs", "Delivery", "Arrived"]
+		}, {
+			label: "Additional Comments: ",
+            name: "comment",
+        }],
+        ajax: {
+            edit: {
+            	type: 'POST',
+                url: '/overview',
+				contentType: 'application/json',
+                data: (d) => {
+            		d = d.data;
+            		const jsonData = JSON.stringify(d);
+            		console.log(jsonData);
+            		return jsonData;
+                },
+            }
+        }
+	});
+
+	// Initialise data table
+	let table = $('#comm-table').DataTable({
+		dom: 'lBfrtip',
+		buttons: [
+            'selectAll',
+			{ extend: "edit",   editor: editor },
+            'pdf',
+	    ],
+        lengthMenu: [[25, 50,100, -1], [25, 50,100, "All"]],
+		paginate: true,
+		processing: true,
+		select: true,
+		stateSave: true,
+		"data":<%- contentArray %>,
+        columnDefs: [
+			{
+				targets: "_all",
+				className: 'dt-left'
+			}
+        ],
+		"columns": [
+			{"data": "batchNo"},
+			{"data": "trackingNumber"},
+			{"data": "count"},
+			{"data": "area"},
+			{
+				"data": null,
+				render: function (data, type, row) {
+					let firstName = row.sender_link.firstName;
+					let lastName = row.sender_link.lastName;
+					return firstName != undefined ? `${firstName} ${lastName}` : "<i>Not provided</i>";
+				}
+			},
+			{
+				"data": "receiver_link.firstName",
+				render: function (data, type, row) {
+					let firstName = row.receiver_link.firstName;
+					let lastName = row.receiver_link.lastName;
+					return firstName != undefined ? `${firstName} ${lastName}` : "<i>Not provided</i>";
+				}
+			},
+			{
+				"data": "status"
+            },
+			{"data": "comment"}
+		],
+
+	});
+});
+</script>
+<%- include("../partials/footer") -%>
+
+
+

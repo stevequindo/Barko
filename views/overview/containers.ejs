@@ -1,0 +1,18 @@
+<%- include("../partials/company-header") -%>
+
+<div class='row no-gutters d-flex align-content-start my-3'>
+    <% contentArray.forEach((item,index) => { %>
+        <% item.name = `${item.containerCompany}`%>
+        <% const date = item.dateAdded %>
+        <% item.subtitle = `${date.getDate()+1}/${date.getMonth()+1}/${date.getFullYear()}`%>
+        <% item.content = item.transactions.length %>
+        <% item.link = `/overview/country/${encodeURIComponent(country)}/id/${item._id}`%>
+        <%- include('container-manifest', {contentItem: item}) %>
+        <% if ((index + 1) % 4 == 0) { %>
+</div>
+<div class='row no-gutters d-flex align-content-start my-3'>
+    <% } %>
+    <% }); %>
+</div>
+
+<%- include("../partials/footer") -%>
