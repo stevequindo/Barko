@@ -8,15 +8,18 @@
         <link rel="shortcut icon" href="images/icon.png"/>
         <title>Tracking</title>
 
-        <!-- FONTS -->
+        <!-- Roboto Font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+        <!-- Input Tag CSS -->
+        <link rel="stylesheet" href="css/bootstrap-tagsinput.css">
+        <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'> -->
+        
         <!-- Sidebar CSS -->
         <link rel="stylesheet" type="text/css" href="css/sidebar.css">
         <!--Custom CSS-->
@@ -67,31 +70,35 @@
                 <div>
                     <div class="row">
                         <div class="tracking-form-container">
-                            <form action="/tracking"  method="post">
                                 <h3>Parcel Tracking</h3>
                                 <div class="form-horizontal" style="margin-bottom: -20px;">
                                     <div class="row">
-                                        <div>
-                                            <input class="form-control mb-3" type="text" name="trackingNumber" placeholder="Enter your tracking number" style="font-size: 12px;" required>
-                                        </div>
-                                        <label class="tracking-error-message"><img src="images/error_circle_icon.png" height="30px"> 
-                                            Invalid tracking number. Please try again.
-                                        </label>
+                                        <form id="tracking-form" action="/tracking"  method="post" style="margin-top: 15px">
+                                        <input 
+                                            id="tracking-input-tag" 
+                                            type="text" 
+                                            name="trackingNumber" 
+                                            value="" 
+                                            data-role="tagsinput" 
+                                            placeholder="Enter your tracking number" 
+                                            required />
+                                        </form>
+                                        <!-- Button placed ouside of form so that form doesnt auto submit when enter is pressed, to allow input tag to work -->
+                                        <button type="submit" class="btn btn-block my-3 btn-sm track-btn text-white" onclick="track();">
+                                            Track parcel
+                                        </button>
                                     </div>
+                                    <p style="color:grey width: 400px; font-size: 12px; margin: 0 0 25px 20px;">
+                                        For multiple tracking numbers, press enter.
+                                    </p>
                                 </div>
-                                <button type="submit" class="btn btn-block my-3 btn-sm track-btn" 
-                                    style="width: 365px; background-color: #2039bc; color: #FFFFFF;">
-                                    Track parcel
-                                </button>
-                            </form>
                         </div>
                     </div>
-                    <div class="row">
-                        <p style="color:grey width: 400px; font-size: 12px">For multiple tracking numbers, separate with comma or a new line</p>
-                    </div>
                 </div>
+
                 <div><br /></div>
                 <div class="row">
+                    <h5>Tracking: </h5>
                  <%  
                     let isValid = false;
                     let validTrackingNum = [];
@@ -100,75 +107,95 @@
                     for (let item in trackingTable) {
                         if (trackingTable[item] == "") { 
 
-                            invalidTrackingNum.push(item);
-                        
+                            invalidTrackingNum.push(item); %>
+
+                            <div style="margin: 0 0 10px 10px">
+                                <span class="badge badge-pill error-msg" style="background-color: #cf5564; color: #FFFFFF; font-size: 16px;">
+                                    <%- item %><i class="fas fa-times" style="padding-left: 5px"></i>
+                                </span>
+                            </div>
+
+                        <%
                         } else if (trackingTable[item] == "No results returned") {
 
-                            invalidTrackingNum.push(item);
+                            invalidTrackingNum.push(item); %>
 
+                            <div style="margin: 0 0 10px 10px">
+                                <span class="badge badge-pill error-msg" style="background-color: #cf5564; color: #FFFFFF; font-size: 16px;">
+                                    <%- item %><i class="fas fa-times" style="padding-left: 5px"></i>
+                                </span>
+                            </div>
+                        <%
                         } else {
 
                             validTrackingNum.push(item);
-                            isValid = true;
-                        }
+                            isValid = true; %>
+
+                            <div style="margin: 0 0 10px 10px">
+                                <span class="badge badge-pill error-msg" style="background-color: #C4C4C4; color: #FFFFFF; font-size: 16px">
+                                    <%- item %><i class="fas fa-check" style="padding-left: 5px"></i>
+                                </span>
+                            </div>
+                    <%  }
                     } 
 
                     if(isValid) { %>
                     
                         <!-- Output all valid tracking numbers (testing purpose)-->
                         <!-- <%  if(validTrackingNum.length > 0) { %>
-                                <h5>Valid Tracking Numbers: </h5>
+                                Tracking: <br />
                                 <% validTrackingNum.forEach(function(j) { %>
-                                    <h5><%- j %>, </h5>
+                                    <div style="margin: 0 10px 10px 10px">
+                                    <span class="badge badge-pill error-msg" style="background-color: #C4C4C4; color: #FFFFFF; font-size: 16px;">
+                                        <%- j %><i class="fas fa-check" style="padding-left: 5px"></i>
+                                    </span>
+                                    </div>
                         <%      });
                             } 
                         %> -->
 
                         <!-- Output all invalid tracking numbers (testing purpose) -->
                         <!-- <%  if(invalidTrackingNum.length > 0) { %>
-                                <h5>Invalid Tracking Numbers: </h5>
                                 <% invalidTrackingNum.forEach(function(i) { %>
-                                    <h5><%- i %>, </h5>
+                                    <div style="margin: 0 10px 10px 10px">
+                                    <span class="badge badge-pill error-msg" style="background-color: #cf5564; color: #FFFFFF; font-size: 16px;">
+                                        <%- i %><i class="fas fa-times" style="padding-left: 5px"></i>
+                                    </span>
+                                    </div>
                         <%      });
                             } 
                         %> -->
-
-                        <h5>Tracking: <%= trackingNum%></h5>
                         <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th style="width: 160px">Tracking Number</th>
                                     <th style="width: 150px">Sender</th>
                                     <th style="width: 150px">Receiver</th>
-                                    <th class="status-col">Status</th>
-                                    <th>ETA</th>
+                                    <th class="status-col" colspan="2">Status</th>
+                                    <th colspan="2">ETA</th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 <% for (let item in trackingTable) { %>
                                     <% if (trackingTable[item] == "") { %>
-                                        <tr style="color: red;">
-                                            <td>No status given for "<%= item %>".</td>
-                                            <td>N/A</td>
-                                            <td>N/A</td>
-                                            <td>N/A</td>
-                                            <td>N/A</td>
+                                        <tr style="color: #cf5564;">
+                                            <td colspan="2">! <%= item %></td>
+                                            <td colspan="4">Invalid Tracking Number. Please type in a valid number.</td>
+                                            <td><span class="close">&times;</span></td>
                                         </tr>
                                     <% } else if (trackingTable[item] == "No results returned") { %>
-                                        <tr style="color: red;">
-                                            <td>No results returned for "<%= item %>"</td>
-                                            <td>N/A</td>
-                                            <td>N/A</td>
-                                            <td>N/A</td>
-                                            <td>N/A</td>
+                                        <tr style="color: #cf5564;">
+                                            <td colspan="2">! <%= item %></td>
+                                            <td colspan="4">Invalid Tracking Number. Please type in a valid number.</td>
+                                            <td><span class="close">&times;</span></td>
                                         </tr>
                                     <% } else { %>
                                         <tr>
                                             <td><%= item %></td>
                                             <td><%= trackingSender[item] %></td>
                                             <td><%= trackingReceiver[item] %></td>
-                                            <td class="status-item-col" >
+                                            <td class="status-item-col" colspan="2">
                                             <% if (trackingTable[item] == "NZ Port") {  %>
 
                                                 <ul class="progressbar">
@@ -238,7 +265,7 @@
                                             <% } %>
                                             </td>
                                             <td>30-45 days</td>
-                                            <!-- <td><%= trackingTable[item] %></td> -->
+                                            <td><span class="close">&times;</span></td>
                                         </tr>
                                     <% }%>
                                 <% } %>
@@ -248,17 +275,30 @@
                 </div>
             </div>
 
-<%- include("../partials/footer") -%>
+            <!-- End of container -->
+        </main>
+    </div>
+
+</body> 
+</html>
 <script type="text/javascript">
 
-$( ".track-btn" ).click(function() {
+// onclick submit function for track button
+function track() {
+    $('#tracking-form').submit();
+}
 
-});
 
-<% if(invalidTrackingNum.length > 0) { %>
+// script for closing items in the table
+var closebtns = document.getElementsByClassName("close");
+var i;
 
-        $('.tracking-error-message').show();
-
-<% } %>
+for (i = 0; i < closebtns.length; i++) {
+  closebtns[i].addEventListener("click", function() {
+    this.parentElement.parentElement.style.display = 'none';
+  });
+}
 
 </script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
+<script  src="js/bootstrap-tagsinput.js"></script>

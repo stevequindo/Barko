@@ -51,8 +51,27 @@ a:focus {
 }
 
 /***************** TRACKING *****************/
+.close { color: #cf5564; }
+.close:hover {
+  cursor: pointer;
+}
+
+.track-btn {
+    width: 150px; 
+    background-color: #2039bc; 
+    color: #FFFFFF;
+    margin-left: 20px;
+}
+
+
+@media (max-width:641px), @media (min-width: 68em) {  
+   .track-btn {
+      width: 360px; 
+   }
+}
+
 .tracking-form-container {
-    /*width: 360px;*/
+    width: auto;
 }
 .form-horizontal .row div {
     margin-left: 18px;
@@ -148,8 +167,6 @@ a:focus {
   }
   .status-item-col {
     margin-left: 20px;
-  }
-  .progressbar {
   }
 
   .progressbar li {
