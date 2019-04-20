@@ -224,10 +224,10 @@ app.post("/upload", isLoggedIn, (req, res) => {
                 res.render('upload/failure', {errorMessage: "File was empty"})
             }
 
-            res.render("upload/success", {summary: summary});
+            res.render("upload/success", {summary: summary, user: req.user.local.email});
         });
     } catch(e) {
-        res.render('upload/failure', {errorMessage: e});
+        res.render('upload/failure', {errorMessage: e, user: req.user.local.email});
     }
 });
 

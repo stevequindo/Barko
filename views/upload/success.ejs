@@ -1,35 +1,90 @@
-<%- include("../partials/header")%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-<div class="container">
-    <div class="row">
-        <h1>Upload Successful!</h1>
+    <link rel="shortcut icon" href="/images/icon.png"/>
+    <title>Comms</title>
+
+    <%- include("../partials/style-declarations") %>
+</head>
+<body>
+<div class="s-layout">
+    <!-- Sidebar -->
+    <div class="s-layout__sidebar">
+        <a class="s-sidebar__trigger" href="#0">
+            <i class="fa fa-bars" style="color: #f4f5f6;"></i>
+        </a>
+
+        <nav class="s-sidebar__nav">
+            <ul>
+                <li><a href="/">
+                        <h4 style="color: #000000; margin: 5% 0 10% 20%;"><img src="images/icon.png" height="30px" style="margin-top: -2%"><strong> Comms</strong></a></h4>
+                </li>
+                <!-- display side bar links only if user is logged in -->
+                <% if(user == "overseas") { %>
+                    <!-- overseas company view -->
+                    <li><a class="s-sidebar__nav-link" href="/upload">
+                            <em><strong>Manifest File</strong></em></a>
+                    </li>
+                <% } else { %>
+                    <!-- staff view -->
+                    <li><a class="s-sidebar__nav-link" href="/recent">
+                            <em><strong>Recent Manifest</strong></em></a>
+                    </li>
+                    <li>
+                        <a class="s-sidebar__nav-link" href="/upload">
+                            <em><strong>Upload</strong></em>
+                        </a>
+                    </li>
+                    <li><a class="s-sidebar__nav-link" href="/overview">
+                            <em><strong>Countries</strong></em></a>
+                    </li>
+                    <li><a class="s-sidebar__nav-link" href="/tracking">
+                            <em><strong>Tracking</strong></em></a>
+                    </li>
+                <% } %>
+                <li><a class="s-sidebar__nav-link" href="/logout">
+                        <em><strong>Logout</strong></em></a>
+                </li>
+            </ul>
+        </nav>
     </div>
 
-    <table class="table table-sm">
-        <tbody>
-            <tr>
-                <th scope="row">Containers added</th>
-                <td><%=summary.containersAdded%></td>
-            </tr>
-            <tr>
-                <th scope="row">Senders added</th>
-                <td><%=summary.sendersAdded%></td>
-            </tr>
-            <tr>
-                <th scope="row">Receivers added</th>
-                <td><%=summary.receiversAdded%></td>
-            </tr>
-            <tr>
-                <th scope="row">Empty Sheets</th>
-                <td><%=summary.emptySheets%></td>
-            </tr>
-        </tbody>
-    </table>
+    <!-- Content -->
+    <main class="s-layout__content">
+        <div class="container">
+            <div class="row">
+                <h1>Upload Successful!</h1>
+            </div>
 
-    <div class="row">
-        <a class="btn btn-primary mr-3" href="/overview">Go to overview</a>
-        <a class="btn btn-primary" href="/upload">Upload another</a>
-    </div>
-</div>
+            <table class="table table-sm">
+                <tbody>
+                    <tr>
+                        <th scope="row">Containers added</th>
+                        <td><%=summary.containersAdded%></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Senders added</th>
+                        <td><%=summary.sendersAdded%></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Receivers added</th>
+                        <td><%=summary.receiversAdded%></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Empty Sheets</th>
+                        <td><%=summary.emptySheets%></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="row">
+                <a class="btn btn-primary mr-3" href="/overview">Go to overview</a>
+                <a class="btn btn-primary" href="/upload">Upload another</a>
+            </div>
+        </div>
 
 <%- include("../partials/footer")%>
