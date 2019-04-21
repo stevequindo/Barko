@@ -44,7 +44,10 @@
             </table>
 
             <div class="row">
-                <a class="btn btn-primary mr-3" href="/overview">Go to overview</a>
+                <a class="btn btn-primary mr-3" href="/recent">Check my file</a>
+                <% if (user != "overseas") {%>
+                    <a class="btn btn-primary mr-3" href="/overview">Go to overview</a>
+                <% } %>
                 <a class="btn btn-primary" href="/upload">Upload another</a>
             </div>
         </div>
