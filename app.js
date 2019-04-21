@@ -64,9 +64,6 @@ let Field = e.Field;
 let Validate = e.Validate;
 let Format = e.Format;
 
-// User
-
-
 
 /***************** LOGIN PAGE *****************/
 app.get('/', function(req,res){
@@ -158,7 +155,7 @@ app.get("/overview/country/:country/id/:id", isLoggedIn, (req,res) => {
 app.post("/overview", isLoggedIn, async (req,res) => {
     let user = req.user.local.email;
 
-    if (user != "overseas")
+    if (user == "overseas")
         res.redirect("/upload");
 
     // Get JSON data
