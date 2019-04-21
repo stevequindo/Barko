@@ -171,6 +171,10 @@ app.post("/overview", isLoggedIn, async (req,res) => {
 app.get('/recent', isLoggedIn, async (req,res) => {
     let user = req.user.local.email;
     const results = await databases.getLatestTransactionInfo();
+
+    if (results == null)
+        res.redirect("/upload");
+
     res.redirect(`/overview/country/${results.departureCountry}/id/${results._id}`);
 });
 //
