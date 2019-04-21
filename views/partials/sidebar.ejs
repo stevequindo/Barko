@@ -9,22 +9,30 @@
             <li><a class="s-sidebar__nav-link" href="/profile">
                     <h4 style="color: #000000; margin: 5% 0 10% 20%;"><img src="/images/icon.png" height="30px" style="margin-top: -2%"><strong> Comms</strong></a></h4>
             </li>
-            <li>
-                <a class="s-sidebar__nav-link" href="/recent">
-                    <em><strong>Recent Manifests</strong></em>
-                </a>
-            </li>
-            <li>
-                <a class="s-sidebar__nav-link" href="/upload">
-                    <em><strong>Upload</strong></em>
-                </a>
-            </li>
-            <li><a class="s-sidebar__nav-link" href="/overview">
-                    <em><strong>Countries</strong></em></a>
-            </li>
-            <li><a class="s-sidebar__nav-link" href="/tracking">
-                    <em><strong>Tracking</strong></em></a>
-            </li>
+
+            <!-- display side bar links only if user is logged in -->
+            <% if(user == "overseas") { %>
+                <!-- overseas company view -->
+                <li><a class="s-sidebar__nav-link" href="/recent">
+                        <em><strong>Manifest File</strong></em></a>
+                </li>
+            <% } else { %>
+                <!-- staff view -->
+                <li><a class="s-sidebar__nav-link" href="/recent">
+                        <em><strong>Recent Manifest</strong></em></a>
+                </li>
+                <li>
+                    <a class="s-sidebar__nav-link" href="/upload">
+                        <em><strong>Upload</strong></em>
+                    </a>
+                </li>
+                <li><a class="s-sidebar__nav-link" href="/overview">
+                        <em><strong>Countries</strong></em></a>
+                </li>
+                <li><a class="s-sidebar__nav-link" href="/tracking">
+                        <em><strong>Tracking</strong></em></a>
+                </li>
+            <% } %>
             <li><a class="s-sidebar__nav-link" href="/logout">
                     <em><strong>Logout</strong></em></a>
             </li>

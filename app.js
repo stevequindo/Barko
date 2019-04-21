@@ -114,22 +114,28 @@ function isLoggedIn(req, res, next){
 
 /***************** OVERVIEW PAGE *****************/
 app.get('/overview', isLoggedIn, (req,res) => {
+    let user = req.user.local.email;
+
     // Show all countries
     let countryArray = databases.getCountries();
     let title = "Countries";
-    res.render('overview/countries', {contentArray: countryArray, title: title});
+    res.render('overview/countries', {contentArray: countryArray, title: title, user: user});
 });
 
 app.get("/overview/country/:country", isLoggedIn, async (req,res) => {
+    let user = req.user.local.email;
+
     // Country is defined -> Show the manifest files for that country
     let country = decodeURIComponent(req.params.country.toLowerCase());
     let companiesArray = await databases.getContainers(country);
 
     // Render the container files
-    res.render('overview/containers', {contentArray: companiesArray, country: country});
+    res.render('overview/containers', {contentArray: companiesArray, country: country, user: user});
 });
 
 app.get("/overview/country/:country/id/:id", isLoggedIn, (req,res) => {
+    let user = req.user.local.email;
+
     let country = decodeURIComponent(req.params.country);
     let id = decodeURIComponent(req.params.id);
 
@@ -137,15 +143,20 @@ app.get("/overview/country/:country/id/:id", isLoggedIn, (req,res) => {
         .then((dbResponse) => {
             // Get response
             let transactionsArray = JSON.stringify(dbResponse.transactions);
-            res.render('overview/transactions', {contentArray: transactionsArray, country: country, id: id});
+            res.render('overview/transactions', {contentArray: transactionsArray, country: country, id: id, user: user});
         })
         .catch((err) => {
-            console.log(err);
             // TODO: Add 404 and error page
+            console.log(err);
         });
 });
 
 app.post("/overview", isLoggedIn, async (req,res) => {
+    let user = req.user.local.email;
+
+    if (user != "overseas")
+        res.redirect("/upload");
+
     // Get JSON data
     let updateEntriesArr = req.body;
 
@@ -157,43 +168,43 @@ app.post("/overview", isLoggedIn, async (req,res) => {
 
 /***************** RECENT PAGE *****************/
 app.get('/recent', isLoggedIn, async (req,res) => {
+    let user = req.user.local.email;
     const results = await databases.getLatestTransactionInfo();
     res.redirect(`/overview/country/${results.departureCountry}/id/${results._id}`);
 });
-
-/***************** FOREIGN PAGE *****************/
-app.get('/foreign', (req, res) => {
-    // https://stackabuse.com/get-query-strings-and-parameters-in-express-js
-    let id = req.query.id;
-    let comp = req.query.comp;
-
-    if (comp !== undefined) {
-        // Company is defined -> Show the transactions for that company
-        // https://medium.com/@rossbulat/using-promises-async-await-with-mongodb-613ed8243900
-        let title = `${comp}: Containers`;
-        databases.getContainers()
-            .then((dbResponse) => {
-                // Get response
-                let dbTransactionsArr = dbResponse[0].transactions;
-                res.render('overview/main', {title: title, contentArray: dbTransactionsArr, type:'transaction', link: req.originalUrl, view: 'foreign'});
-            })
-            .catch((err) =>{
-                console.log(err);
-            });
-    } else if (id !== undefined) {
-        // Country is defined -> Show the companies for that country
-        let title = `Your Manifest Files`;
-        id = 'Spain';
-        let companiesArray = databases.getForeignManifestFiles(id);
-        res.render('overview/main', {contentArray: companiesArray, title: title, type: 'manifest', link: req.originalUrl, view: 'foreign'});
-    } else {
-        res.redirect("/foreign?id=main");
-    }
-});
+//
+// /***************** FOREIGN PAGE *****************/
+// app.get('/foreign', (req, res) => {
+//     // https://stackabuse.com/get-query-strings-and-parameters-in-express-js
+//     let id = req.query.id;
+//     let comp = req.query.comp;
+//
+//     if (comp !== undefined) {
+//         // Company is defined -> Show the transactions for that company
+//         // https://medium.com/@rossbulat/using-promises-async-await-with-mongodb-613ed8243900
+//         let title = `${comp}: Containers`;
+//         databases.getContainers()
+//             .then((dbResponse) => {
+//                 // Get response
+//                 let dbTransactionsArr = dbResponse[0].transactions;
+//                 res.render('overview/main', {title: title, contentArray: dbTransactionsArr, type:'transaction', link: req.originalUrl, view: 'foreign'});
+//             })
+//             .catch((err) =>{
+//                 console.log(err);
+//             });
+//     } else if (id !== undefined) {
+//         // Country is defined -> Show the companies for that country
+//         let title = `Your Manifest Files`;
+//         id = 'Spain';
+//         let companiesArray = databases.getForeignManifestFiles(id);
+//         res.render('overview/main', {contentArray: companiesArray, title: title, type: 'manifest', link: req.originalUrl, view: 'foreign'});
+//     } else {
+//         res.redirect("/foreign?id=main");
+//     }
+// });
 
 /***************** UPLOAD PAGE *****************/
 app.get("/upload", isLoggedIn, (req, res) => {
-
 	let user = req.user.local.email;
     res.render("upload/prompt", {
         user: user
@@ -201,6 +212,8 @@ app.get("/upload", isLoggedIn, (req, res) => {
 });
 
 app.post("/upload", isLoggedIn, (req, res) => {
+    let user = req.user.local.email;
+
     try {
         // Check if files were uploaded
         if (Object.keys(req.files).length == 0) {
@@ -221,28 +234,25 @@ app.post("/upload", isLoggedIn, (req, res) => {
             let summary = databases.parseJsonWorkbook(jsonWorkbook);
 
             if (summary.containersAdded == 0) {
-                res.render('upload/failure', {errorMessage: "File was empty"})
+                res.render('upload/failure', {errorMessage: "File was empty", user: user})
             }
 
-            res.render("upload/success", {summary: summary, user: req.user.local.email});
+            res.render("upload/success", {summary: summary, user: user});
         });
     } catch(e) {
-        res.render('upload/failure', {errorMessage: e, user: req.user.local.email});
+        res.render('upload/failure', {errorMessage: e, user: user});
     }
 });
 
 /***************** TRACKING PAGE *****************/
-app.get("/tracking", isLoggedIn, (req,res) => { 
-    res.render("tracking/prompt"); // this tracking search view is for loggedin users only
+app.get("/tracking", isLoggedIn, (req,res) => {
+    let user = req.user.local.email;
+
+    res.render("tracking/prompt", {user: user}); // this tracking search view is for loggedin users only
 });
 
-app.post("/tracking", (req,res) => {
-    let loggedin;
-
-    //check if user is a logged in user
-    if(req.isAuthenticated()) {
-        loggedin = true;
-    }
+app.post("/tracking", isLoggedIn, (req,res) => {
+    let user = req.user.local.email;
 
     // Retrieve tracking number from form
     let trackingNumberString = req.body.trackingNumber;
@@ -293,8 +303,8 @@ app.post("/tracking", (req,res) => {
             trackingTable: trackingStatus, 
             trackingSender: trackingSender, 
             trackingReceiver: trackingReceiver,
-            loggedin: loggedin,
-            trackingNum: req.body.trackingNumber
+            trackingNum: req.body.trackingNumber,
+            user: user
         });
     }
 
@@ -305,7 +315,6 @@ app.post("/tracking", (req,res) => {
 app.get("*", (req,res) => {
     res.send('Error 404: Page not found');
 });
-
 
 /***************** SERVER *****************/
 let server = app.listen(port, () => {
