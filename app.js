@@ -92,7 +92,7 @@ app.get('/profile', isLoggedIn, function(req, res){
 	let user = req.user.local.email;
 
 	if(user == "overseas") {
-		res.redirect('/upload');
+		res.redirect('/recent');
 
 	} else {
 		res.redirect('/recent');
