@@ -248,12 +248,18 @@ app.post("/upload", isLoggedIn, (req, res) => {
 /***************** TRACKING PAGE *****************/
 app.get("/tracking", isLoggedIn, (req,res) => {
     let user = req.user.local.email;
-
     res.render("tracking/prompt", {user: user}); // this tracking search view is for loggedin users only
 });
 
-app.post("/tracking", isLoggedIn, (req,res) => {
-    let user = req.user.local.email;
+app.post("/tracking", (req,res) => {
+
+    let user = "";
+    // check if user is a logged in user, to restrict sidebar view approperiately for staff and overseas
+    if(req.isAuthenticated()) {
+    	user = req.user.local.email;
+    } 
+    // otherwise this tracking page is still accessible without login, with nothing on the sidebar
+
 
     // Retrieve tracking number from form
     let trackingNumberString = req.body.trackingNumber;
@@ -292,6 +298,9 @@ app.post("/tracking", isLoggedIn, (req,res) => {
                 trackingStatus[elem] = await databases.findStatus(elem);
                 trackingSender[elem] = await databases.findSender(elem);
                 trackingReceiver[elem] = await databases.findReceiver(elem);
+
+                console.log(elem + ". Tracking Status[elem]: " + trackingStatus[elem]); // for testing
+
             } catch(err) {
                 trackingStatus[elem] = err;
                 trackingSender[elem] = err;

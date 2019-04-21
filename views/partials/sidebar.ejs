@@ -21,7 +21,10 @@
                         <em><strong>Upload</strong></em>
                     </a>
                 </li>
-            <% } else { %>
+                <li><a class="s-sidebar__nav-link" href="/logout">
+                    <em><strong>Logout</strong></em></a>
+                </li>
+            <% } else if(user == "staff") { %>
                 <!-- staff view -->
                 <li><a class="s-sidebar__nav-link" href="/recent">
                         <em><strong>Recent Manifest</strong></em></a>
@@ -37,10 +40,16 @@
                 <li><a class="s-sidebar__nav-link" href="/tracking">
                         <em><strong>Tracking</strong></em></a>
                 </li>
-            <% } %>
-            <li><a class="s-sidebar__nav-link" href="/logout">
+                <li><a class="s-sidebar__nav-link" href="/logout">
                     <em><strong>Logout</strong></em></a>
-            </li>
+                </li>
+            <% } else { %>
+                <!-- 
+                    public view (not loggedin)
+                    display nothing on sidebar
+                -->
+            <% } %>
+            
         </ul>
     </nav>
 </div>
