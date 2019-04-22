@@ -5,6 +5,12 @@
 
 .s-sidebar__nav-link {
    font-family: 'Roboto',sans-serif;
+   font-size: 1rem;
+}
+
+.s-sidebar__nav-header {
+   font-family: 'Roboto',sans-serif;
+   font-size: 1.5rem;
 }
 
 em {
@@ -51,7 +57,7 @@ em {
    left: -15em;
    overflow: hidden;
    transition: all .3s ease-in;
-   width: 15em;
+   width: 210px;
    height: 100%;
    background: #f4f5f6;
    z-index: 1;
@@ -132,7 +138,7 @@ em {
    .s-sidebar__nav:focus,
    .s-sidebar__trigger:hover + .s-sidebar__nav,
    .s-sidebar__trigger:focus + .s-sidebar__nav {
-      width: 15em;
+      width: 210px;
    }
 }
 /* Tablet View */
