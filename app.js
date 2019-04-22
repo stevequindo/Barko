@@ -170,12 +170,14 @@ app.post("/overview", isLoggedIn, async (req,res) => {
 /***************** RECENT PAGE *****************/
 app.get('/recent', isLoggedIn, async (req,res) => {
     let user = req.user.local.email;
-    const results = await databases.getLatestTransactionInfo();
 
-    if (results == null)
+    try {
+        let results = await databases.getLatestTransactionInfo();
+
+        res.redirect(`/overview/country/${results.departureCountry}/id/${results._id}`);
+    } catch(e) {
         res.redirect("/upload");
-
-    res.redirect(`/overview/country/${results.departureCountry}/id/${results._id}`);
+    }
 });
 //
 // /***************** FOREIGN PAGE *****************/
