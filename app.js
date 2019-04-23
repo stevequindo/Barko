@@ -88,16 +88,8 @@ app.post('/signup', passport.authenticate('local-signup', {
 }));
 
 app.get('/profile', isLoggedIn, function(req, res){
-    
 	let user = req.user.local.email;
-
-	if(user == "overseas") {
-		res.redirect('/recent');
-
-	} else {
-		res.redirect('/recent');
-	}
-    
+    res.redirect('/recent');
 });
 
 app.get('/logout', function(req, res){
@@ -147,7 +139,6 @@ app.get("/overview/country/:country/id/:id", isLoggedIn, (req,res) => {
             res.render('overview/transactions', {contentArray: transactionsArray, country: country, id: id, user: user});
         })
         .catch((err) => {
-            // TODO: Add 404 and error page
             console.log(err);
         });
 });
@@ -156,7 +147,7 @@ app.post("/overview", isLoggedIn, async (req,res) => {
     let user = req.user.local.email;
 
     if (user == "overseas")
-        res.redirect("/upload");
+        res.redirect("/recent");
 
     // Get JSON data
     let updateEntriesArr = req.body;
@@ -176,43 +167,17 @@ app.get('/recent', isLoggedIn, async (req,res) => {
 
         res.redirect(`/overview/country/${results.departureCountry}/id/${results._id}`);
     } catch(e) {
-        res.redirect("/upload");
+        res.redirect("/");
     }
 });
-//
-// /***************** FOREIGN PAGE *****************/
-// app.get('/foreign', (req, res) => {
-//     // https://stackabuse.com/get-query-strings-and-parameters-in-express-js
-//     let id = req.query.id;
-//     let comp = req.query.comp;
-//
-//     if (comp !== undefined) {
-//         // Company is defined -> Show the transactions for that company
-//         // https://medium.com/@rossbulat/using-promises-async-await-with-mongodb-613ed8243900
-//         let title = `${comp}: Containers`;
-//         databases.getContainers()
-//             .then((dbResponse) => {
-//                 // Get response
-//                 let dbTransactionsArr = dbResponse[0].transactions;
-//                 res.render('overview/main', {title: title, contentArray: dbTransactionsArr, type:'transaction', link: req.originalUrl, view: 'foreign'});
-//             })
-//             .catch((err) =>{
-//                 console.log(err);
-//             });
-//     } else if (id !== undefined) {
-//         // Country is defined -> Show the companies for that country
-//         let title = `Your Manifest Files`;
-//         id = 'Spain';
-//         let companiesArray = databases.getForeignManifestFiles(id);
-//         res.render('overview/main', {contentArray: companiesArray, title: title, type: 'manifest', link: req.originalUrl, view: 'foreign'});
-//     } else {
-//         res.redirect("/foreign?id=main");
-//     }
-// });
 
 /***************** UPLOAD PAGE *****************/
 app.get("/upload", isLoggedIn, (req, res) => {
 	let user = req.user.local.email;
+
+	if (user == "overseas")
+	    res.redirect("/recent");
+
     res.render("upload/prompt", {
         user: user
     });

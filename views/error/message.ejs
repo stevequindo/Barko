@@ -1,0 +1,22 @@
+<%- include("../partials/header", {user: user}) -%>
+
+<div class="row no-gutters d-flex align-content-start my-3">
+
+    <div class="container">
+        <div class="row">
+            <h1><%- messageHeader %></h1>
+        </div>
+
+        <div class="row">
+            <p><%- messageBody %></p>
+        </div>
+
+        <div class="row">
+            <a class="btn btn-primary" href="/recent">Go to my Recent Manifest</a>
+        </div>
+    </div>
+
+</div>
+
+
+<%- include("../partials/footer") -%>
