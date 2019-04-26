@@ -38,9 +38,6 @@ var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
 var session      = require('express-session');
 
-var configDB = require('./custom_node_modules/database.js');
-
-mongoose.connect(configDB.url, {useNewUrlParser: true});
 require('./custom_node_modules/passport')(passport);
 
 app.use(morgan('dev')); // log every request to the console
@@ -88,7 +85,6 @@ app.post('/signup', passport.authenticate('local-signup', {
 }));
 
 app.get('/profile', isLoggedIn, function(req, res){
-	let user = req.user.local.email;
     res.redirect('/recent');
 });
 
@@ -107,7 +103,7 @@ function isLoggedIn(req, res, next){
 
 /***************** OVERVIEW PAGE *****************/
 app.get('/overview', isLoggedIn, (req,res) => {
-    let user = req.user.local.email;
+    let user = req.user.local.role;
 
     // Show all countries
     let countryArray = databases.getCountries();
@@ -116,7 +112,7 @@ app.get('/overview', isLoggedIn, (req,res) => {
 });
 
 app.get("/overview/country/:country", isLoggedIn, async (req,res) => {
-    let user = req.user.local.email;
+    let user = req.user.local.role;
 
     // Country is defined -> Show the manifest files for that country
     let country = decodeURIComponent(req.params.country.toLowerCase());
@@ -127,7 +123,7 @@ app.get("/overview/country/:country", isLoggedIn, async (req,res) => {
 });
 
 app.get("/overview/country/:country/id/:id", isLoggedIn, (req,res) => {
-    let user = req.user.local.email;
+    let user = req.user.local.role;
 
     let country = decodeURIComponent(req.params.country);
     let id = decodeURIComponent(req.params.id);
@@ -144,7 +140,7 @@ app.get("/overview/country/:country/id/:id", isLoggedIn, (req,res) => {
 });
 
 app.post("/overview", isLoggedIn, async (req,res) => {
-    let user = req.user.local.email;
+    let user = req.user.local.role;
 
     if (user == "overseas")
         res.redirect("/recent");
@@ -160,8 +156,7 @@ app.post("/overview", isLoggedIn, async (req,res) => {
 
 /***************** RECENT PAGE *****************/
 app.get('/recent', isLoggedIn, async (req,res) => {
-    let user = req.user.local.email;
-
+    let user = req.user.local.role;
     try {
         let results = await databases.getLatestTransactionInfo();
 
@@ -187,7 +182,7 @@ app.get('/recent', isLoggedIn, async (req,res) => {
 
 /***************** UPLOAD PAGE *****************/
 app.get("/upload", isLoggedIn, (req, res) => {
-	let user = req.user.local.email;
+	let user = req.user.local.role;
 
 	if (user == "overseas")
 	    res.redirect("/recent");
@@ -198,7 +193,7 @@ app.get("/upload", isLoggedIn, (req, res) => {
 });
 
 app.post("/upload", isLoggedIn, (req, res) => {
-    let user = req.user.local.email;
+    let user = req.user.local.role;
 
     try {
         // Check if files were uploaded
@@ -232,7 +227,7 @@ app.post("/upload", isLoggedIn, (req, res) => {
 
 /***************** TRACKING PAGE *****************/
 app.get("/tracking", isLoggedIn, (req,res) => {
-    let user = req.user.local.email;
+    let user = req.user.local.role;
     res.render("tracking/prompt", {user: user}); // this tracking search view is for loggedin users only
 });
 
@@ -241,7 +236,7 @@ app.post("/tracking", (req,res) => {
     let user = "";
     // check if user is a logged in user, to restrict sidebar view approperiately for staff and overseas
     if(req.isAuthenticated()) {
-    	user = req.user.local.email;
+    	user = req.user.local.role;
     } 
     // otherwise this tracking page is still accessible without login, with nothing on the sidebar
 
