@@ -43,7 +43,6 @@ $(document).ready(function() {
                 data: (d) => {
             		d = d.data;
             		const jsonData = JSON.stringify(d);
-            		console.log(jsonData);
             		return jsonData;
                 },
             }
@@ -66,6 +65,11 @@ $(document).ready(function() {
 		select: true,
 		stateSave: true,
 		"data":<%- contentArray %>,
+		deferRender:    true,
+		// scrollY:        2000,
+		scrollCollapse: true,
+		scroller:       true,
+		"deferLoading": <%- contentArray.length %>,
         columnDefs: [
 			{
 				targets: "_all",
