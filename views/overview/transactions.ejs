@@ -19,7 +19,6 @@
 </div>
 
 <script>
-
 $(document).ready(function() {
 	// Initialise editor
 	let editor = new $.fn.dataTable.Editor({
@@ -66,7 +65,7 @@ $(document).ready(function() {
 		stateSave: true,
 		"data":<%- contentArray %>,
 		deferRender:    true,
-		// scrollY:        2000,
+		scrollY: 400,
 		scrollCollapse: true,
 		scroller:       true,
 		"deferLoading": <%- contentArray.length %>,
@@ -102,7 +101,6 @@ $(document).ready(function() {
             },
 			{"data": "comment"}
 		],
-
 	});
 });
 </script>
