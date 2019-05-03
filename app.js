@@ -25,7 +25,7 @@ const databases = require(__dirname + "/custom_node_modules/databases.js");
 const bodyParser = require("body-parser");
 const _ = require('lodash');
 app.use(bodyParser.urlencoded({
-    extended:true,
+    extended : true,
     useNewUrlParser : true
 }));
 app.use(bodyParser.json());
@@ -60,8 +60,6 @@ let Editor = e.Editor;
 let Field = e.Field;
 let Validate = e.Validate;
 let Format = e.Format;
-
-
 /***************** LOGIN PAGE *****************/
 app.get('/', function(req,res){
     res.render('index.ejs', {message: req.flash('loginMessage')});
@@ -240,7 +238,6 @@ app.post("/tracking", (req,res) => {
     } 
     // otherwise this tracking page is still accessible without login, with nothing on the sidebar
 
-
     // Retrieve tracking number from form
     let trackingNumberString = req.body.trackingNumber;
 
@@ -331,7 +328,6 @@ getJsonWorkbook = function(pathName) {
         // Append to jsonWorkbook with key = sheetName and value = jsonSheet
         jsonWorkbook[sheetNames[i]] = jsonSheet;
     }
-
 
     return jsonWorkbook;
 }
