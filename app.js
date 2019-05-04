@@ -53,13 +53,6 @@ app.use(express.static("public"));
 // Express.js initialisations
 app.set('view engine', 'ejs');
 
-// Datatables
-let e = require('datatables.net-editor-server');
-
-let Editor = e.Editor;
-let Field = e.Field;
-let Validate = e.Validate;
-let Format = e.Format;
 /***************** LOGIN PAGE *****************/
 app.get('/', function(req,res){
     res.render('index.ejs', {message: req.flash('loginMessage')});
