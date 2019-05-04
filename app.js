@@ -92,12 +92,14 @@ function isLoggedIn(req, res, next){
 }
 
 /***************** OVERVIEW PAGE *****************/
-app.get('/overview', isLoggedIn, (req,res) => {
+app.get('/overview', isLoggedIn, async (req, res) => {
     let user = req.user.local.role;
 
     // Show all countries
-    let countryArray = databases.getCountries();
+    let countryArray = await databases.getCountries(req.user);
     let title = "Countries";
+
+    console.log(countryArray);
     res.render('overview/countries', {contentArray: countryArray, title: title, user: user});
 });
 
@@ -202,7 +204,7 @@ app.post("/upload", isLoggedIn, (req, res) => {
             }
 
             let jsonWorkbook = getJsonWorkbook(pathName);
-            let summary = databases.parseJsonWorkbook(jsonWorkbook);
+            let summary = databases.parseJsonWorkbook(jsonWorkbook, req.user);
 
             if (summary.containersAdded == 0) {
                 res.render('upload/failure', {errorMessage: "File was empty", user: user})
