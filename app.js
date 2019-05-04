@@ -98,8 +98,6 @@ app.get('/overview', isLoggedIn, async (req, res) => {
     // Show all countries
     let countryArray = await databases.getCountries(req.user);
     let title = "Countries";
-
-    console.log(countryArray);
     res.render('overview/countries', {contentArray: countryArray, title: title, user: user});
 });
 
@@ -108,7 +106,8 @@ app.get("/overview/country/:country", isLoggedIn, async (req,res) => {
 
     // Country is defined -> Show the manifest files for that country
     let country = decodeURIComponent(req.params.country.toLowerCase());
-    let companiesArray = await databases.getContainers(country);
+    let companiesArray = await databases.getContainers(country, req.user);
+    console.log(companiesArray);
 
     // Render the container files
     res.render('overview/containers', {contentArray: companiesArray, country: country, user: user});
