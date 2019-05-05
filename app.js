@@ -185,17 +185,15 @@ app.get("/overview/country/:country/id/:id", isLoggedIn, (req,res) => {
         });
 });
 
-app.post("/overview", isLoggedIn, async (req,res) => {
+app.post("/overview/update", isLoggedIn, async (req,res) => {
     let user = req.user.local.role;
-
-    if (user == "overseas")
-        res.redirect("/recent");
+    const containerId =  req.headers["containerid"];
 
     // Get JSON data
     let updateEntriesArr = req.body;
 
     // Update the entries
-    const resultsJSON = await databases.updateEntries(updateEntriesArr);
+    const resultsJSON = await databases.updateEntries(updateEntriesArr, req.user, containerId);
 
     res.send(JSON.stringify(resultsJSON));
 });
@@ -260,7 +258,7 @@ app.post("/upload", isLoggedIn, (req, res) => {
             let jsonWorkbook = getJsonWorkbook(pathName);
             let summary = databases.parseJsonWorkbook(jsonWorkbook, req.user);
 
-            if (summary.containersAdded == 0) {
+            if (summary.containersAdded === 0) {
                 res.render('upload/failure', {errorMessage: "File was empty", user: user})
             }
 

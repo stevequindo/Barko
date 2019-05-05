@@ -27,24 +27,42 @@ $(document).ready(function() {
 		table: '#comm-table',
 		idSrc: "_id",
         // serverSide: true,
-		fields: [ {
-			label: "Status:",
-			name: "status",
-            type: "select",
-            options: ["NZ Port", "On Ship", "PH Port", "Customs", "Delivery", "Arrived"]
-		}, {
-			label: "Additional Comments: ",
-            name: "comment",
-        }],
+		fields: [
+			{
+				label: "Status:",
+				name: "status.stage",
+				type: "select",
+				options: [
+					"At Departing Port",
+					"On Transit",
+					"At Destination Port",
+					"At Customs",
+					"For Dispatch",
+					"For Delivery",
+					"Delivered"]
+			},
+			{
+				label:"Estimated Arrival Date to Port",
+				type: "datetime",
+				name: "status.estPortArrivalDate",
+				def:   function () { return new Date(); },
+				format: 'DD/MM/YYYY',
+			},
+			{
+				label: "Additional Comments: ",
+				name: "comment",
+			},
+        ],
         ajax: {
             edit: {
             	type: 'POST',
-                url: '/overview',
+                url: '/overview/update',
+				headers :{
+            		"containerId" : "<%-id%>"
+				},
 				contentType: 'application/json',
                 data: (d) => {
-            		d = d.data;
-            		const jsonData = JSON.stringify(d);
-            		return jsonData;
+					return JSON.stringify(d.data);
                 },
             }
         }
@@ -66,7 +84,7 @@ $(document).ready(function() {
 		select: true,
 		stateSave: true,
 		"data":<%- contentArray %>,
-		deferRender:    true,
+		deferRender: true,
 		scrollY: 400,
 		"scrollX": true,
 		scrollCollapse: true,
@@ -88,7 +106,7 @@ $(document).ready(function() {
 				render: function (data, type, row) {
 					let firstName = row.sender.firstName;
 					let lastName = row.sender.lastName;
-					return firstName != undefined ? `${firstName} ${lastName}` : "<i>Not provided</i>";
+					return firstName !== undefined ? `${firstName} ${lastName}` : "<i>Not provided</i>";
 				}
 			},
 			{
@@ -96,27 +114,29 @@ $(document).ready(function() {
 				render: function (data, type, row) {
 					let firstName = row.receiver.firstName;
 					let lastName = row.receiver.lastName;
-					return firstName != undefined ? `${firstName} ${lastName}` : "<i>Not provided</i>";
+					return firstName !== undefined ? `${firstName} ${lastName}` : "<i>Not provided</i>";
 				}
 			},
 			{
 				"data": null,
 				render: function (data,type,row) {
 					let address = row.receiver.address;
-					return address != undefined ? address.toString() : "<i>Not provided</i>";
+					return address !== undefined ? address.toString() : "<i>Not provided</i>";
 				},
 				// "width": "1rem"
 			},
 			{"data": "status.stage"},
 			{
-				"data": null,
+				"data": "status.estPortArrivalDate",
 				render: function(data, type, row) {
-					// if (row.hasOwnProperty("eta")) {
-					// 	return row['eta'];
-					// } else {
-					// 	return 3;
-					// }
-					return row['status.estDeliveryDate'] !== undefined ? row['status.estDeliveryDate'] : 'Unknown';
+					let estPortArrivalDate = row.status.estPortArrivalDate;
+
+					if (estPortArrivalDate) {
+						let date = new Date(estPortArrivalDate);
+						return date.toDateString();
+					} else {
+						return 'Unknown';
+					}
 				},
 			},
 			{"data": "comment"}

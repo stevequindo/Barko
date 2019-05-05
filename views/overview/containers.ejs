@@ -3,7 +3,7 @@
 <div class='row no-gutters d-flex align-content-start my-3'>
     <% contentArray.forEach((item,index) => { %>
         <% const date = item.dateAdded %>
-        <% item.subtitle = `${date.getDate()+1}/${date.getMonth()+1}/${date.getFullYear()}`%>
+        <% item.subtitle = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`%>
         <% item.link = `/overview/country/${encodeURIComponent(country)}/id/${item._id}`%>
         <%- include('manifest-container', {contentItem: item}) %>
         <% if ((index + 1) % 3 == 0) { %>
