@@ -115,18 +115,18 @@ app.get("/overview/country/:country", isLoggedIn, async (req,res) => {
 
 app.get("/overview/country/:country/id/:id", isLoggedIn, (req,res) => {
     let user = req.user.local.role;
+    const country =  decodeURIComponent(req.params.country);
+    const id = decodeURIComponent(req.params.id);
 
-    let country = decodeURIComponent(req.params.country);
-    let id = decodeURIComponent(req.params.id);
-
-    databases.getTransactions(id, country)
+    databases.getContainerLines(id, req.user)
         .then((dbResponse) => {
             // Get response
-            let transactionsArray = JSON.stringify(dbResponse.transactions);
-            res.render('overview/transactions', {contentArray: transactionsArray, country: country, id: id, user: user});
+            let transactionsArray = JSON.stringify(dbResponse["containerLine"]);
+            console.log(transactionsArray);
+            res.render('overview/containerLines', {contentArray: transactionsArray, country: country, id: id, user: user});
         })
         .catch((err) => {
-            console.log(err);
+            throw (err);
         });
 });
 

@@ -76,39 +76,38 @@ $(document).ready(function() {
 			{
 				targets: "_all",
 				className: 'dt-left',
-
 			}
         ],
 		"columns": [
 			{"data": "batchNo"},
-			{"data": "trackingNumber"},
+			{"data": "trackingNo"},
 			{"data": "count"},
 			{"data": "area"},
 			{
 				"data": null,
 				render: function (data, type, row) {
-					let firstName = row.sender_link.firstName;
-					let lastName = row.sender_link.lastName;
+					let firstName = row.sender.firstName;
+					let lastName = row.sender.lastName;
 					return firstName != undefined ? `${firstName} ${lastName}` : "<i>Not provided</i>";
 				}
 			},
 			{
 				"data": null,
 				render: function (data, type, row) {
-					let firstName = row.receiver_link.firstName;
-					let lastName = row.receiver_link.lastName;
+					let firstName = row.receiver.firstName;
+					let lastName = row.receiver.lastName;
 					return firstName != undefined ? `${firstName} ${lastName}` : "<i>Not provided</i>";
 				}
 			},
 			{
 				"data": null,
 				render: function (data,type,row) {
-					let address = row.receiver_link.address;
+					let address = row.receiver.address;
 					return address != undefined ? address.toString() : "<i>Not provided</i>";
 				},
 				// "width": "1rem"
 			},
-			{"data": "status"},
+			{"data": "status.stage"},
 			{
 				"data": null,
 				render: function(data, type, row) {
@@ -117,7 +116,7 @@ $(document).ready(function() {
 					// } else {
 					// 	return 3;
 					// }
-					return row['eta'] !== undefined ? row['eta'] : 'Unknown';
+					return row['status.estDeliveryDate'] !== undefined ? row['status.estDeliveryDate'] : 'Unknown';
 				},
 			},
 			{"data": "comment"}
