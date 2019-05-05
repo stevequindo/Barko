@@ -128,12 +128,35 @@ app.get('/overview', isLoggedIn, async (req, res) => {
 app.get("/overview/country/:country", isLoggedIn, async (req,res) => {
     let user = req.user.local.role;
 
-    // Country is defined -> Show the manifest files for that country
-    let country = decodeURIComponent(req.params.country.toLowerCase());
-    let containerArray = await databases.getContainers(country, req.user);
+    try {
+        // Country is defined -> Show the manifest files for that country
+        let country = decodeURIComponent(req.params.country.toLowerCase());
+        let containerArray = await databases.getContainers(country, req.user);
 
-    // Render the container files
-    res.render('overview/containers', {contentArray: containerArray, country: country, user: user});
+        // Redirect away if no containers
+        if (containerArray.length === 0) {
+            throw new TypeError();
+        }
+
+        // Render the container files
+        res.render('overview/containers', {contentArray: containerArray, country: country, user: user});
+    } catch (err) {
+        let mHeader, mBody;
+        if (err instanceof TypeError) {
+            // Occurs if nothing is no transactions are found
+            mHeader = "It appears no files have been uploaded yet.";
+            mBody = `Please try again later or contact us <a href='mailto:nchong128@gmail.com' style="color: black">here</a>`;
+        } else {
+            mHeader = "It appears an unknown error has occured.";
+            mBody = `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message ${e}`;
+        }
+
+        res.render("error/message", {
+            user: user,
+            messageHeader: mHeader,
+            messageBody: mBody,
+        });
+    }
 });
 
 app.get("/overview/country/:country/id/:id", isLoggedIn, (req,res) => {
