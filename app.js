@@ -228,7 +228,7 @@ app.get('/recent', isLoggedIn, async (req,res) => {
 app.get("/upload", isLoggedIn, (req, res) => {
 	let user = req.user.local.role;
 
-	if (user == "overseas")
+	if (user === "overseas")
 	    res.redirect("/recent");
 
     res.render("upload/prompt", {
@@ -241,7 +241,7 @@ app.post("/upload", isLoggedIn, (req, res) => {
 
     try {
         // Check if files were uploaded
-        if (Object.keys(req.files).length == 0) {
+        if (Object.keys(req.files).length === 0) {
             throw("No files were uploaded");
         }
 
@@ -251,9 +251,7 @@ app.post("/upload", isLoggedIn, (req, res) => {
 
         // Move file to server_files and return pathname
         file.mv(pathName, (err) => {
-            if (err) {
-                throw err;
-            }
+            if (err) throw err;
 
             let jsonWorkbook = getJsonWorkbook(pathName);
             let summary = databases.parseJsonWorkbook(jsonWorkbook, req.user);
@@ -279,9 +277,9 @@ app.post("/tracking", (req,res) => {
 
     let user = "";
     // check if user is a logged in user, to restrict sidebar view approperiately for staff and overseas
-    if(req.isAuthenticated()) {
+    if(req.isAuthenticated())
     	user = req.user.local.role;
-    } 
+
     // otherwise this tracking page is still accessible without login, with nothing on the sidebar
 
     // Retrieve tracking number from form
@@ -328,7 +326,6 @@ app.post("/tracking", (req,res) => {
                 trackingStatus[elem] = err;
                 trackingSender[elem] = err;
                 trackingReceiver[elem] = err;
-                continue;
             }
         }
 
