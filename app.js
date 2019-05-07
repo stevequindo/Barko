@@ -1,8 +1,4 @@
 /***************** CONSTANTS/NODE SETUP *****************/
-// File folder names
-const serverFilesPath = "/server_files/";
-const clientFilesPath = "/client_files/";
-
 // Set up express
 const express = require("express");
 const app = express();
@@ -13,14 +9,6 @@ app.use(express.static("public"));
 
 // Express.js initialisations
 app.set('view engine', 'ejs');
-
-// File uploading
-const fileUpload = require("express-fileupload");
-app.use(fileUpload());
-
-// File processing
-let fileID = "theFile";
-let XLSX = require('xlsx');
 
 // Database operations
 const databases = require(__dirname + "/custom_node_modules/databases.js");
@@ -61,6 +49,10 @@ require(__dirname + '/routes/overview.js')(app);
 require(__dirname + '/routes/recent.js')(app);
 
 /***************** UPLOAD PAGE *****************/
+// File uploading
+const fileUpload = require("express-fileupload");
+app.use(fileUpload());
+
 require(__dirname + '/routes/upload.js')(app);
 
 /***************** TRACKING PAGE *****************/

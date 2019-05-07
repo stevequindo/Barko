@@ -18,8 +18,9 @@ module.exports = function(app) {
         } 
         // otherwise this tracking page is still accessible without login, with nothing on the sidebar
 
-        // Retrieve tracking number from form
+        // Retrieve tracking number & surname from form
         let trackingNumberString = req.body.trackingNumber;
+        let surnameString = req.body.surname;
 
         // Split the string by newline
         let trackingNumArray = _.split(trackingNumberString, "\r\n");
@@ -52,25 +53,25 @@ module.exports = function(app) {
             // Iterate over every tracking number
             for (let elem of trackingNumArray) {
                 try {
-                    trackingStatus[elem] = await databases.findStatus(elem);
-                    trackingSender[elem] = await databases.findSender(elem);
-                    trackingReceiver[elem] = await databases.findReceiver(elem);
+                    trackingStatus[elem] = await databases.findStatusNew(elem, surnameString);
+                    // trackingSender[elem] = await databases.findSender(elem);
+                    // trackingReceiver[elem] = await databases.findReceiver(elem);
 
                     console.log(elem + ". Tracking Status[elem]: " + trackingStatus[elem]); // for testing
 
                 } catch(err) {
                     trackingStatus[elem] = err;
-                    trackingSender[elem] = err;
-                    trackingReceiver[elem] = err;
+                    // trackingSender[elem] = err;
+                    // trackingReceiver[elem] = err;
                     continue;
                 }
             }
 
             res.render("tracking/results", {
                 trackingTable: trackingStatus, 
-                trackingSender: trackingSender, 
-                trackingReceiver: trackingReceiver,
-                trackingNum: req.body.trackingNumber,
+                // trackingSender: trackingSender, 
+                // trackingReceiver: trackingReceiver,
+                // trackingNum: req.body.trackingNumber,
                 user: user
             });
         }
