@@ -37,16 +37,16 @@
                                                 data-role="tagsinput" 
                                                 placeholder="Enter tracking number"
                                                 required />
-                                            <input id="surname-field" class="form-control" type="text" name="surname" placeholder="Enter Surname">
+                                            <p style="color:grey; width: 400px; font-size: 12px; margin: 0 0 0 20px;">
+                                                For multiple tracking numbers, press enter.
+                                            </p>
+                                            <input id="surname-field" class="form-control" type="text" name="surname" placeholder="Enter Surname" required>
                                         </form>
                                         <!-- Button placed ouside of form so that form doesnt auto submit when enter is pressed, to allow input tag to work -->
                                         <button type="submit" class="btn btn-block my-3 btn-sm track-btn text-white" onclick="track();">
                                             Track parcel
                                         </button>
                                     </div>
-                                    <p style="color:grey; width: 400px; font-size: 12px; margin: 0 0 25px 20px;">
-                                        For multiple tracking numbers, press enter.
-                                    </p>
                                 </div>
                         </div>
                     </div>
@@ -96,31 +96,6 @@
                     } 
 
                     if(isValid) { %>
-                    
-                        <!-- Output all valid tracking numbers (testing purpose)-->
-                        <!-- <%  if(validTrackingNum.length > 0) { %>
-                                Tracking: <br />
-                                <% validTrackingNum.forEach(function(j) { %>
-                                    <div style="margin: 0 10px 10px 10px">
-                                    <span class="badge badge-pill error-msg" style="background-color: #C4C4C4; color: #FFFFFF; font-size: 16px;">
-                                        <%- j %><i class="fas fa-check" style="padding-left: 5px"></i>
-                                    </span>
-                                    </div>
-                        <%      });
-                            } 
-                        %> -->
-
-                        <!-- Output all invalid tracking numbers (testing purpose) -->
-                        <!-- <%  if(invalidTrackingNum.length > 0) { %>
-                                <% invalidTrackingNum.forEach(function(i) { %>
-                                    <div style="margin: 0 10px 10px 10px">
-                                    <span class="badge badge-pill error-msg" style="background-color: #cf5564; color: #FFFFFF; font-size: 16px;">
-                                        <%- i %><i class="fas fa-times" style="padding-left: 5px"></i>
-                                    </span>
-                                    </div>
-                        <%      });
-                            } 
-                        %> -->
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -149,10 +124,10 @@
                                     <% } else { %>
                                         <tr>
                                             <td><%= item %></td>
-                                            <td><%= trackingSender[item] %></td>
-                                            <td><%= trackingReceiver[item] %></td>
+                                            <td><!-- <%= trackingSender[item] %> --></td>
+                                            <td><!-- <%= trackingReceiver[item] %> --></td>
                                             <td class="status-item-col" colspan="2">
-                                            <% if (trackingTable[item] == "NZ Port") {  %>
+                                            <% if (trackingTable[item] == "At Departing Port") {  %>
 
                                                 <ul class="progressbar">
                                                     <li class="active">NZ Port</li>
@@ -243,7 +218,18 @@
 
 // onclick submit function for track button
 function track() {
-    $('#tracking-form').submit();
+
+    // get form values
+    var trackingNum = $('#tracking-input-tag').val();
+    var surname = $('#surname-field').val();
+
+    // validate fields are not null
+    if($.trim(trackingNum).length > 0 && $.trim(surname).length > 0) {
+        $('#tracking-form').submit();
+    } else {
+        alert("Please enter both tracking number and surname.");
+    }
+    
 }
 
 
@@ -256,6 +242,8 @@ for (i = 0; i < closebtns.length; i++) {
     this.parentElement.parentElement.style.display = 'none';
   });
 }
+
+
 
 </script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
