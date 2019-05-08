@@ -29,14 +29,15 @@
                                 <div class="form-horizontal" style="margin-bottom: -20px;">
                                     <div class="row">
                                         <form id="tracking-form" action="/tracking"  method="post" style="margin-top: 15px">
-                                        <input 
-                                            id="tracking-input-tag" 
-                                            type="text" 
-                                            name="trackingNumber" 
-                                            value="" 
-                                            data-role="tagsinput" 
-                                            placeholder="Enter your tracking number" 
-                                            required />
+                                            <input 
+                                                id="tracking-input-tag" 
+                                                type="text" 
+                                                name="trackingNumber" 
+                                                value="" 
+                                                data-role="tagsinput" 
+                                                placeholder="Enter tracking number"
+                                                required />
+                                            <input id="surname-field" class="form-control" type="text" name="surname" placeholder="Enter Surname">
                                         </form>
                                         <!-- Button placed ouside of form so that form doesnt auto submit when enter is pressed, to allow input tag to work -->
                                         <button type="submit" class="btn btn-block my-3 btn-sm track-btn text-white" onclick="track();">
@@ -155,68 +156,70 @@
 
                                                 <ul class="progressbar">
                                                     <li class="active">NZ Port</li>
-                                                    <li>On Ship</li>
-                                                    <li>PH Port</li>
+                                                    <li>On Transit</li>
+                                                    <li>Arrived Port</li>
                                                     <li>Customs</li>
-                                                    <li>Delivery</li>
-                                                    <li>Arrived</li>
+                                                    <li>For Dispatch</li>
+                                                    <li>For Delivery</li>
                                                 </ul>
 
-                                            <% } else if (trackingTable[item] == "On Ship") { %>
+                                            <% } else if (trackingTable[item] == "On Transit") { %>
 
                                                 <ul class="progressbar">
                                                     <li class="passive">NZ Port</li>
-                                                    <li class="active">On Ship</li>
-                                                    <li>PH Port</li>
+                                                    <li class="active">On Transit</li>
+                                                    <li>Arrived Port</li>
                                                     <li>Customs</li>
-                                                    <li>Delivery</li>
-                                                    <li>Arrived</li>
+                                                    <li>For Dispatch</li>
+                                                    <li>For Delivery</li>
                                                 </ul>
 
-                                            <% } else if (trackingTable[item] == "PH Port") { %>
+                                            <% } else if (trackingTable[item] == "Arrived Port") { %>
 
                                                 <ul class="progressbar">
                                                     <li class="passive">NZ Port</li>
-                                                    <li class="passive">On Ship</li>
-                                                    <li class="active">PH Port</li>
+                                                    <li class="passive">On Transit</li>
+                                                    <li class="active">Arrived Port</li>
                                                     <li>Customs</li>
                                                     <li>Delivery</li>
-                                                    <li>Arrived</li>
+                                                    <li>For Delivery</li>
                                                 </ul>
 
                                             <% } else if (trackingTable[item] == "Customs") { %>
 
                                                 <ul class="progressbar">
                                                     <li class="passive">NZ Port</li>
-                                                    <li class="passive">On Ship</li>
-                                                    <li class="passive">PH Port</li>
+                                                    <li class="passive">On Transit</li>
+                                                    <li class="passive">Arrived Port</li>
                                                     <li class="active">Customs</li>
-                                                    <li>Delivery</li>
-                                                    <li>Arrived</li>
+                                                    <li>For Dispatch</li>
+                                                    <li>For Delivery</li>
                                                 </ul>
 
-                                            <% } else if (trackingTable[item] == "Delivery") { %>
+                                            <% } else if (trackingTable[item] == "For Dispatch") { %>
 
                                                 <ul class="progressbar">
                                                     <li class="passive">NZ Port</li>
-                                                    <li class="passive">On Ship</li>
-                                                    <li class="passive">PH Port</li>
+                                                    <li class="passive">On Transit</li>
+                                                    <li class="passive">Arrived Port</li>
                                                     <li class="passive">Customs</li>
-                                                    <li class="active">Delivery</li>
-                                                    <li>Arrived</li>
+                                                    <li class="active">For Dispatch</li>
+                                                    <li>For Delivery</li>
                                                 </ul>
 
-                                            <% } else if (trackingTable[item] == "Arrived") { %>
+                                            <% } else if (trackingTable[item] == "For Delivery") { %>
 
                                                 <ul class="progressbar">
                                                     <li class="passive">NZ Port</li>
-                                                    <li class="passive">On Ship</li>
-                                                    <li class="passive">PH Port</li>
+                                                    <li class="passive">On Transit</li>
+                                                    <li class="passive">Arrived Port</li>
                                                     <li class="passive">Customs</li>
-                                                    <li class="passive">Delivery</li>
-                                                    <li class="active">Arrived</li>
+                                                    <li class="passive">For Dispatch</li>
+                                                    <li class="active">For Delivery</li>
                                                 </ul>
 
+                                            <% } else if (trackingTable[item] == "Delivered") { %>
+                                                Delivered
                                             <% } %>
                                             </td>
                                             <td>30-45 days</td>
