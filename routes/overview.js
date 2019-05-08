@@ -59,7 +59,7 @@ module.exports = function(app) {
                 mHeader = "It appears no files have been uploaded yet.";
                 mBody = `Please try again later or contact us <a href='mailto:nchong128@gmail.com' style="color: black">here</a>`;
             } else {
-                mHeader = "It appears an unknown error has occured.";
+                mHeader = "It appears an unknown error has occurred.";
                 mBody = `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message ${e}`;
             }
 
@@ -80,7 +80,12 @@ module.exports = function(app) {
             .then((dbResponse) => {
                 // Get response
                 let transactionsArray = JSON.stringify(dbResponse["containerLine"]);
-                res.render('overview/containerLines', {contentArray: transactionsArray, country: country, id: id, user: user});
+                res.render('overview/containerLines', {
+                    contentArray: transactionsArray,
+                    country: country,
+                    id: id,
+                    user: user
+                });
             })
             .catch((err) => {
                 let mHeader, mBody;
@@ -93,8 +98,27 @@ module.exports = function(app) {
                     mHeader = "It appears an unknown error has occured.";
                     mBody = `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message ${e}`;
                 }
-                res.render("error/message", {messageHeader: mHeader, messageBody: mBody, user: user});
+                res.render("error/message", {
+                    messageHeader: mHeader,
+                    messageBody: mBody,
+                    user: user
+                });
             });
+    });
+
+    app.get("/overview/country/:country/id/:id/settings", func.isLoggedIn, async (req, res) => {
+        const user = req.user.local.role;
+        const country = decodeURIComponent(req.params.country);
+        const id = decodeURIComponent(req.params.id);
+
+        const container = await databases.getContainerSettings(id, req.user);
+
+        res.render("overview/manifest-settings", {
+            user: user,
+            country: country,
+            id: id,
+            container: container
+        });
     });
 
     app.post("/overview/update", func.isLoggedIn, async (req,res) => {
