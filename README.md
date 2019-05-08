@@ -26,10 +26,10 @@
 1. **Need to improve general server speed**
 2. **Table Changes**
 	- New column to be added to the table (Estimated arrival at Port)
-		- [ ] Between status and comments.
-		- [ ] Data type.
+		- [x] Between status and comments.
+		- [x] Data type.
 	- After Receiver, add another column "Delivery Address"
-		- [ ] This is the receiver's address.
+		- [x] This is the receiver's address.
 3. **Edit Rights**
 	- [ ] Philippines company gets to update the status, esmitated arrivals, comments.
 	- [ ] Overseas company to edit everything until status.
@@ -44,7 +44,7 @@
 
 **Anyone**
 - Website and data security are a **BIG CONCERN**
-	- [ ] Database to be access only by then.
+	- [x] Database to be access only by then.
 	- [ ] Implement better database system for different links between companies.
 	- [ ] Their only concern is the database, they want their database to be accessed only by them (and the Philippines agency).
  
