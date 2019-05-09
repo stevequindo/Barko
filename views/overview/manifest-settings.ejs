@@ -2,7 +2,7 @@
 <div class="row">
     <h1>Container Settings</h1>
 </div>
-<form id="manifest-form" method="post">
+<form id="manifest-form" name="manifest-form">
     <div class="form-group row">
         <label for="dateAdded" class="col-sm-2 col-form-label">Date Added</label>
         <div class="col-sm-10">
@@ -79,6 +79,13 @@
         <% }%>
     </div>
 
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    A simple warning alert—check it out!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
 <div class="row btn btn-primary">
     <a onclick="goBack()" class="link">Go back</a>
 </div>
@@ -86,12 +93,37 @@
 </form>
 
 <script>
-    let form = document.getElementById("manifest-form");
-    form.setAttribute("action", window.location.pathname);
+let form = document.getElementById("manifest-form");
+form.setAttribute("action", window.location.pathname);
 
-	function goBack() {
-		window.location.href = window.location.href.slice(0, window.location.href.length - 9);
-	}
+form.addEventListener('submit',postData);
+
+function postData() {
+	event.preventDefault();
+	let localEmailVal = document.getElementById('localAccountEmail').value;
+	let overseasEmailVal = document.getElementById('overseasAccountEmail').value;
+
+	fetch(window.location.href, {
+		method: 'POST',
+		headers : new Headers(),
+		body:JSON.stringify({localAccountEmail: localEmailVal, overseasAccountEmail: overseasEmailVal})
+	})
+        .then((res) => res.json())
+		.then((data) => {
+			console.log(data);
+			if (data.updateSuccess === true) {
+				location.reload();
+            } else {
+
+            }
+
+		})
+		.catch((err) => console.log(err));
+}
+
+function goBack() {
+    window.location.href = window.location.href.slice(0, window.location.href.length - 9);
+}
 </script>
 
 

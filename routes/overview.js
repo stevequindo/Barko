@@ -3,6 +3,14 @@ const func = require(__dirname + "/functions.js");
 
 module.exports = function(app) {
 
+    app.get("/test/:lname/:num", func.isLoggedIn, async(req,res) => {
+        const num = req.params['num'];
+        const lname = req.params['lname'];
+
+        let results = await databases.findStatusInfo(num, lname);
+        console.log(results);
+    });
+
     app.get('/overview', func.isLoggedIn, async (req, res) => {
         let user = req.user.local.role;
         let title = "Countries";
@@ -124,8 +132,21 @@ module.exports = function(app) {
         const country = decodeURIComponent(req.params.country);
         const id = decodeURIComponent(req.params.id);
 
-        console.log(req.body);
-        databases.updateContainerSettings(id, req.body, req.user);
+        databases.updateContainerSettings(id, req.body, req.user)
+            .then(ans => {
+                const response = {
+                    updateSuccess: true
+                };
+                res.send(ans);
+            })
+            .catch(err => {
+                const response = {
+                    updateSuccess: false,
+                    message: err
+                };
+                res.send(response);
+            })
+
     });
 
     app.post("/overview/update", func.isLoggedIn, async (req,res) => {
