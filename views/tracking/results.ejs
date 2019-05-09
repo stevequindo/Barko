@@ -29,25 +29,33 @@
                                 <div class="form-horizontal" style="margin-bottom: -20px;">
                                     <div class="row">
                                         <form id="tracking-form" action="/tracking"  method="post">
-                                            <!-- <input 
-                                                id="tracking-input-tag" 
+                                            <input 
+                                                id="trackingNumber-field" 
                                                 type="text" 
                                                 name="trackingNumber" 
-                                                value="" 
+                                                value="<%= trackingNumber %>" 
                                                 data-role="tagsinput" 
                                                 placeholder="Enter tracking number"
+                                                required /><br><br>
+                                            <input 
+                                                id="surname-field" 
+                                                type="text" 
+                                                name="surname" 
+                                                value="<%= trackingSurname %>" 
+                                                data-role="tagsinput" 
+                                                placeholder="Enter surname"
                                                 required />
+                                            <!-- <input id="trackingNumber-field" class="form-control" type="text" name="trackingNumber" placeholder="Enter tracking number" value="<%= trackingNumber %>" required> -->
+                                            <!-- <input id="surname-field" class="form-control" type="text" name="surname" placeholder="Enter Surname" value="<%= trackingSurname %>" required> -->
                                             <p style="color:grey; width: 400px; font-size: 12px; margin: 0 0 0 20px;">
-                                                For multiple tracking numbers, press enter. 
-                                            </p> -->
-                                            <input id="trackingNumber-field" class="form-control" type="text" name="trackingNumber" placeholder="Enter tracking number" value="<%= trackingNumber %>" required>
-                                            <input id="surname-field" class="form-control" type="text" name="surname" placeholder="Enter Surname" value="<%= trackingSurname %>" required>
+                                                For multiple tracking numbers and surnames, press enter. 
+                                            </p>
                                         </form>
-                                        <!-- Button placed ouside of form so that form doesnt auto submit when enter is pressed, to allow input tag to work -->
-                                        <button type="submit" class="btn btn-block my-3 btn-sm track-btn text-white" onclick="track();">
-                                            Track parcel
-                                        </button>
                                     </div>
+                                    <!-- Button placed ouside of form so that form doesnt auto submit when enter is pressed, to allow input tag to work -->
+                                    <button type="submit" class="btn btn-block my-3 btn-sm track-btn text-white" onclick="track();">
+                                        Track parcel
+                                    </button>
                                 </div>
                         </div>
                     </div>
@@ -55,6 +63,7 @@
 
                 <div><br /></div>
                 <div class="row">
+                <h5>Tracking: </h5>
                  <%  
                     let isValid = false;
                     let validTrackingNum = [];
@@ -64,23 +73,16 @@
                         if (trackingInfo[item] == "No results returned") {
 
                             invalidTrackingNum.push(item); %>
-
-                            <div style="margin: 0 0 10px 10px">
-                                <!-- <span class="badge badge-pill error-msg" style="background-color: #cf5564; color: #FFFFFF; font-size: 16px;">
+                            <!-- <div style="margin: 0 0 10px 10px">
+                                <span class="badge badge-pill error-msg" style="background-color: #cf5564; color: #FFFFFF; font-size: 16px;">
                                     <%- item %><i class="fas fa-times" style="padding-left: 5px"></i>
-                                </span> -->
-
-                                <p style="color: #cf5564;"> 
-                                    No results found. Please enter a valid tracking number and surname.
-                                </p>
-                            </div>
+                                </span>
+                            </div> -->
                         <%
                         } else {
 
                             validTrackingNum.push(item);
                             isValid = true; %>
-
-                            <h5>Tracking: </h5>
                             <div style="margin: 0 0 10px 10px">
                                 <span class="badge badge-pill error-msg" style="background-color: #C4C4C4; color: #FFFFFF; font-size: 16px">
                                     <%- item %><i class="fas fa-check" style="padding-left: 5px"></i>
@@ -94,8 +96,8 @@
                             <thead>
                                 <tr>
                                     <th style="width: 160px">Tracking Number</th>
-                                    <th style="width: 150px">Sender</th>
-                                    <th style="width: 150px">Receiver</th>
+                                    <th style="width: 120px">Sender</th>
+                                    <th style="width: 120px">Receiver</th>
                                     <th class="status-col" colspan="2">Status</th>
                                     <th colspan="2">ETA</th>
                                 </tr>
@@ -105,11 +107,9 @@
                                 <% for (let item in trackingInfo) { %>
                                     <% if (trackingInfo[item] == "No results returned") { %>
                                         <tr style="color: #cf5564;">
-                                            <td colspan="1">! <%= item %></td>
-                                            <td colspan="5">
-                                                Tracking Number does not match with surname 
+                                            <td colspan="6">! <%= item %> does not match with surname 
                                                 "<%= trackingSurname %>". 
-                                                Please type in a valid tracking number and surname.
+                                                Please enter a valid tracking number and surname.
                                             </td>
                                             <td><span class="close">&times;</span></td>
                                         </tr>
@@ -119,7 +119,7 @@
                                             <td><%= sender %></td>
                                             <td><%= receiver %></td>
                                             <td class="status-item-col" colspan="2">
-                                            <% if (status == "At Departing Port") {  %>
+                                            <% if (trackingInfo[item].status.stage == "At Departing Port") {  %>
 
                                                 <ul class="progressbar">
                                                     <li class="active">NZ Port</li>
@@ -130,7 +130,7 @@
                                                     <li>For Delivery</li>
                                                 </ul>
 
-                                            <% } else if (status == "On Transit") { %>
+                                            <% } else if (trackingInfo[item].status.stage == "On Transit") { %>
 
                                                 <ul class="progressbar">
                                                     <li class="passive">NZ Port</li>
@@ -141,7 +141,7 @@
                                                     <li>For Delivery</li>
                                                 </ul>
 
-                                            <% } else if (status == "Arrived Port") { %>
+                                            <% } else if (trackingInfo[item].status.stage == "Arrived Port") { %>
 
                                                 <ul class="progressbar">
                                                     <li class="passive">NZ Port</li>
@@ -152,7 +152,7 @@
                                                     <li>For Delivery</li>
                                                 </ul>
 
-                                            <% } else if (status == "Customs") { %>
+                                            <% } else if (trackingInfo[item].status.stage == "Customs") { %>
 
                                                 <ul class="progressbar">
                                                     <li class="passive">NZ Port</li>
@@ -163,7 +163,7 @@
                                                     <li>For Delivery</li>
                                                 </ul>
 
-                                            <% } else if (status == "For Dispatch") { %>
+                                            <% } else if (trackingInfo[item].status.stage == "For Dispatch") { %>
 
                                                 <ul class="progressbar">
                                                     <li class="passive">NZ Port</li>
@@ -174,7 +174,7 @@
                                                     <li>For Delivery</li>
                                                 </ul>
 
-                                            <% } else if (status == "For Delivery") { %>
+                                            <% } else if (trackingInfo[item].status.stage == "For Delivery") { %>
 
                                                 <ul class="progressbar">
                                                     <li class="passive">NZ Port</li>
@@ -185,17 +185,29 @@
                                                     <li class="active">For Delivery</li>
                                                 </ul>
 
-                                            <% } else if (status == "Delivered") { %>
+                                            <% } else if (trackingInfo[item].status.stage == "Delivered") { %>
                                                 Delivered
                                             <% } %>
                                             </td>
-                                            <td>30-45 days</td>
+                                            <td>
+                                                <% if(trackingInfo[item].status.estPortArrivalDate) {
+                                                     trackingInfo[item].status.estPortArrivalDate 
+                                                   } else { %>
+                                                     30-45 days
+                                                <% } %>
+                                            </td>
                                             <td><span class="close">&times;</span></td>
                                         </tr>
                                     <% }%>
                                 <% } %>
                             </tbody>
                         </table>
+                <%  } else { %>
+                        <div style="margin: 0 0 10px 10px">
+                            <p style="color: #cf5564;"> 
+                                No results found. Please enter a valid tracking number and surname.
+                            </p>
+                        </div>
                 <%  } %>
                 </div>
             </div>
