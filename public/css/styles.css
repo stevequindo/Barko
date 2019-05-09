@@ -51,6 +51,13 @@ a:focus {
 }
 
 /***************** TRACKING *****************/
+#trackingNumber-field {
+    margin: 0px 0 25px 18px;
+    width: 360px;
+    height: 32px;
+    font-size: 15px;
+}
+
 #surname-field {
     margin: 10px 0 25px 18px;
     width: 360px;

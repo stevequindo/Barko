@@ -46,32 +46,39 @@ module.exports = function(app) {
         // https://lavrton.com/javascript-loops-how-to-handle-async-await-6252dd3c795/
 
         async function parseStatus() {
-            let trackingStatus = {};
-            let trackingSender = {};
-            let trackingReceiver = {};
+            let trackingInfo = {};
+            let status, sender, receiver;
 
             // Iterate over every tracking number
             for (let elem of trackingNumArray) {
                 try {
-                    trackingStatus[elem] = await databases.findStatusNew(elem, surnameString);
-                    // trackingSender[elem] = await databases.findSender(elem);
-                    // trackingReceiver[elem] = await databases.findReceiver(elem);
+                    trackingInfo[elem] = await databases.findStatusInfo(elem, surnameString);
 
-                    console.log(elem + ". Tracking Status[elem]: " + trackingStatus[elem]); // for testing
+                    // console.log(trackingInfo[elem]); // for testing
+
+                    status = trackingInfo[elem].status.stage;
+
+                    sender = trackingInfo[elem].sender.firstName + " " 
+                        + trackingInfo[elem].sender.middleName + " "
+                        + trackingInfo[elem].sender.lastName;
+
+                    receiver = trackingInfo[elem].receiver.firstName + " " 
+                        + trackingInfo[elem].receiver.middleName + " "
+                        + trackingInfo[elem].receiver.lastName;
 
                 } catch(err) {
-                    trackingStatus[elem] = err;
-                    // trackingSender[elem] = err;
-                    // trackingReceiver[elem] = err;
+                    trackingInfo[elem] = err;
                     continue;
                 }
             }
 
             res.render("tracking/results", {
-                trackingTable: trackingStatus, 
-                // trackingSender: trackingSender, 
-                // trackingReceiver: trackingReceiver,
-                // trackingNum: req.body.trackingNumber,
+                trackingInfo: trackingInfo, 
+                trackingNumber: req.body.trackingNumber,
+                trackingSurname: req.body.surname,
+                status: status,
+                sender: sender,
+                receiver: receiver,
                 user: user
             });
         }
