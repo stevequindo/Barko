@@ -126,7 +126,6 @@ module.exports = function(app) {
 
         console.log(req.body);
         databases.updateContainerSettings(id, req.body, req.user);
-
     });
 
     app.post("/overview/update", func.isLoggedIn, async (req,res) => {
