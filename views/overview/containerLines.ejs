@@ -68,15 +68,24 @@ $(document).ready(function() {
         }
 	});
 
+	// Create Settings button
+	$.fn.dataTable.ext.buttons.settings = {
+		text: 'Settings',
+		action: function ( e, dt, node, config ) {
+			window.location.replace(window.location.href + "/settings");
+		}
+	};
+
 	// Initialise data table
 	let table = $('#comm-table').DataTable({
 		dom: 'lBfrtip',
 		buttons: [
             'selectAll',
 			<% if (user != "overseas") { %>
-			{ extend: "edit",   editor: editor },
+				{ extend: "edit",   editor: editor },
 			<% } %>
             'pdf',
+			'settings'
 	    ],
         lengthMenu: [[25, 50,100, -1], [25, 50,100, "All"]],
 		paginate: true,

@@ -1,9 +1,8 @@
 <%- include("../partials/header", {user: user}) -%>
-
 <div class="row">
     <h1>Container Settings</h1>
 </div>
-<form>
+<form id="manifest-form" method="post">
     <div class="form-group row">
         <label for="dateAdded" class="col-sm-2 col-form-label">Date Added</label>
         <div class="col-sm-10">
@@ -28,28 +27,70 @@
 
     <div class="form-group row">
         <h5 class="col-sm-12"><strong>Local Account</strong></h5>
+        <label for="localAccountEmail" class="col-sm-2 col-form-label">Email</label>
         <% if (container['localAccess'] != null){%>
-            <label for="localAccountEmail" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="localAccountEmail" value="<%-container.localAccess.local.email%>">
+                <input type="text"
+                       class="form-control-plaintext form-control"
+                       id="localAccountEmail"
+                       placeholder="Set overseas account"
+                       name = "localAccountEmail"
+                       value="<%-container.localAccess.local.email%>">
             </div>
         <% } else {%>
-            <p class="col-sm-12"><i>No local account</i></p>
+            <div class="col-sm-4">
+                <input type="text"
+                       class="form-control-plaintext form-control"
+                       id="overseasAccountEmail"
+                       placeholder="Set overseas account"
+                       name="overseasAccountEmail">
+            </div>
+            <div>
+                <button class="btn btn-primary" type="submit">Set</button>
+            </div>
         <% }%>
     </div>
 
     <div class="form-group row">
         <h5 class="col-sm-12"><strong>Overseas Account</strong></h5>
-        <% if (container['overseasAccess'] != null){%>
         <label for="localAccountEmail" class="col-sm-2 col-form-label">Email</label>
-        <div class="col-sm-10">
-            <input type="text" readonly class="form-control-plaintext" id="localAccountEmail" value="<%-container.overseasAccess.local.email%>">
-        </div>
+        <% if (container['overseasAccess'] != null){%>
+            <div class="col-sm-10">
+                <input type="text"
+                       class="form-control-plaintext form-control"
+                       id="overseasAccountEmail"
+                       placeholder="Set overseas account"
+                       name = "overseasAccountEmail"
+                       value="<%-container.overseasAccess.local.email%>">
+            </div>
         <% } else {%>
-            <p class="col-sm-12"><i>No overseas account</i></p>
+            <div class="col-sm-4">
+                <input type="text"
+                       class="form-control-plaintext form-control"
+                       id="overseasAccountEmail"
+                       placeholder="Set overseas account"
+                       name="overseasAccountEmail">
+            </div>
+            <div>
+                <button class="btn btn-primary" type="submit">Set</button>
+            </div>
         <% }%>
     </div>
+
+<div class="row btn btn-primary">
+    <a onclick="goBack()" class="link">Go back</a>
+</div>
+
 </form>
+
+<script>
+    let form = document.getElementById("manifest-form");
+    form.setAttribute("action", window.location.pathname);
+
+	function goBack() {
+		window.location.href = window.location.href.slice(0, window.location.href.length - 9);
+	}
+</script>
 
 
 <%- include("../partials/footer") -%>

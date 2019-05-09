@@ -1,4 +1,3 @@
-
 const databases = require("../custom_node_modules/databases.js");
 const func = require(__dirname + "/functions.js");
 
@@ -119,6 +118,15 @@ module.exports = function(app) {
             id: id,
             container: container
         });
+    });
+
+    app.post('/overview/country/:country/id/:id/settings', func.isLoggedIn, (req,res) => {
+        const country = decodeURIComponent(req.params.country);
+        const id = decodeURIComponent(req.params.id);
+
+        console.log(req.body);
+        databases.updateContainerSettings(id, req.body, req.user);
+
     });
 
     app.post("/overview/update", func.isLoggedIn, async (req,res) => {
