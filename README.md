@@ -3,7 +3,7 @@
 
 **Kayee**
 1. **Two inputs for the tracking**
-	- [ ] Tracking number AND surname (make sure to lower the letters of the inputs).
+	- [x] Tracking number AND surname (make sure to lower the letters of the inputs).
 
 2. **In tracking view, should see "Estimated arrival to Port"**
 	- [ ] Add "Estimated arrival to Port".
