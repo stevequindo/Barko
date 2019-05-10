@@ -112,7 +112,7 @@ module.exports = function(app) {
         try {
             const container = await databases.getContainerSettings(id, req.user);
 
-            if (container == null && container == undefined) throw Error("File not found");
+            if (container == null && container === undefined) throw Error("File not found");
 
             res.render("overview/manifest-settings", {
                 user: user,
@@ -135,12 +135,14 @@ module.exports = function(app) {
         const country = decodeURIComponent(req.params.country);
         const id = decodeURIComponent(req.params.id);
 
+        console.log(req.body);
+
         databases.updateContainerSettings(id, req.body, req.user)
             .then(ans => {
                 const response = {
                     updateSuccess: true
                 };
-                res.send(ans);
+                res.send(response);
             })
             .catch(err => {
                 const response = {
