@@ -29,7 +29,7 @@ module.exports = function(app) {
 
 	    try {
 	        // Check if files were uploaded
-	        if (Object.keys(req.files).length == 0) {
+	        if (Object.keys(req.files).length === 0) {
 	            throw("No files were uploaded");
 	        }
 

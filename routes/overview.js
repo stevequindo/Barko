@@ -2,6 +2,10 @@ const databases = require("../custom_node_modules/databases.js");
 const func = require(__dirname + "/functions.js");
 
 module.exports = function(app) {
+    app.get('/manifest', func.isLoggedIn, async (req,res) => {
+        res.send('manifest');
+    });
+
     app.get('/overview', func.isLoggedIn, async (req, res) => {
         let user = req.user.local.role;
         let title = "Countries";
