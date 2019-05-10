@@ -6,20 +6,20 @@
 	- [x] Tracking number AND surname (make sure to lower the letters of the inputs).
 
 2. **In tracking view, should see "Estimated arrival to Port"**
-	- [ ] Add "Estimated arrival to Port".
-	- [ ] Show the actual date which was inputted in the table.
+	- [x] Add "Estimated arrival to Port".
+	- [x] Show the actual date which was inputted in the table.
 	
 3. **Status changes**
-	- [ ] At Departing Port
-	- [ ] On Transit
-	- [ ] At Destination Port
+	- [x] At Departing Port
+	- [x] On Transit
+	- [x] At Destination Port
 		- [ ] When they click this, they want a note underneath showing arrival date in Philippines.
 		- [ ] When updating the status in the table, they get ito enter in the date it arrived.
-	- [ ] At Customs
-	- [ ] For Dispatch
-	- [ ] For Delivery
+	- [x] At Customs
+	- [x] For Dispatch
+	- [x] For Delivery
 		- [ ] When updating status, they can type in the estimated delivery date when they click this.
-	- [ ] Delivered
+	- [x] Delivered
 		- [ ] Will show the actualy delievered date and recevied by (name of the individual).
 		
 **Nicholas**

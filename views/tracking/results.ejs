@@ -73,11 +73,11 @@
                         if (trackingInfo[item] == "No results returned") {
 
                             invalidTrackingNum.push(item); %>
-                            <!-- <div style="margin: 0 0 10px 10px">
+                            <div style="margin: 0 0 10px 10px">
                                 <span class="badge badge-pill error-msg" style="background-color: #cf5564; color: #FFFFFF; font-size: 16px;">
                                     <%- item %><i class="fas fa-times" style="padding-left: 5px"></i>
                                 </span>
-                            </div> -->
+                            </div>
                         <%
                         } else {
 
@@ -96,10 +96,10 @@
                             <thead>
                                 <tr>
                                     <th style="width: 160px">Tracking Number</th>
-                                    <th style="width: 120px">Sender</th>
+                                    <th style="width: 110px">Sender</th>
                                     <th style="width: 120px">Receiver</th>
                                     <th class="status-col" colspan="2">Status</th>
-                                    <th colspan="2">ETA</th>
+                                    <th style="width: 100px" colspan="2">Notes</th>
                                 </tr>
                             </thead>
 
@@ -119,82 +119,70 @@
                                             <td><%= sender %></td>
                                             <td><%= receiver %></td>
                                             <td class="status-item-col" colspan="2">
-                                            <% if (trackingInfo[item].status.stage == "At Departing Port") {  %>
 
+                                            <% 
+                                                status_msg = "";
+                                                let status = [
+                                                    "At Departing Port", 
+                                                    "On Transit", 
+                                                    "Arrived Port", 
+                                                    "Customs", 
+                                                    "For Dispatch", 
+                                                    "For Delivery"
+                                                ];
+
+                                                let classStyles = ["passive", "passive", "passive", "passive", "passive", "passive"];
+
+                                                for (let i = 0; i < status.length; i++) {
+
+                                                    if(trackingInfo[item].status.stage == status[i]) {
+                                                        classStyles[i] = "active";
+
+                                                        if(i == 0 || i == 1) {
+
+                                                            if(trackingInfo[item].status.estPortArrivalDate) {
+                                                                estPortArrivalDate = new Date(trackingInfo[item].status.estPortArrivalDate);
+
+                                                                status_msg = "Estimated date to destination port: " 
+                                                                    + estPortArrivalDate.getDate() + "-" 
+                                                                    + (estPortArrivalDate.getMonth()+1) + "-" 
+                                                                    + estPortArrivalDate.getFullYear();
+                                                            }
+
+                                                        } else if (i == 2 || i == 3 || i == 4 || i == 5) {
+
+                                                            if(trackingInfo[item].status.estDeliveryDate) {
+                                                                estDeliveryDate = new Date(trackingInfo[item].status.estDeliveryDate);
+
+                                                                status_msg = "Estimated date to delivery: " 
+                                                                    + estDeliveryDate.getDate() + "-" 
+                                                                    + (estDeliveryDate.getMonth()+1) + "-" 
+                                                                    + estDeliveryDate.getFullYear();
+                                                            }
+
+                                                        } else if (i == 6) {
+                                                            if(trackingInfo[item].status.receivedBy) {
+                                                                status_msg = "Delivered and received by "+ trackingInfo[item].status.receivedBy;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                %>
+
+                                                <p><%= status_msg %></p>
+                                                <a href="#" data-toggle="tooltip" data-placement="top" title="<%= status_msg %>">
                                                 <ul class="progressbar">
-                                                    <li class="active">NZ Port</li>
-                                                    <li>On Transit</li>
-                                                    <li>Arrived Port</li>
-                                                    <li>Customs</li>
-                                                    <li>For Dispatch</li>
-                                                    <li>For Delivery</li>
+                                                    <li class="<%= classStyles[0] %>">NZ Port</li>
+                                                    <li class="<%= classStyles[1] %>">On Transit</li>
+                                                    <li class="<%= classStyles[2] %>">Arrived Port</li>
+                                                    <li class="<%= classStyles[3] %>">Customs</li>
+                                                    <li class="<%= classStyles[4] %>">For Dispatch</li>
+                                                    <li class="<%= classStyles[5] %>">For Delivery</li>
                                                 </ul>
-
-                                            <% } else if (trackingInfo[item].status.stage == "On Transit") { %>
-
-                                                <ul class="progressbar">
-                                                    <li class="passive">NZ Port</li>
-                                                    <li class="active">On Transit</li>
-                                                    <li>Arrived Port</li>
-                                                    <li>Customs</li>
-                                                    <li>For Dispatch</li>
-                                                    <li>For Delivery</li>
-                                                </ul>
-
-                                            <% } else if (trackingInfo[item].status.stage == "Arrived Port") { %>
-
-                                                <ul class="progressbar">
-                                                    <li class="passive">NZ Port</li>
-                                                    <li class="passive">On Transit</li>
-                                                    <li class="active">Arrived Port</li>
-                                                    <li>Customs</li>
-                                                    <li>Delivery</li>
-                                                    <li>For Delivery</li>
-                                                </ul>
-
-                                            <% } else if (trackingInfo[item].status.stage == "Customs") { %>
-
-                                                <ul class="progressbar">
-                                                    <li class="passive">NZ Port</li>
-                                                    <li class="passive">On Transit</li>
-                                                    <li class="passive">Arrived Port</li>
-                                                    <li class="active">Customs</li>
-                                                    <li>For Dispatch</li>
-                                                    <li>For Delivery</li>
-                                                </ul>
-
-                                            <% } else if (trackingInfo[item].status.stage == "For Dispatch") { %>
-
-                                                <ul class="progressbar">
-                                                    <li class="passive">NZ Port</li>
-                                                    <li class="passive">On Transit</li>
-                                                    <li class="passive">Arrived Port</li>
-                                                    <li class="passive">Customs</li>
-                                                    <li class="active">For Dispatch</li>
-                                                    <li>For Delivery</li>
-                                                </ul>
-
-                                            <% } else if (trackingInfo[item].status.stage == "For Delivery") { %>
-
-                                                <ul class="progressbar">
-                                                    <li class="passive">NZ Port</li>
-                                                    <li class="passive">On Transit</li>
-                                                    <li class="passive">Arrived Port</li>
-                                                    <li class="passive">Customs</li>
-                                                    <li class="passive">For Dispatch</li>
-                                                    <li class="active">For Delivery</li>
-                                                </ul>
-
-                                            <% } else if (trackingInfo[item].status.stage == "Delivered") { %>
-                                                Delivered
-                                            <% } %>
+                                                </a>
                                             </td>
                                             <td>
-                                                <% if(trackingInfo[item].status.estPortArrivalDate) {
-                                                     trackingInfo[item].status.estPortArrivalDate 
-                                                   } else { %>
-                                                     30-45 days
-                                                <% } %>
+                                                <!-- notes goes here -->
                                             </td>
                                             <td><span class="close">&times;</span></td>
                                         </tr>
@@ -242,13 +230,17 @@ var closebtns = document.getElementsByClassName("close");
 var i;
 
 for (i = 0; i < closebtns.length; i++) {
-  closebtns[i].addEventListener("click", function() {
-    this.parentElement.parentElement.style.display = 'none';
-  });
+    closebtns[i].addEventListener("click", function() {
+        this.parentElement.parentElement.style.display = 'none';
+    });
 }
 
-
+// for popup estimated date messages
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
 
 </script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
 <script  src="js/bootstrap-tagsinput.js"></script>
+
