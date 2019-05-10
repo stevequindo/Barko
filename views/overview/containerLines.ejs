@@ -27,32 +27,104 @@ $(document).ready(function() {
 		table: '#comm-table',
 		idSrc: "_id",
         // serverSide: true,
-		fields: [
-			{
-				label: "Status:",
-				name: "status.stage",
-				type: "select",
-				options: [
-					"At Departing Port",
-					"On Transit",
-					"At Destination Port",
-					"At Customs",
-					"For Dispatch",
-					"For Delivery",
-					"Delivered"]
-			},
-			{
-				label:"Estimated Arrival Date to Port",
-				type: "datetime",
-				name: "status.estPortArrivalDate",
-				def: function () { return new Date(); },
-				// format: 'DD/MM/YYYY'
-			},
-			{
-				label: "Additional Comments: ",
-				name: "comment",
-			},
-        ],
+		<% if (user === "staff") { %>
+			fields: [
+				{
+					label: "Status",
+					name: "status.stage",
+					type: "select",
+					options: [
+						"At Departing Port",
+						"On Transit",
+						"At Destination Port",
+						"At Customs",
+						"For Dispatch",
+						"For Delivery",
+						"Delivered"]
+				},
+				{
+					label:"Estimated Arrival Date to Port",
+					type: "datetime",
+					name: "status.estPortArrivalDate",
+					def: function () { return new Date(); },
+				},
+				{
+					label:"Actual Arrival Date to Port",
+					type: "datetime",
+					name: "status.actPortArrivalDate",
+					def: function () { return new Date(); },
+				},
+				{
+					label:"Estimated Delivery Date",
+					type: "datetime",
+					name: "status.estDeliveryDate",
+					def: function () { return new Date(); },
+				},
+				{
+					label:"Actual Delivery Date",
+					type: "datetime",
+					name: "status.actDeliveryDate",
+					def: function () { return new Date(); },
+				},
+				{
+					label:"Received By",
+					type: "datetime",
+					name: "status.receivedBy"
+				},
+				{
+					label: "Additional Comments",
+					name: "comment",
+				},
+			],
+		<% } else { %>
+			fields : [
+				{
+					label: "Batch No.",
+					type: "text",
+					name: "batchNo"
+				},
+				{
+					label: "Tracking No.",
+					type: "text",
+					name: "trackingNo"
+				},
+				{
+					label: "Count",
+					type: "text",
+					name: "count"
+				},
+				{
+					label: "Area",
+					type: "text",
+					name: "area"
+				},
+				{
+					label: "Sender First Name",
+					type: "text",
+					name: "sender.firstName"
+				},
+				{
+					label: "Sender Last Name",
+					type: "text",
+					name: "sender.lastName"
+				},
+				{
+					label: "Receiver First Name",
+					type: "text",
+					name: "receiver.firstName"
+				},
+				{
+					label: "Receiver Last Name",
+					type: "text",
+					name: "receiver.lastName"
+				},
+				{
+					label: "Delivery Address",
+					type: "text",
+					name: "receiver.address"
+				}
+			],
+		<% } %>
         ajax: {
             edit: {
             	type: 'POST',
@@ -81,11 +153,9 @@ $(document).ready(function() {
 		dom: 'lBfrtip',
 		buttons: [
             'selectAll',
-			<% if (user != "overseas") { %>
-				{ extend: "edit",   editor: editor },
-			<% } %>
+			{ extend: "edit",   editor: editor },
+			'settings',
             'pdf',
-			'settings'
 	    ],
         lengthMenu: [[25, 50,100, -1], [25, 50,100, "All"]],
 		paginate: true,
@@ -98,7 +168,7 @@ $(document).ready(function() {
 		"scrollX": true,
 		scrollCollapse: true,
 		scroller:       true,
-		"deferLoading": <%- contentArray.length %>,
+		"deferLoading":<%-contentArray.length%>,
         columnDefs: [
 			{
 				targets: "_all",
@@ -106,68 +176,67 @@ $(document).ready(function() {
 			}
         ],
 		"columns": [
-			{
-				"data": "batchNo",
-				"defaultContent": "<i>Not set</i>"
-			},
-			{
-				"data": "trackingNo",
-				"defaultContent": "<i>Not set</i>"
-			},
-			{
-				"data": "count",
-				"defaultContent": "<i>Not set</i>"
-			},
-			{
-				"data": "area",
-				"defaultContent": "<i>Not set</i>"
-			},
-			{
-				"data": null,
-				render: function (data, type, row) {
-					let firstName = row.sender.firstName;
-					let lastName = row.sender.lastName;
-					return firstName !== undefined ? `${firstName} ${lastName}` : "<i>Not set</i>";
-				}
-			},
-			{
-				"data": null,
-				render: function (data, type, row) {
-					let firstName = row.receiver.firstName;
-					let lastName = row.receiver.lastName;
-					return firstName !== undefined ? `${firstName} ${lastName}` : "<i>Not set</i>";
-				}
-			},
-			{
-				"data": null,
-				render: function (data,type,row) {
-					let address = row.receiver.address;
-					return address !== undefined ? address.toString() : "<i>Not set</i>";
+				{
+					"data": "batchNo",
+					"defaultContent": "<i>Not set</i>"
 				},
-				// "width": "1rem"
-			},
-			{
-				"data": "status.stage",
-				"defaultContent": "<i>Not set</i>"
-			},
-			{
-				"data": "status.estPortArrivalDate",
-				render: function(data, type, row) {
-					let estPortArrivalDate = row.status.estPortArrivalDate;
-
-					if (estPortArrivalDate) {
-						let date = new Date(estPortArrivalDate);
-						return date.toDateString();
-					} else {
-						return "<i>Not set</i>";
+				{
+					"data": "trackingNo",
+					"defaultContent": "<i>Not set</i>"
+				},
+				{
+					"data": "count",
+					"defaultContent": "<i>Not set</i>"
+				},
+				{
+					"data": "area",
+					"defaultContent": "<i>Not set</i>"
+				},
+				{
+					"data": null,
+					render: function (data, type, row) {
+						let firstName = row.sender.firstName;
+						let lastName = row.sender.lastName;
+						return firstName !== undefined ? `${firstName} ${lastName}` : "<i>Not set</i>";
 					}
 				},
-			},
-			{
-				"data": "comment",
-				"defaultContent": ""
-			}
-		],
+				{
+					"data": null,
+					render: function (data, type, row) {
+						let firstName = row.receiver.firstName;
+						let lastName = row.receiver.lastName;
+						return firstName !== undefined ? `${firstName} ${lastName}` : "<i>Not set</i>";
+					}
+				},
+				{
+					"data": null,
+					render: function (data,type,row) {
+						let address = row.receiver.address;
+						return address !== undefined ? address.toString() : "<i>Not set</i>";
+					},
+				},
+				{
+					"data": "status.stage",
+					"defaultContent": "<i>Not set</i>"
+				},
+				{
+					"data": "status.estPortArrivalDate",
+					render: function(data, type, row) {
+						let estPortArrivalDate = row.status.estPortArrivalDate;
+
+						if (estPortArrivalDate) {
+							let date = new Date(estPortArrivalDate);
+							return date.toDateString();
+						} else {
+							return "<i>Not set</i>";
+						}
+					},
+				},
+				{
+					"data": "comment",
+					"defaultContent": ""
+				}
+			],
 	});
 });
 </script>

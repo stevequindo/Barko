@@ -1,4 +1,3 @@
-
 const databases = require("../custom_node_modules/databases.js");
 const func = require(__dirname + "/functions.js");
 
