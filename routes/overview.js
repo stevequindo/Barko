@@ -2,15 +2,6 @@ const databases = require("../custom_node_modules/databases.js");
 const func = require(__dirname + "/functions.js");
 
 module.exports = function(app) {
-
-    app.get("/test/:lname/:num", func.isLoggedIn, async(req,res) => {
-        const num = req.params['num'];
-        const lname = req.params['lname'];
-
-        let results = await databases.findStatusInfo(num, lname);
-        console.log(results);
-    });
-
     app.get('/overview', func.isLoggedIn, async (req, res) => {
         let user = req.user.local.role;
         let title = "Countries";
@@ -32,7 +23,7 @@ module.exports = function(app) {
                 mHeader = "It appears no files have been uploaded yet.";
                 mBody = `Please try again later or contact us <a href='mailto:nchong128@gmail.com' style="color: black">here</a>`;
             } else {
-                mHeader = "It appears an unknown error has occured.";
+                mHeader = "It appears an unknown error has occurred.";
                 mBody = `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message ${e}`;
             }
 
@@ -102,7 +93,7 @@ module.exports = function(app) {
                     mHeader = "It appears no files have been uploaded yet.";
                     mBody = `Please try again later or contact us <a href='mailto:nchong128@gmail.com' style="color: black">here</a>`;
                 } else {
-                    mHeader = "It appears an unknown error has occured.";
+                    mHeader = "It appears an unknown error has occurred.";
                     mBody = `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message ${e}`;
                 }
                 res.render("error/message", {
@@ -118,14 +109,26 @@ module.exports = function(app) {
         const country = decodeURIComponent(req.params.country);
         const id = decodeURIComponent(req.params.id);
 
-        const container = await databases.getContainerSettings(id, req.user);
+        try {
+            const container = await databases.getContainerSettings(id, req.user);
 
-        res.render("overview/manifest-settings", {
-            user: user,
-            country: country,
-            id: id,
-            container: container
-        });
+            if (container == null && container == undefined) throw Error("File not found");
+
+            res.render("overview/manifest-settings", {
+                user: user,
+                country: country,
+                id: id,
+                container: container
+            });
+        } catch(error) {
+            const mHeader = "It appears you do not have access to this file or this file does not exist.";
+            const mBody = `Please try again later or contact us <a href='mailto:nchong128@gmail.com' style="color: black">here</a>`;
+            res.render("error/message", {
+                user: user,
+                messageHeader: mHeader,
+                messageBody: mBody,
+            });
+        }
     });
 
     app.post('/overview/country/:country/id/:id/settings', func.isLoggedIn, (req,res) => {
