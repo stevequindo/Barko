@@ -3,7 +3,7 @@
         <h1 >Track your Package</h1>
     </div>
     <div class="row">
-        <p>For multiple tracking numbers, separate each tracking number with comma or a new line.</p>
+        <p>For multiple tracking numbers and surnames, separate them with comma or a new line.</p>
     </div>
     <div class="row">
         <form method="post" action="/tracking">
@@ -12,7 +12,13 @@
             type="text"
             name="trackingNumber"
             placeholder="Enter your tracking number(s)"
-            rows="4" cols="50"></textarea><br>
+            rows="3" cols="50"></textarea><br>
+            <textarea
+            class="form-control rounded-0"
+            type="text"
+            name="surname"
+            placeholder="Enter surname"
+            rows="3" cols="50"></textarea><br>
         <button type="submit" class="btn btn-block my-3 btn-sm" style="background-color: #2039bc; color: #FFFFFF">
             Track parcel
         </button>

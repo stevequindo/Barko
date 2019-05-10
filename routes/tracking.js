@@ -19,11 +19,12 @@ module.exports = function(app) {
         // otherwise this tracking page is still accessible without login, with nothing on the sidebar
 
         // Retrieve tracking number & surname from form
-        let trackingNumberString = req.body.trackingNumber;
-        let surnameString = req.body.surname;
+        let trackingNumberString = req.body.trackingNumber.trim();
+        let surnameString = req.body.surname.trim();
 
         // Split the string by newline
         let trackingNumArray = _.split(trackingNumberString, "\r\n");
+        let surnameArray = _.split(surnameString, "\r\n");
         
         // Split the string by comma
         function splitComma(elem) {
@@ -31,6 +32,7 @@ module.exports = function(app) {
         }
         
         trackingNumArray = _.flatMapDeep(trackingNumArray, splitComma);
+        surnameArray = _.flatMapDeep(surnameArray, splitComma);
         
         // Remove all spaces
         function removeSpace(elem) {
@@ -38,40 +40,55 @@ module.exports = function(app) {
         }
 
         trackingNumArray = _.flatMapDeep(trackingNumArray, removeSpace);
+        surnameArray = _.flatMapDeep(surnameArray, removeSpace);
 
         // Remove empty elements
         _.remove(trackingNumArray, (elem) => {return elem == ""});
+        _.remove(surnameArray, (elem) => {return elem == ""});
 
         // Retrieve object with key = tracking num, value = status
         // https://lavrton.com/javascript-loops-how-to-handle-async-await-6252dd3c795/
 
         async function parseStatus() {
-            let trackingStatus = {};
-            let trackingSender = {};
-            let trackingReceiver = {};
+            let trackingInfo = {};
+            let status, sender, receiver, eta;
 
             // Iterate over every tracking number
             for (let elem of trackingNumArray) {
-                try {
-                    trackingStatus[elem] = await databases.findStatusNew(elem, surnameString);
-                    // trackingSender[elem] = await databases.findSender(elem);
-                    // trackingReceiver[elem] = await databases.findReceiver(elem);
+                for (let s of surnameArray) {
+                    try {
+                        trackingInfo[elem] = await databases.findStatusInfo(elem, s);
 
-                    console.log(elem + ". Tracking Status[elem]: " + trackingStatus[elem]); // for testing
+                        // console.log(trackingInfo[elem]); // for testing
 
-                } catch(err) {
-                    trackingStatus[elem] = err;
-                    // trackingSender[elem] = err;
-                    // trackingReceiver[elem] = err;
-                    continue;
+                        sender = trackingInfo[elem].sender.firstName + " " 
+                            + trackingInfo[elem].sender.middleName + " "
+                            + trackingInfo[elem].sender.lastName;
+
+                        receiver = trackingInfo[elem].receiver.firstName + " " 
+                            + trackingInfo[elem].receiver.middleName + " "
+                            + trackingInfo[elem].receiver.lastName;
+
+                        status = trackingInfo[elem].status.stage;
+                        eta = trackingInfo[elem].status.estPortArrivalDate;
+
+                        break; // breaks out pf surnameArray loop to move on searching with next tracking number
+
+                    } catch(err) {
+                        trackingInfo[elem] = err;
+                        continue;
+                    }
                 }
             }
 
             res.render("tracking/results", {
-                trackingTable: trackingStatus, 
-                // trackingSender: trackingSender, 
-                // trackingReceiver: trackingReceiver,
-                // trackingNum: req.body.trackingNumber,
+                trackingInfo: trackingInfo, 
+                trackingNumber: req.body.trackingNumber,
+                trackingSurname: req.body.surname,
+                sender: sender,
+                receiver: receiver,
+                status: status,
+                eta: eta,
                 user: user
             });
         }

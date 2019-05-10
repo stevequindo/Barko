@@ -3,7 +3,7 @@
 
 **Kayee**
 1. **Two inputs for the tracking**
-	- [ ] Tracking number AND surname (make sure to lower the letters of the inputs).
+	- [x] Tracking number AND surname (make sure to lower the letters of the inputs).
 
 2. **In tracking view, should see "Estimated arrival to Port"**
 	- [ ] Add "Estimated arrival to Port".
@@ -45,8 +45,8 @@
 **Anyone**
 - Website and data security are a **BIG CONCERN**
 	- [x] Database to be access only by then.
-	- [ ] Implement better database system for different links between companies.
-	- [ ] Their only concern is the database, they want their database to be accessed only by them (and the Philippines agency).
+	- [x] Implement better database system for different links between companies.
+	- [x] Their only concern is the database, they want their database to be accessed only by them (and the Philippines agency).
  
 
 
