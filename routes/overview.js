@@ -132,13 +132,12 @@ module.exports = function(app) {
 
     app.get("/overview/id/:id/settings", func.isLoggedIn, async (req, res) => {
         const user = req.user.local.role;
-        const country = decodeURIComponent(req.params.country);
         const id = decodeURIComponent(req.params.id);
 
         try {
             const container = await databases.getContainerSettings(id, req.user);
 
-            if (container == null && container === undefined) throw Error("File not found");
+            if (container == null || container === undefined) throw new Error("File not found");
 
             res.render("overview/manifest-settings", {
                 user: user,
