@@ -68,7 +68,7 @@ $(document).ready(function() {
 				},
 				{
 					label:"Received By",
-					type: "datetime",
+					type: "text",
 					name: "status.receivedBy"
 				},
 				{
@@ -128,10 +128,7 @@ $(document).ready(function() {
         ajax: {
             edit: {
             	type: 'POST',
-                url: '/overview/update',
-				headers :{
-            		"containerId" : "<%-id%>"
-				},
+                url: `/overview/id/<%-id%>`,
 				contentType: 'application/json',
                 data: (d) => {
 					return JSON.stringify(d.data);

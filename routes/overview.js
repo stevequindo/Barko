@@ -82,7 +82,7 @@ module.exports = function(app) {
         }
     });
 
-    app.get("/overview/country/:country/id/:id", func.isLoggedIn, (req,res) => {
+    app.get("/overview/id/:id", func.isLoggedIn, (req,res) => {
         let user = req.user.local.role;
         const country =  decodeURIComponent(req.params.country);
         const id = decodeURIComponent(req.params.id);
@@ -117,7 +117,20 @@ module.exports = function(app) {
             });
     });
 
-    app.get("/overview/country/:country/id/:id/settings", func.isLoggedIn, async (req, res) => {
+    app.post("/overview/id/:id", func.isLoggedIn, async (req,res) => {
+        const user = req.user.local.role;
+        const id = req.params.id;
+
+        // Get JSON data
+        const updateEntriesArr = req.body;
+
+        // Update the entries
+        const resultsJSON = await databases.updateEntries(updateEntriesArr, req.user, id);
+
+        res.send(JSON.stringify(resultsJSON));
+    });
+
+    app.get("/overview/id/:id/settings", func.isLoggedIn, async (req, res) => {
         const user = req.user.local.role;
         const country = decodeURIComponent(req.params.country);
         const id = decodeURIComponent(req.params.id);
@@ -129,7 +142,6 @@ module.exports = function(app) {
 
             res.render("overview/manifest-settings", {
                 user: user,
-                country: country,
                 id: id,
                 container: container
             });
@@ -144,11 +156,9 @@ module.exports = function(app) {
         }
     });
 
-    app.post('/overview/country/:country/id/:id/settings', func.isLoggedIn, (req,res) => {
+    app.post('/overview/id/:id/settings', func.isLoggedIn, (req,res) => {
         const country = decodeURIComponent(req.params.country);
         const id = decodeURIComponent(req.params.id);
-
-        console.log(req.body);
 
         databases.updateContainerSettings(id, req.body, req.user)
             .then(ans => {
@@ -163,21 +173,7 @@ module.exports = function(app) {
                     message: err
                 };
                 res.send(response);
-            })
-
-    });
-
-    app.post("/overview/update", func.isLoggedIn, async (req,res) => {
-        let user = req.user.local.role;
-        const containerId =  req.headers["containerid"];
-
-        // Get JSON data
-        let updateEntriesArr = req.body;
-
-        // Update the entries
-        const resultsJSON = await databases.updateEntries(updateEntriesArr, req.user, containerId);
-
-        res.send(JSON.stringify(resultsJSON));
+            });
     });
 };
 
