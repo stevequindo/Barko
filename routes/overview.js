@@ -2,33 +2,42 @@ const databases = require("../custom_node_modules/databases.js");
 const func = require(__dirname + "/functions.js");
 
 module.exports = function(app) {
-    app.get('/manifest', func.isLoggedIn, async (req,res) => {
-        res.send('manifest');
-    });
-
     app.get('/overview', func.isLoggedIn, async (req, res) => {
         let user = req.user.local.role;
-        let title = "Countries";
 
         try {
-            // Show all countries
-            const countryArray = await databases.getCountries(req.user);
+            if (user === "staff") {
+                // Show all countries
+                const countryArray = await databases.getCountries(req.user);
 
-            // Redirect away if no containers
-            if (countryArray.length === 0) {
-                throw new TypeError();
+                // Redirect away if no containers
+                if (countryArray.length === 0) {
+                    throw new TypeError();
+                }
+
+                res.render('overview/countries', {contentArray: countryArray, user: user});
+            } else if (user === "overseas") {
+                // Show all manifest files
+                const manifestArray = await databases.getContainersByUser(req.user);
+
+                // Redirect away if no containers
+                if (manifestArray.length === 0) {
+                    throw new TypeError();
+                }
+
+                res.render('overview/containers-overseas', {contentArray: manifestArray, user: user});
             }
-
-            res.render('overview/countries', {contentArray: countryArray, title: title, user: user});
         } catch (err) {
             let mHeader, mBody;
             if (err instanceof TypeError) {
+                console.error(`Error found: ${err}\nPossibly no files found.`);
+
                 // Occurs if nothing is no transactions are found
                 mHeader = "It appears no files have been uploaded yet.";
                 mBody = `Please try again later or contact us <a href='mailto:nchong128@gmail.com' style="color: black">here</a>`;
             } else {
                 mHeader = "It appears an unknown error has occurred.";
-                mBody = `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message ${e}`;
+                mBody = `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message <strong>${err}</strong>`;
             }
 
             res.render("error/message", {
@@ -62,7 +71,7 @@ module.exports = function(app) {
                 mBody = `Please try again later or contact us <a href='mailto:nchong128@gmail.com' style="color: black">here</a>`;
             } else {
                 mHeader = "It appears an unknown error has occurred.";
-                mBody = `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message ${e}`;
+                mBody = `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message ${err}`;
             }
 
             res.render("error/message", {
@@ -98,7 +107,7 @@ module.exports = function(app) {
                     mBody = `Please try again later or contact us <a href='mailto:nchong128@gmail.com' style="color: black">here</a>`;
                 } else {
                     mHeader = "It appears an unknown error has occurred.";
-                    mBody = `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message ${e}`;
+                    mBody = `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message ${err}`;
                 }
                 res.render("error/message", {
                     messageHeader: mHeader,
