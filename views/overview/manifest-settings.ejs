@@ -1,0 +1,141 @@
+<%- include("../partials/header", {user: user}) -%>
+<div class="row">
+    <h1>Container Settings</h1>
+</div>
+<form id="manifest-form" name="manifest-form">
+    <div class="form-group row">
+        <label for="dateAdded" class="col-sm-2 col-form-label">Date Added</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="dateAdded" value="<%-container.dateAdded%>">
+        </div>
+
+        <label for="dateLastAccessed" class="col-sm-2 col-form-label">Last Accessed</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="dateLastAccessed" value="<%-container.dateLastAccessed%>">
+        </div>
+
+        <label for="departureCountry" class="col-sm-2 col-form-label">Departure Country</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="departureCountry" value="<%-container.departureCountry%>">
+        </div>
+
+        <label for="targetCountry" class="col-sm-2 col-form-label">Target Country</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="targetCountry" value="<%-container.targetCountry%>">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <h5 class="col-sm-12"><strong>Local Account</strong></h5>
+        <label for="localAccountEmail" class="col-sm-2 col-form-label">Email</label>
+        <% if (container['localAccess'] != null){%>
+            <div class="col-sm-10">
+                <input type="text"
+                       readonly
+                       class="form-control-plaintext form-control"
+                       id="localAccountEmail"
+                       placeholder="Set overseas account"
+                       name = "localAccountEmail"
+                       value="<%-container.localAccess.local.email%>">
+            </div>
+        <% } else {%>
+            <div class="col-sm-4">
+                <input type="text"
+                       class="form-control-plaintext form-control"
+                       id="localAccountEmail"
+                       placeholder="Set overseas account"
+                       name="localAccountEmail">
+            </div>
+            <div>
+                <button class="btn btn-primary" type="submit">Set</button>
+            </div>
+        <% }%>
+    </div>
+
+    <div class="form-group row">
+        <h5 class="col-sm-12"><strong>Overseas Account</strong></h5>
+        <label for="localAccountEmail" class="col-sm-2 col-form-label">Email</label>
+        <% if (container['overseasAccess'] != null){%>
+            <div class="col-sm-10">
+                <input type="text"
+                       readonly
+                       class="form-control-plaintext form-control"
+                       id="overseasAccountEmail"
+                       placeholder="Set overseas account"
+                       name = "overseasAccountEmail"
+                       value="<%-container.overseasAccess.local.email%>">
+            </div>
+        <% } else {%>
+            <div class="col-sm-4">
+                <input type="text"
+                       class="form-control-plaintext form-control"
+                       id="overseasAccountEmail"
+                       placeholder="Set overseas account"
+                       name="overseasAccountEmail">
+            </div>
+            <div>
+                <button class="btn btn-primary" type="submit">Set</button>
+            </div>
+        <% }%>
+    </div>
+
+<div class="alert alert-danger alert-dismissible fade show" role="alert" style="display:none" id="failureAlert">
+    User was not found.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="row btn btn-primary mr-5" style="cursor:pointer">
+    <a onclick="goBack()" class="link" >Go back</a>
+</div>
+
+<div class="row btn btn-primary" style="cursor:pointer">
+    <a onclick="goToContainer()" class="link" >Container</a>
+</div>
+
+</form>
+
+<script>
+let form = document.getElementById("manifest-form");
+form.setAttribute("action", window.location.pathname);
+
+form.addEventListener('submit',postData);
+
+function postData() {
+	event.preventDefault();
+	let localEmailVal = document.getElementById('localAccountEmail').value;
+	let overseasEmailVal = document.getElementById('overseasAccountEmail').value;
+
+	fetch(window.location.href, {
+		method: 'POST',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
+		body:JSON.stringify({localAccountEmail: localEmailVal, overseasAccountEmail: overseasEmailVal})
+	})
+        .then((res) => res.json())
+		.then((data) => {
+			if (data.updateSuccess === true) {
+				location.reload();
+            } else {
+                // Pop failure alert
+                $('#failureAlert').css('display','block');
+            }
+
+		})
+		.catch((err) => console.log(err));
+}
+
+function goBack() {
+	window.history.back();
+}
+
+function goToContainer() {
+    window.location.href = window.location.href.slice(0, window.location.href.length - 9);
+}
+</script>
+
+
+<%- include("../partials/footer") -%>

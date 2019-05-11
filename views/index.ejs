@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="Description" content="Balikbayan Comms is a software as a service (SaaS) looking to
+        unify information transfer between freight agencies.">
+
 
     <link rel="shortcut icon" href="images/icon.png"/>
     <title>Comms</title>
@@ -21,9 +24,10 @@
       <div class="d-flex justify-content-center align-items-center" style="margin-top: 4%;">
           <form id="trackingForm" class="text-center border border-light p-5" action="/tracking" method="post" style="width: 400px; border-radius: 5px; background-color: #FFFFFF">
 
-              <p class="h4 mb-4" style="margin-right: 20px; color: #000000; "><img src="images/icon.png" height="25px" style="margin: 0 5px 4px"><strong>Comms</strong></p>
+              <p class="h4 mb-4" style="margin-right: 20px; color: #000000; "><img src="images/icon.png" alt="Comms Logo" height="25px" style="margin: 0 5px 4px"><strong>Comms</strong></p>
 
               <input type="text" class="form-control mb-3" name="trackingNumber" placeholder="Enter your tracking number" style="font-size: 12px;" required>
+              <input type="text" class="form-control mb-3" name="surname" placeholder="Enter Surname" style="font-size: 12px;" required>
               <button type="submit" class="btn btn-block my-3 btn-sm" style="background-color: #2039bc; color: #FFFFFF">Track parcel</button>
               <hr style="width: 40%; float: left;"><hr style="width: 40%; float: right;">
               <p style="z-index: 1;">or</p>
@@ -58,7 +62,7 @@
                       <button type="button" class="btn btn-block btn-sm" data-dismiss="modal" style="background-color: #d6d9e7; color: #000000">Close</button>
                   </form>
 
-                  <p style="color: black">Need an account? <a href="/signup">Sign Up</a></p>
+                  <!-- <p style="color: black">Need an account? <a href="/signup">Sign Up</a></p> -->
                   <% if(message.length) { %>
                       <div id="message" class="alert alert-danger"><%= message %></div>
                   <% } %>

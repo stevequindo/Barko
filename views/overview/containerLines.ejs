@@ -1,0 +1,243 @@
+<%- include("../partials/transactions-header", {user: user}) -%>
+
+<table class="mdl-data-table mdl-js-data-table row-border compact" id="comm-table" style="width:100%">
+	<thead>
+	<tr>
+		<th>BATCH NO.</th>
+		<th class="mdl-data-table__cell--non-numeric">TRACKING NO.</th>
+		<th class="">COUNT</th>
+		<th class="mdl-data-table__cell--non-numeric">AREA</th>
+		<th class="mdl-data-table__cell--non-numeric">SENDER</th>
+		<th class="mdl-data-table__cell--non-numeric">RECEIVER</th>
+		<th class="mdl-data-table__cell--non-numeric">DELIVERY ADDRESS</th>
+		<th class="mdl-data-table__cell--non-numeric">STATUS</th>
+		<th class="mdl-data-table__cell--non-numeric">ETA TO PORT</th>
+		<th class="mdl-data-table__cell--non-numeric">COMMENTS</th>
+	</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+</div>
+
+<script>
+$(document).ready(function() {
+	// Initialise editor
+	let editor = new $.fn.dataTable.Editor({
+		table: '#comm-table',
+		idSrc: "_id",
+        // serverSide: true,
+		<% if (user === "staff") { %>
+			fields: [
+				{
+					label: "Status",
+					name: "status.stage",
+					type: "select",
+					options: [
+						"At Departing Port",
+						"On Transit",
+						"At Destination Port",
+						"At Customs",
+						"For Dispatch",
+						"For Delivery",
+						"Delivered"]
+				},
+				{
+					label:"Estimated Arrival Date to Port",
+					type: "datetime",
+					name: "status.estPortArrivalDate",
+					def: function () { return new Date(); },
+				},
+				{
+					label:"Actual Arrival Date to Port",
+					type: "datetime",
+					name: "status.actPortArrivalDate",
+					def: function () { return new Date(); },
+				},
+				{
+					label:"Estimated Delivery Date",
+					type: "datetime",
+					name: "status.estDeliveryDate",
+					def: function () { return new Date(); },
+				},
+				{
+					label:"Actual Delivery Date",
+					type: "datetime",
+					name: "status.actDeliveryDate",
+					def: function () { return new Date(); },
+				},
+				{
+					label:"Received By",
+					type: "text",
+					name: "status.receivedBy"
+				},
+				{
+					label: "Additional Comments",
+					name: "comment",
+				},
+			],
+		<% } else { %>
+			fields : [
+				{
+					label: "Batch No.",
+					type: "text",
+					name: "batchNo"
+				},
+				{
+					label: "Tracking No.",
+					type: "text",
+					name: "trackingNo"
+				},
+				{
+					label: "Count",
+					type: "text",
+					name: "count"
+				},
+				{
+					label: "Area",
+					type: "text",
+					name: "area"
+				},
+				{
+					label: "Sender First Name",
+					type: "text",
+					name: "sender.firstName"
+				},
+				{
+					label: "Sender Last Name",
+					type: "text",
+					name: "sender.lastName"
+				},
+				{
+					label: "Receiver First Name",
+					type: "text",
+					name: "receiver.firstName"
+				},
+				{
+					label: "Receiver Last Name",
+					type: "text",
+					name: "receiver.lastName"
+				},
+				{
+					label: "Delivery Address",
+					type: "text",
+					name: "receiver.address"
+				}
+			],
+		<% } %>
+        ajax: {
+            edit: {
+            	type: 'POST',
+                url: `/overview/id/<%-id%>`,
+				contentType: 'application/json',
+                data: (d) => {
+					return JSON.stringify(d.data);
+                },
+            }
+        }
+	});
+
+	// Create Settings button
+	$.fn.dataTable.ext.buttons.settings = {
+		text: 'Settings',
+		action: function ( e, dt, node, config ) {
+			window.location.replace(window.location.href + "/settings");
+		}
+	};
+
+	// Initialise data table
+	let table = $('#comm-table').DataTable({
+		dom: 'lBfrtip',
+		buttons: [
+            'selectAll',
+			{ extend: "edit",   editor: editor },
+			'settings',
+            'pdf',
+	    ],
+        lengthMenu: [[25, 50,100, -1], [25, 50,100, "All"]],
+		paginate: true,
+		processing: true,
+		select: true,
+		stateSave: true,
+		"data":<%- contentArray %>,
+		deferRender: true,
+		scrollY: 400,
+		"scrollX": true,
+		scrollCollapse: true,
+		scroller:       true,
+		"deferLoading":<%-contentArray.length%>,
+        columnDefs: [
+			{
+				targets: "_all",
+				className: 'dt-left',
+			}
+        ],
+		"columns": [
+				{
+					"data": "batchNo",
+					"defaultContent": "<i>Not set</i>"
+				},
+				{
+					"data": "trackingNo",
+					"defaultContent": "<i>Not set</i>"
+				},
+				{
+					"data": "count",
+					"defaultContent": "<i>Not set</i>"
+				},
+				{
+					"data": "area",
+					"defaultContent": "<i>Not set</i>"
+				},
+				{
+					"data": null,
+					render: function (data, type, row) {
+						let firstName = row.sender.firstName;
+						let lastName = row.sender.lastName;
+						return firstName !== undefined ? `${firstName} ${lastName}` : "<i>Not set</i>";
+					}
+				},
+				{
+					"data": null,
+					render: function (data, type, row) {
+						let firstName = row.receiver.firstName;
+						let lastName = row.receiver.lastName;
+						return firstName !== undefined ? `${firstName} ${lastName}` : "<i>Not set</i>";
+					}
+				},
+				{
+					"data": null,
+					render: function (data,type,row) {
+						let address = row.receiver.address;
+						return address !== undefined ? address.toString() : "<i>Not set</i>";
+					},
+				},
+				{
+					"data": "status.stage",
+					"defaultContent": "<i>Not set</i>"
+				},
+				{
+					"data": "status.estPortArrivalDate",
+					render: function(data, type, row) {
+						let estPortArrivalDate = row.status.estPortArrivalDate;
+
+						if (estPortArrivalDate) {
+							let date = new Date(estPortArrivalDate);
+							return date.toDateString();
+						} else {
+							return "<i>Not set</i>";
+						}
+					},
+				},
+				{
+					"data": "comment",
+					"defaultContent": ""
+				}
+			],
+	});
+});
+</script>
+<%- include("../partials/footer") -%>
+
+
+
