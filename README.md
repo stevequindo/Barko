@@ -1,3 +1,4 @@
+
 # BalikbayanCommFiles
 ## Key Changes finished before trial starts
 
@@ -47,4 +48,3 @@
 	- [x] Database to be access only by then.
 	- [x] Implement better database system for different links between companies.
 	- [x] Their only concern is the database, they want their database to be accessed only by them (and the Philippines agency).
- 
