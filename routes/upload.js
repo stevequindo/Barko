@@ -16,9 +16,6 @@ module.exports = function(app) {
 	app.get("/upload", func.isLoggedIn, (req, res) => {
 	    let user = req.user.local.role;
 
-	    if (user == "overseas")
-	        res.redirect("/recent");
-
 	    res.render("upload/prompt", {
 	        user: user
 	    });
