@@ -39,16 +39,13 @@ a:focus {
 }
 
 .container-1 {
-    width:18rem;
+    max-width:18rem;
 }
 
-.container-text {
-  
-  color: #000000;
-}
 .container-text:hover {
   color: #2039bc;
 }
+
 
 /***************** TRACKING *****************/
 #trackingNumber-field {
