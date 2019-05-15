@@ -1,8 +1,10 @@
-<a class='link' href= '<%-contentItem.link%>'>
-    <div class="card container-1">
-        <div class="card-body">
-            <h5 class="card-title container-text"><%=contentItem.name%><a class="link float-right" href="<%-contentItem.link%>/settings"><i class="fas fa-cog"></i></a></h5>
-            <h6 class="card-subtitle mb-2 text-muted">Date added: <%= contentItem.subtitle%></h6>
-        </div>
+<a class='link container-link' href= '<%-contentItem.link%>'>
+    <div class="card container-1 bg-light container-text">
+        <div class="card-header"><%=contentItem.name%><a class="link float-right" href="<%-contentItem.link%>/settings"><i class="fas fa-cog"></i></div>
+        <a class='link container-link' href= '<%-contentItem.link%>' style="cursor:pointer;">
+            <div class="card-body">
+                <h6 class="card-subtitle text-muted">Date added: <%= contentItem.subtitle%></h6>
+            </div>
+        </a>
     </div>
 </a>

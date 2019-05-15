@@ -4,8 +4,6 @@ body {
 }
 
 /***************** TRACKING   *****************/
-
-@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 body {
     font-family: 'Poppins', sans-serif;
     background: #fafafa;
@@ -39,16 +37,17 @@ a:focus {
 }
 
 .container-1 {
-    width:18rem;
+    max-width:18rem;
 }
 
-.container-text {
-  
-  color: #000000;
-}
 .container-text:hover {
   color: #2039bc;
 }
+
+.container-link {
+    cursor:pointer;
+}
+
 
 /***************** TRACKING *****************/
 #trackingNumber-field {
