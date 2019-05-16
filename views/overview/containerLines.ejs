@@ -1,6 +1,6 @@
 <%- include("../partials/transactions-header", {user: user}) -%>
 
-<table class="mdl-data-table mdl-js-data-table row-border compact" id="comm-table" style="width:100%">
+<table class="mdl-data-table mdl-js-data-table row-border compact" id="comm-table" width="100%">
 	<thead>
 	<tr>
 		<th>BATCH NO.</th>
@@ -161,10 +161,11 @@ $(document).ready(function() {
 		stateSave: true,
 		"data":<%- contentArray %>,
 		deferRender: true,
-		scrollY: 400,
+		scrollY: true,
 		"scrollX": true,
 		scrollCollapse: true,
 		scroller:       true,
+		"autoWidth": false,
 		"deferLoading":<%-contentArray.length%>,
         columnDefs: [
 			{

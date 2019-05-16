@@ -45,8 +45,6 @@
                                                 data-role="tagsinput" 
                                                 placeholder="Enter surname"
                                                 required />
-                                            <!-- <input id="trackingNumber-field" class="form-control" type="text" name="trackingNumber" placeholder="Enter tracking number" value="<%= trackingNumber %>" required> -->
-                                            <!-- <input id="surname-field" class="form-control" type="text" name="surname" placeholder="Enter Surname" value="<%= trackingSurname %>" required> -->
                                             <p style="color:grey; width: 400px; font-size: 12px; margin: 0 0 0 20px;">
                                                 For multiple tracking numbers and surnames, press enter. 
                                             </p>
@@ -95,11 +93,11 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th style="width: 160px">Tracking Number</th>
-                                    <th style="width: 110px">Sender</th>
-                                    <th style="width: 120px">Receiver</th>
-                                    <th class="status-col" colspan="2">Status</th>
-                                    <th style="width: 100px" colspan="2">Notes</th>
+                                    <th width="160px">Tracking Number</th>
+                                    <th width="110px">Sender</th>
+                                    <th width="120px">Receiver</th>
+                                    <th class="status-col" width="100%" colspan="2">Status</th>
+                                    <th width="100px" colspan="2">Notes</th>
                                 </tr>
                             </thead>
 
@@ -108,16 +106,28 @@
                                     <% if (trackingInfo[item] == "No results returned") { %>
                                         <tr style="color: #cf5564;">
                                             <td colspan="6">! <%= item %> does not match with surname 
-                                                "<%= trackingSurname %>". 
+                                                "<%- trackingSurname %>". 
                                                 Please enter a valid tracking number and surname.
                                             </td>
                                             <td><span class="close">&times;</span></td>
                                         </tr>
                                     <% } else { %>
                                         <tr>
-                                            <td><%= item %></td>
-                                            <td><%= sender %></td>
-                                            <td><%= receiver %></td>
+                                            <td>
+                                                <%- item %>
+                                                <% 
+                                                    let logo_url = "";
+                                                    if(trackingInfo[item]._id == "5cd39ffcc2bd9a110ce82f4a") {
+                                                        logo_url = "images/dmc_logo.jpg";
+                                                    } else {
+                                                        logo_url = "images/fasttraxx_logo.jpg";
+                                                    } 
+                                                %>
+                                                <br>
+                                                <img class="company_logo" src="<%- logo_url %>" height="50px">
+                                            </td>
+                                            <td><%- sender %></td>
+                                            <td><%- receiver %></td>
                                             <td class="status-item-col" colspan="2">
 
                                             <% 
@@ -169,15 +179,15 @@
                                                 }
                                                 %>
 
-                                                <p><%= status_msg %></p>
-                                                <a href="#" data-toggle="tooltip" data-placement="top" title="<%= status_msg %>">
+                                                <p><%- status_msg %></p>
+                                                <a href="#" data-toggle="tooltip" data-placement="top" title="<%- status_msg %>">
                                                 <ul class="progressbar">
-                                                    <li class="<%= classStyles[0] %>">NZ Port</li>
-                                                    <li class="<%= classStyles[1] %>">On Transit</li>
-                                                    <li class="<%= classStyles[2] %>">Arrived Port</li>
-                                                    <li class="<%= classStyles[3] %>">Customs</li>
-                                                    <li class="<%= classStyles[4] %>">For Dispatch</li>
-                                                    <li class="<%= classStyles[5] %>">For Delivery</li>
+                                                    <li class="<%- classStyles[0] %>">NZ Port</li>
+                                                    <li class="<%- classStyles[1] %>">On Transit</li>
+                                                    <li class="<%- classStyles[2] %>">Arrived Port</li>
+                                                    <li class="<%- classStyles[3] %>">Customs</li>
+                                                    <li class="<%- classStyles[4] %>">For Dispatch</li>
+                                                    <li class="<%- classStyles[5] %>">For Delivery</li>
                                                 </ul>
                                                 </a>
                                             </td>

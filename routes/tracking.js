@@ -59,7 +59,7 @@ module.exports = function(app) {
                     try {
                         trackingInfo[elem] = await databases.findStatusInfo(elem, s);
 
-                        // console.log(trackingInfo[elem]); // for testing
+                        console.log(trackingInfo[elem]); // for testing
 
                         sender = trackingInfo[elem].sender.firstName + " " 
                             + trackingInfo[elem].sender.middleName + " "
