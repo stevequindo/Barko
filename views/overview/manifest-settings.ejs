@@ -87,7 +87,7 @@
 </div>
 
 <div class="row btn btn-primary mr-5" style="cursor:pointer">
-    <a onclick="goBack()" class="link" >Go back</a>
+    <a onclick="goBack()" class="link" >Back</a>
 </div>
 
 <div class="row btn btn-primary" style="cursor:pointer">
@@ -129,7 +129,11 @@ function postData() {
 }
 
 function goBack() {
-	window.history.back();
+	if ("<%-user%>" === "staff") {
+	    window.location.href = "/overview/country/<%-container.departureCountry%>";
+    } else {
+	    window.location.href = "/overview";
+    }
 }
 
 function goToContainer() {
