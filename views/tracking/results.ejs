@@ -131,14 +131,16 @@
                                             <td class="status-item-col" colspan="2">
 
                                             <% 
+                                                let delivered = false;
                                                 status_msg = "";
                                                 let status = [
                                                     "At Departing Port", 
                                                     "On Transit", 
-                                                    "Arrived Port", 
-                                                    "Customs", 
+                                                    "At Destination Port", 
+                                                    "At Customs", 
                                                     "For Dispatch", 
-                                                    "For Delivery"
+                                                    "For Delivery",
+                                                    "Delivered"
                                                 ];
 
                                                 let classStyles = ["passive", "passive", "passive", "passive", "passive", "passive"];
@@ -171,25 +173,31 @@
                                                             }
 
                                                         } else if (i == 6) {
+                                                            delivered = true;
                                                             if(trackingInfo[item].status.receivedBy) {
-                                                                status_msg = "Delivered and received by "+ trackingInfo[item].status.receivedBy;
+                                                                status_msg = "Delivered and received by " + trackingInfo[item].status.receivedBy;
+                                                            } else {
+                                                                status_msg = "Delivered"
                                                             }
                                                         }
                                                     }
                                                 }
-                                                %>
+                                                if(delivered == false) { %>
 
-                                                <p><%- status_msg %></p>
-                                                <a href="#" data-toggle="tooltip" data-placement="top" title="<%- status_msg %>">
-                                                <ul class="progressbar">
-                                                    <li class="<%- classStyles[0] %>">NZ Port</li>
-                                                    <li class="<%- classStyles[1] %>">On Transit</li>
-                                                    <li class="<%- classStyles[2] %>">Arrived Port</li>
-                                                    <li class="<%- classStyles[3] %>">Customs</li>
-                                                    <li class="<%- classStyles[4] %>">For Dispatch</li>
-                                                    <li class="<%- classStyles[5] %>">For Delivery</li>
-                                                </ul>
-                                                </a>
+                                                    <p><%- status_msg %></p>
+                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="<%- status_msg %>">
+                                                    <ul class="progressbar">
+                                                        <li class="<%- classStyles[0] %>">NZ Port</li>
+                                                        <li class="<%- classStyles[1] %>">On Transit</li>
+                                                        <li class="<%- classStyles[2] %>">Arrived Port</li>
+                                                        <li class="<%- classStyles[3] %>">Customs</li>
+                                                        <li class="<%- classStyles[4] %>">For Dispatch</li>
+                                                        <li class="<%- classStyles[5] %>">For Delivery</li>
+                                                    </ul>
+                                                    </a>
+                                                <% } else { %>
+                                                    <p><%- status_msg %></p>
+                                                <% } %>
                                             </td>
                                             <td>
                                                 <!-- notes goes here -->
