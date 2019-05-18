@@ -8,10 +8,7 @@ module.exports = function(app) {
         try {
             let results = await databases.getLatestTransactionInfo(req.user);
 
-            // res.redirect(`/overview/id/${results._id}`);
-            res.render(`/overview/id/${results._id}`, {
-                user: user
-            });
+            res.redirect(`/overview/id/${results._id}`);
 
         } catch(e) {
             let mHeader, mBody;
