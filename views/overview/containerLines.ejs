@@ -1,19 +1,19 @@
 <%- include("../partials/transactions-header", {user: user}) -%>
 
-<table class="mdl-data-table mdl-js-data-table row-border compact" id="comm-table" width="100%">
+<table class="mdl-data-table mdl-js-data-table row-border compact" id="comm-table" style="width:100%">
 	<thead>
-	<tr>
-		<th>BATCH NO.</th>
-		<th class="mdl-data-table__cell--non-numeric">TRACKING NO.</th>
-		<th class="">COUNT</th>
-		<th class="mdl-data-table__cell--non-numeric">AREA</th>
-		<th class="mdl-data-table__cell--non-numeric">SENDER</th>
-		<th class="mdl-data-table__cell--non-numeric">RECEIVER</th>
-		<th class="mdl-data-table__cell--non-numeric">DELIVERY ADDRESS</th>
-		<th class="mdl-data-table__cell--non-numeric">STATUS</th>
-		<th class="mdl-data-table__cell--non-numeric">ETA TO PORT</th>
-		<th class="mdl-data-table__cell--non-numeric">COMMENTS</th>
-	</tr>
+		<tr>
+			<th>BATCH NO.</th>
+			<th class="mdl-data-table__cell--non-numeric">TRACKING NO.</th>
+			<th>COUNT</th>
+			<th class="mdl-data-table__cell--non-numeric">AREA</th>
+			<th class="mdl-data-table__cell--non-numeric">SENDER</th>
+			<th class="mdl-data-table__cell--non-numeric">RECEIVER</th>
+			<th class="mdl-data-table__cell--non-numeric">DELIVERY ADDRESS</th>
+			<th class="mdl-data-table__cell--non-numeric">STATUS</th>
+			<th class="mdl-data-table__cell--non-numeric">ETA TO PORT</th>
+			<th class="mdl-data-table__cell--non-numeric">COMMENTS</th>
+		</tr>
 	</thead>
 	<tbody>
 	</tbody>
@@ -47,34 +47,48 @@ $(document).ready(function() {
 					label:"Estimated Arrival Date to Port",
 					type: "datetime",
 					name: "status.estPortArrivalDate",
-					def: function () { return new Date(); },
+					attr: {
+						placeholder: "Not set"
+					}
 				},
 				{
 					label:"Actual Arrival Date to Port",
 					type: "datetime",
 					name: "status.actPortArrivalDate",
-					def: function () { return new Date(); },
+					attr: {
+						placeholder: "Not set"
+					}
 				},
 				{
 					label:"Estimated Delivery Date",
 					type: "datetime",
 					name: "status.estDeliveryDate",
-					def: function () { return new Date(); },
+					attr: {
+						placeholder: "Not set"
+					}
 				},
 				{
 					label:"Actual Delivery Date",
 					type: "datetime",
 					name: "status.actDeliveryDate",
-					def: function () { return new Date(); },
+					attr: {
+						placeholder: "Not set"
+					}
 				},
 				{
 					label:"Received By",
 					type: "text",
-					name: "status.receivedBy"
+					name: "status.receivedBy",
+					attr: {
+						placeholder: "Not set"
+					}
 				},
 				{
 					label: "Additional Comments",
 					name: "comment",
+					attr: {
+						placeholder: "Not set"
+					}
 				},
 			],
 		<% } else { %>
@@ -153,6 +167,7 @@ $(document).ready(function() {
             'selectAll',
 			{ extend: "edit",   editor: editor },
 			'settings',
+			'excel',
             'pdf',
 	    ],
         lengthMenu: [[25, 50,100, -1], [25, 50,100, "All"]],
