@@ -247,7 +247,6 @@ div.dt-buttons {
     vertical-align: middle;
 }
 
-#comm-table_wrapper {
-    width: 100%;
-    
-}
+/*.dataTables_scrollBody {
+    overflow-x:hidden !important;
+}*/

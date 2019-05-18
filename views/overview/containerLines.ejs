@@ -17,6 +17,7 @@
 	</thead>
 	<tbody>
 	</tbody>
+	<tfoot><tr></tr></tfoot> <!-- theres a black border line on bottom of the table without this -->
 </table>
 </div>
 
@@ -161,11 +162,11 @@ $(document).ready(function() {
 		stateSave: true,
 		"data":<%- contentArray %>,
 		deferRender: true,
-		scrollY: true,
-		"scrollX": true,
-		scrollCollapse: true,
-		scroller:       true,
-		"autoWidth": false,
+		// scrollY: true,
+		// "scrollX": true,
+		// scrollCollapse: true,
+		// scroller:       true,
+		// "autoWidth": false,
 		"deferLoading":<%-contentArray.length%>,
         columnDefs: [
 			{

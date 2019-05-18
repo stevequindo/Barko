@@ -60,7 +60,7 @@ em {
    width: 210px;
    height: 100%;
    background: #f4f5f6;
-   z-index: 1;
+   z-index: 99;
 }
 
 .s-sidebar__nav:hover,
