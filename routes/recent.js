@@ -12,19 +12,19 @@ module.exports = function(app) {
             let mHeader, mBody;
             if (e instanceof TypeError) {
                 // Occurs if nothing is no transactions are found
-                console.error(`Error found at /recent with message ${e}`);
-                mHeader = "It appears no files have been uploaded yet.";
-                mBody = `Please try again later or contact us <a href='mailto:nchong128@gmail.com' style="color: black">here</a>`;
+                console.error(`No files yet, redirecting`);
+                res.render("error/no-files", {
+                   user: user
+                });
             } else {
                 mHeader = "It appears an unknown error has occurred.";
                 mBody = `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message ${e}`;
+                res.render("error/message", {
+                    user: user,
+                    messageHeader: mHeader,
+                    messageBody: mBody,
+                });
             }
-
-            res.render("error/message", {
-                user: user,
-                messageHeader: mHeader,
-                messageBody: mBody,
-            });
         }
     });
 };
