@@ -129,7 +129,7 @@ function postData() {
 }
 
 function goBack() {
-	if ("<%-user%>" === "staff") {
+	if ("<%- user.role %>" === "staff") {
 	    window.location.href = "/overview/country/<%-container.departureCountry%>";
     } else {
 	    window.location.href = "/overview";

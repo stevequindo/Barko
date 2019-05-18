@@ -6,12 +6,22 @@
 
     <nav class="s-sidebar__nav">
         <ul>
-            <li><a class="s-sidebar__nav-header" href="/profile">
-                    <h4 style="color: #000000; margin: 5% 0 10% 20%;"><img src="/images/icon.png" height="30px" alt="Comms Logo" style="margin-top: -2%"><strong> Comms</strong></a></h4>
+            <li>
+                <a class="s-sidebar__nav-header" href="/profile">
+                    <!-- for the trial only, remove afterwards -->
+                    <% if(user.email == "cargoflexhaulers@trial.com") { %>
+                         <h4 style="color: white; text-shadow: 2px 2px 4px #000000; margin: 5% 0 10% 20%;"><img src="/images/CargoFlex_LogoFull.png" height="80px" alt="CargoFlex Logo" style="margin: -2% 0 0 -10%;"></h4>
+
+                    <% } else { %>
+                    
+                        <h4 style="color: #000000; margin: 5% 0 10% 20%;"><img src="/images/icon.png" height="30px" alt="Comms Logo" style="margin-top: -2%"><strong> Comms</strong></h4>
+                    
+                    <% } %>
+                </a>
             </li>
 
             <!-- display side bar links only if user is logged in -->
-            <% if(user == "overseas" || user == "staff") { %>
+            <% if(user.role == "overseas" || user.role == "staff") { %>
                 <!-- overseas company view -->
                 <li>
                     <a class="s-sidebar__nav-link" href="/recent">

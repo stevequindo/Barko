@@ -3,10 +3,10 @@ const func = require(__dirname + "/functions.js");
 
 module.exports = function(app) {
     app.get('/overview', func.isLoggedIn, async (req, res) => {
-        let user = req.user.local.role;
+        let user = req.user.local;
 
         try {
-            if (user === "staff") {
+            if (user.role === "staff") {
                 // Show all countries
                 const countryArray = await databases.getCountries(req.user);
 
@@ -16,7 +16,8 @@ module.exports = function(app) {
                 }
 
                 res.render('overview/countries', {contentArray: countryArray, user: user});
-            } else if (user === "overseas") {
+
+            } else if (user.role === "overseas") {
                 // Show all manifest files
                 const manifestArray = await databases.getContainersByUser(req.user);
 
@@ -49,7 +50,7 @@ module.exports = function(app) {
     });
 
     app.get("/overview/country/:country", func.isLoggedIn, async (req,res) => {
-        let user = req.user.local.role;
+        let user = req.user.local;
 
         try {
             // Country is defined -> Show the manifest files for that country
@@ -83,7 +84,7 @@ module.exports = function(app) {
     });
 
     app.get("/overview/id/:id", func.isLoggedIn, (req,res) => {
-        let user = req.user.local.role;
+        let user = req.user.local;
         const country =  decodeURIComponent(req.params.country);
         const id = decodeURIComponent(req.params.id);
 
@@ -118,7 +119,7 @@ module.exports = function(app) {
     });
 
     app.post("/overview/id/:id", func.isLoggedIn, async (req,res) => {
-        const user = req.user.local.role;
+        const user = req.user.local;
         const id = req.params.id;
 
         // Get JSON data
@@ -131,7 +132,7 @@ module.exports = function(app) {
     });
 
     app.get("/overview/id/:id/settings", func.isLoggedIn, async (req, res) => {
-        const user = req.user.local.role;
+        const user = req.user.local;
         const id = decodeURIComponent(req.params.id);
 
         try {

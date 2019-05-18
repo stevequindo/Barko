@@ -5,7 +5,7 @@ const func = require(__dirname + "/functions.js");
 module.exports = function(app) {
 
     app.get("/tracking", func.isLoggedIn, (req,res) => {
-        let user = req.user.local.role;
+        let user = req.user.local;
         res.render("tracking/prompt", {user: user}); // this tracking search view is for loggedin users only
     });
 
@@ -14,7 +14,7 @@ module.exports = function(app) {
         let user = "";
         // check if user is a logged in user, to restrict sidebar view approperiately for staff and overseas
         if(req.isAuthenticated()) {
-            user = req.user.local.role;
+            user = req.user.local;
         } 
         // otherwise this tracking page is still accessible without login, with nothing on the sidebar
 

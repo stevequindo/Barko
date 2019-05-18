@@ -4,10 +4,15 @@ const func = require(__dirname + "/functions.js");
 module.exports = function(app) {
 
     app.get('/recent', func.isLoggedIn, async (req,res) => {
-        let user = req.user.local.role;
+        let user = req.user.local;
         try {
             let results = await databases.getLatestTransactionInfo(req.user);
-            res.redirect(`/overview/id/${results._id}`);
+
+            // res.redirect(`/overview/id/${results._id}`);
+            res.render(`/overview/id/${results._id}`, {
+                user: user
+            });
+
         } catch(e) {
             let mHeader, mBody;
             if (e instanceof TypeError) {

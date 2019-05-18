@@ -28,7 +28,7 @@ $(document).ready(function() {
 		table: '#comm-table',
 		idSrc: "_id",
         // serverSide: true,
-		<% if (user === "staff") { %>
+		<% if (user.role === "staff") { %>
 			fields: [
 				{
 					label: "Status",

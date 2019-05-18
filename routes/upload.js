@@ -14,7 +14,7 @@ const clientFilesPath = "/client_files/";
 module.exports = function(app) {
 
 	app.get("/upload", func.isLoggedIn, (req, res) => {
-	    let user = req.user.local.role;
+	    let user = req.user.local;
 
 	    res.render("upload/prompt", {
 	        user: user
@@ -22,7 +22,7 @@ module.exports = function(app) {
 	});
 
 	app.post("/upload", func.isLoggedIn, (req, res) => {
-	    let user = req.user.local.role;
+	    let user = req.user.local;
 
 	    try {
 	        // Check if files were uploaded
