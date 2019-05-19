@@ -147,7 +147,7 @@
 
                                                 for (let i = 0; i < status.length; i++) {
 
-                                                    if(trackingInfo[item].status.stage == status[i]) {
+                                                    if(trackingInfo[item].status.stage.toUpperCase() === status[i].toUpperCase()) {
                                                         classStyles[i] = "active";
 
                                                         if(i == 0 || i == 1) {
@@ -196,6 +196,7 @@
                                                     </ul>
                                                     </a>
                                                 <% } else { %>
+                                                    <!-- Progressbar hides and if status = delivered, show "Delivered Text" -->
                                                     <p><%- status_msg %></p>
                                                 <% } %>
                                             </td>
