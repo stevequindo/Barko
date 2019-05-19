@@ -240,7 +240,16 @@ $(document).ready(function() {
 					render: function (data, type, row) {
 						let firstName = row.sender.firstName;
 						let lastName = row.sender.lastName;
-						return firstName !== undefined ? `${firstName} ${lastName}` : "<i>Not set</i>";
+
+						if (firstName === undefined && lastName === undefined) {
+							return "<i>Not set</i>";
+						} else if (firstName === undefined) {
+							return lastName;
+						} else if (lastName === undefined) {
+							return firstName;
+						} else {
+							return `${firstName} ${lastName}`;
+						}
 					}
 				},
 				{
@@ -248,7 +257,16 @@ $(document).ready(function() {
 					render: function (data, type, row) {
 						let firstName = row.receiver.firstName;
 						let lastName = row.receiver.lastName;
-						return firstName !== undefined ? `${firstName} ${lastName}` : "<i>Not set</i>";
+
+						if (firstName === undefined && lastName === undefined) {
+							return "<i>Not set</i>";
+						} else if (firstName === undefined) {
+							return lastName;
+						} else if (lastName === undefined) {
+							return firstName;
+						} else {
+							return `${firstName} ${lastName}`;
+						}
 					}
 				},
 				{
