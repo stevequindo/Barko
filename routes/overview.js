@@ -33,9 +33,9 @@ module.exports = function(app) {
             if (err instanceof TypeError) {
                 console.error(`Error found: ${err}\nPossibly no files found.`);
 
-                // Occurs if nothing is no transactions are found
-                mHeader = "It appears no files have been uploaded yet.";
-                mBody = `Please try again later or contact us <a href='mailto:nchong128@gmail.com' style="color: black">here</a>`;
+                res.render("error/no-files", {
+                    user: user
+                });
             } else {
                 mHeader = "It appears an unknown error has occurred.";
                 mBody = `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message <strong>${err}</strong>`;
@@ -67,9 +67,9 @@ module.exports = function(app) {
         } catch (err) {
             let mHeader, mBody;
             if (err instanceof TypeError) {
-                // Occurs if nothing is no transactions are found
-                mHeader = "It appears no files have been uploaded yet.";
-                mBody = `Please try again later or contact us <a href='mailto:nchong128@gmail.com' style="color: black">here</a>`;
+                res.render("error/no-files", {
+                    user: user
+                });
             } else {
                 mHeader = "It appears an unknown error has occurred.";
                 mBody = `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message ${err}`;
@@ -103,9 +103,9 @@ module.exports = function(app) {
                 let mHeader, mBody;
 
                 if (err instanceof TypeError) {
-                    // Occurs if nothing is no transactions are found
-                    mHeader = "It appears no files have been uploaded yet.";
-                    mBody = `Please try again later or contact us <a href='mailto:nchong128@gmail.com' style="color: black">here</a>`;
+                    res.render("error/no-files", {
+                        user: user
+                    });
                 } else {
                     mHeader = "It appears an unknown error has occurred.";
                     mBody = `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message ${err}`;
