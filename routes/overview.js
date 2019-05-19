@@ -37,15 +37,12 @@ module.exports = function(app) {
                     user: user
                 });
             } else {
-                mHeader = "It appears an unknown error has occurred.";
-                mBody = `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message <strong>${err}</strong>`;
+                res.render("error/message", {
+                    user: user,
+                    messageHeader: "It appears an unknown error has occurred.",
+                    messageBody: `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message <strong>${err}</strong>`,
+                });
             }
-
-            res.render("error/message", {
-                user: user,
-                messageHeader: mHeader,
-                messageBody: mBody,
-            });
         }
     });
 
@@ -71,15 +68,12 @@ module.exports = function(app) {
                     user: user
                 });
             } else {
-                mHeader = "It appears an unknown error has occurred.";
-                mBody = `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message ${err}`;
+                res.render("error/message", {
+                    user: user,
+                    messageHeader: "It appears an unknown error has occurred.",
+                    messageBody: `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message <strong>${err}</strong>`,
+                });
             }
-
-            res.render("error/message", {
-                user: user,
-                messageHeader: mHeader,
-                messageBody: mBody,
-            });
         }
     });
 
@@ -107,14 +101,12 @@ module.exports = function(app) {
                         user: user
                     });
                 } else {
-                    mHeader = "It appears an unknown error has occurred.";
-                    mBody = `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message ${err}`;
+                    res.render("error/message", {
+                        user: user,
+                        messageHeader: "It appears an unknown error has occurred.",
+                        messageBody: `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message <strong>${err}</strong>`,
+                    });
                 }
-                res.render("error/message", {
-                    messageHeader: mHeader,
-                    messageBody: mBody,
-                    user: user
-                });
             });
     });
 
@@ -146,12 +138,10 @@ module.exports = function(app) {
                 container: container
             });
         } catch(error) {
-            const mHeader = "It appears you do not have access to this file or this file does not exist.";
-            const mBody = `Please try again later or contact us <a href='mailto:nchong128@gmail.com' style="color: black">here</a>`;
             res.render("error/message", {
                 user: user,
-                messageHeader: mHeader,
-                messageBody: mBody,
+                messageHeader: "It appears an unknown error has occurred.",
+                messageBody: `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message <strong>${err}</strong>`,
             });
         }
     });
