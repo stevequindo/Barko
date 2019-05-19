@@ -59,6 +59,8 @@ module.exports = function(app) {
                 throw new TypeError();
             }
 
+            console.log(containerArray);
+
             // Render the container files
             res.render('overview/containers', {contentArray: containerArray, country: country, user: user});
         } catch (err) {

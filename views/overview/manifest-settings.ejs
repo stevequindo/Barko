@@ -4,6 +4,11 @@
 </div>
 <form id="manifest-form" name="manifest-form">
     <div class="form-group row">
+        <label for="containerNo" class="col-sm-2 col-form-label">Container Number</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="containerNo" value="<%-container.containerNo%>">
+        </div>
+
         <label for="dateAdded" class="col-sm-2 col-form-label">Date Added</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="dateAdded" value="<%-container.dateAdded%>">

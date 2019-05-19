@@ -1,4 +1,3 @@
-
 const databases = require("../custom_node_modules/databases.js");
 const func = require(__dirname + "/functions.js");
 
@@ -9,7 +8,6 @@ let fileID = "theFile";
 // File folder names
 const serverFilesPath = "/server_files/";
 const clientFilesPath = "/client_files/";
-
 
 module.exports = function(app) {
 
@@ -26,9 +24,12 @@ module.exports = function(app) {
 
 	    try {
 	        // Check if files were uploaded
-	        if (Object.keys(req.files).length === 0) {
-	            throw("No files were uploaded");
-	        }
+	        if (Object.keys(req.files).length === 0) throw "No files were uploaded";
+
+	        // Get container number
+			if (!req.body.hasOwnProperty("containerNum")) throw "No container number given";
+
+			const containerNum = req.body["containerNum"];
 
 	        // Retrieve file based on file ID
 	        let file = req.files[fileID];
@@ -36,26 +37,27 @@ module.exports = function(app) {
 
 	        // Move file to server_files and return pathname
 	        file.mv(pathName, async (err) => {
-				if (err) {
-					throw err;
-				}
+				if (err) throw err;
 
 				let jsonWorkbook = getJsonWorkbook(pathName);
-				let summary = await databases.parseJsonWorkbook(jsonWorkbook, req.user);
+				let summary = await databases.parseJsonWorkbook(jsonWorkbook, req.user, user, containerNum);
+
+				if (summary instanceof Error) {
+					throw summary;
+				}
 
 				if (summary.containersAdded === 0) {
 					res.render('upload/failure', {errorMessage: "File was empty", user: user});
+				} else {
+					res.render("upload/success", {summary: summary, user: user});
 				}
 
-				res.render("upload/success", {summary: summary, user: user});
 			});
 	    } catch(e) {
 	        res.render('upload/failure', {errorMessage: e, user: user});
 	    }
 	});
-
 };
-
 
 getJsonWorkbook = function(pathName) {
     /*
