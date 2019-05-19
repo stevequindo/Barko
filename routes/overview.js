@@ -86,10 +86,19 @@ module.exports = function(app) {
 
         databases.getContainerLines(id, req.user)
             .then((dbResponse) => {
+                console.log(dbResponse);
                 // Get response
+                let containerNo;
+                if (!dbResponse._doc.hasOwnProperty("containerNo")) {
+                    containerNo = "Container";
+                } else {
+                    containerNo = `Container Number: ${dbResponse["containerNo"]}`;
+                }
+
                 let transactionsArray = JSON.stringify(dbResponse["containerLine"]);
                 res.render('overview/containerLines', {
                     contentArray: transactionsArray,
+                    containerNo: containerNo,
                     country: country,
                     id: id,
                     user: user
