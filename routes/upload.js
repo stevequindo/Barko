@@ -31,6 +31,10 @@ module.exports = function(app) {
 
 			const containerNum = req.body["containerNum"];
 
+			if (containerNum == null || containerNum === "") {
+				throw new Error("Container number not given.");
+			}
+
 	        // Retrieve file based on file ID
 	        let file = req.files[fileID];
 	        let pathName =  "." + serverFilesPath + file.name;
