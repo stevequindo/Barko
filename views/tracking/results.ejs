@@ -117,14 +117,21 @@
                                                 <%- item %>
                                                 <% 
                                                     let logo_url = "";
-                                                    if(trackingInfo[item]._id == "5cd39ffcc2bd9a110ce82f4a") {
+                                                    if(trackingInfo[item]._id == "5ce12d4421dad800176cf1c6") {
                                                         logo_url = "images/dmc_logo.jpg";
-                                                    } else {
+
+                                                    } else if(trackingInfo[item]._id == "5ce12cbc21dad800176cf1c5") {
                                                         logo_url = "images/fasttraxx_logo.png";
-                                                    } 
+
+                                                    } else if(trackingInfo[item]._id == "5cdf87ebcc89f70017be4452") {
+                                                        logo_url = "images/CargoFlex_LogoFull.png";
+                                                    }
                                                 %>
-                                                <!-- <br> -->
-                                                <!-- <img class="company_logo" src="<%- logo_url %>" height="50px"> -->
+
+                                                <% if(logo_url) { %>
+                                                    <br> 
+                                                    <img class="company_logo" src="<%- logo_url %>" height="50px">
+                                                <% } %>
                                             </td>
                                             <td><%- sender %></td>
                                             <td><%- receiver %></td>
