@@ -18,19 +18,24 @@
     <!-- Content -->
     <main class="s-layout__content">
         <div class="container">
-            <div class="row">
-                <h1>File Upload</h1>
-            </div>
+            <h1>File Upload</h1><br>
 
-            <div class="row">
-                <form method="post" action="/upload" enctype='multipart/form-data'>
-
-                    <input type="file" name="theFile"><br><br>
-                    <button type="submit" class="btn btn-block my-3 btn-sm" style="width: 100px;background-color: #2039bc; color: #FFFFFF">
-                        Upload
-                    </button>
-                </form>
-            </div>
+            <form method="post" action="/upload" enctype='multipart/form-data'>
+                <div class="form-group">
+                    <label for="containerId"><strong>Container ID</strong></label>
+                    <input type="text" class="form-control" id="containerId" style="width: 15rem;">
+                </div>
+                <hr>
+                <div class="form-group">
+                    <label for="manifestFile"><strong>Manifest File</strong></label><br>
+                    <input type="file" name="theFile" id="manifestFile">
+                    <small class="form-text text-muted">Make sure you're using our given template file.</small>
+                </div>
+                <hr>
+                <button type="submit" class="btn btn-success" style="width: 100px;background-color: #2039bc; color: #FFFFFF">
+                    Upload
+                </button>
+            </form>
         </div>
 
 <%- include("../partials/footer") -%>
