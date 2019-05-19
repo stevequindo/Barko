@@ -31,7 +31,11 @@
     </div>
 
     <div class="form-group row">
-        <h5 class="col-sm-12"><strong>Local Account</strong></h5>
+        <% if (user.role === "staff") { %>
+            <h5 class="col-sm-12"><strong>Your Account</strong></h5>
+        <% } else { %>
+            <h5 class="col-sm-12"><strong>Local Agent</strong></h5>
+        <% } %>
         <label for="localAccountEmail" class="col-sm-2 col-form-label">Email</label>
         <% if (container['localAccess'] != null){%>
             <div class="col-sm-10">
@@ -39,7 +43,7 @@
                        readonly
                        class="form-control-plaintext form-control"
                        id="localAccountEmail"
-                       placeholder="Set local account"
+                       placeholder="Set local agent"
                        name = "localAccountEmail"
                        value="<%-container.localAccess.local.email%>">
             </div>
@@ -48,7 +52,7 @@
                 <input type="text"
                        class="form-control-plaintext form-control"
                        id="localAccountEmail"
-                       placeholder="Set local account"
+                       placeholder="Set local agent"
                        name="localAccountEmail">
             </div>
             <div>
@@ -58,8 +62,12 @@
     </div>
 
     <div class="form-group row">
-        <h5 class="col-sm-12"><strong>Overseas Account</strong></h5>
-        <label for="localAccountEmail" class="col-sm-2 col-form-label">Email</label>
+        <% if (user.role === "overseas") { %>
+            <h5 class="col-sm-12"><strong>Your Account</strong></h5>
+        <% } else { %>
+            <h5 class="col-sm-12"><strong>Overseas Agent</strong></h5>
+        <% } %>
+        <label for="overseasAccountEmail" class="col-sm-2 col-form-label">Email</label>
         <% if (container['overseasAccess'] != null){%>
             <div class="col-sm-10">
                 <input type="text"
