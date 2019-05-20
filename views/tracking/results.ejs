@@ -139,7 +139,6 @@
                                             <td class="status-item-col" colspan="2">
 
                                             <% 
-                                                let delivered = false;
                                                 status_msg = "";
                                                 let status = [
                                                     "At Departing Port", 
@@ -151,7 +150,7 @@
                                                     "Delivered"
                                                 ];
 
-                                                let classStyles = ["passive", "passive", "passive", "passive", "passive", "passive"];
+                                                let classStyles = ["passive", "passive", "passive", "passive", "passive", "passive" , "passive"];
 
                                                 for (let i = 0; i < status.length; i++) {
 
@@ -181,7 +180,6 @@
                                                             }
 
                                                         } else if (i == 6) {
-                                                            delivered = true;
                                                             if(trackingInfo[item].status.receivedBy) {
                                                                 status_msg = "Delivered and received by " + trackingInfo[item].status.receivedBy;
                                                             } else {
@@ -189,24 +187,20 @@
                                                             }
                                                         }
                                                     }
-                                                }
-                                                if(delivered == false) { %>
+                                                } %>
 
-                                                    <p><%- status_msg %></p>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="<%- status_msg %>">
-                                                    <ul class="progressbar">
-                                                        <li class="<%- classStyles[0] %>">NZ Port</li>
-                                                        <li class="<%- classStyles[1] %>">On Transit</li>
-                                                        <li class="<%- classStyles[2] %>">Arrived Port</li>
-                                                        <li class="<%- classStyles[3] %>">Customs</li>
-                                                        <li class="<%- classStyles[4] %>">For Dispatch</li>
-                                                        <li class="<%- classStyles[5] %>">For Delivery</li>
-                                                    </ul>
-                                                    </a>
-                                                <% } else { %>
-                                                    <!-- Progressbar hides and if status = delivered, show "Delivered Text" -->
-                                                    <p><%- status_msg %></p>
-                                                <% } %>
+                                                <p><%- status_msg %></p>
+                                                <a href="#" data-toggle="tooltip" data-placement="top" title="<%- status_msg %>">
+                                                <ul class="progressbar">
+                                                    <li class="<%- classStyles[0] %>">NZ Port</li>
+                                                    <li class="<%- classStyles[1] %>">On Transit</li>
+                                                    <li class="<%- classStyles[2] %>">Arrived Port</li>
+                                                    <li class="<%- classStyles[3] %>">Customs</li>
+                                                    <li class="<%- classStyles[4] %>">For Dispatch</li>
+                                                    <li class="<%- classStyles[5] %>">For Delivery</li>
+                                                    <li class="<%- classStyles[6] %>">Delivered</li>
+                                                </ul>
+                                                </a>
                                             </td>
                                             <td>
                                                 <!-- notes goes here -->

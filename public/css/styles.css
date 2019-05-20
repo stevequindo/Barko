@@ -113,7 +113,7 @@ a:focus {
 }
 .progressbar li {
     list-style-type: none;
-    min-width: 16%;  /* Width of the Progressbar Line */
+    min-width: 12%;  /* Width of the Progressbar Line */
     width: auto;
     float: left;
     font-size: 11px; 

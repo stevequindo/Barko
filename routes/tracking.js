@@ -61,7 +61,7 @@ module.exports = function(app) {
                         trackingInfo[elem] = results["containerLine"][0];
                         trackingInfo[elem].overseasAccess = results["overseasAccess"];
 
-                        console.log(trackingInfo[elem]); // for testing
+                        // console.log(trackingInfo[elem]); // for testing
 
                         sender = trackingInfo[elem].sender.firstName + " " 
                             + trackingInfo[elem].sender.middleName + " "
