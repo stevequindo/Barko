@@ -57,7 +57,9 @@ module.exports = function(app) {
             for (let elem of trackingNumArray) {
                 for (let s of surnameArray) {
                     try {
-                        trackingInfo[elem] = await databases.findStatusInfo(elem, s);
+                        let results = await databases.findStatusInfo(elem, s);
+                        trackingInfo[elem] = results["containerLine"][0];
+                        trackingInfo[elem].overseasAccess = results["overseasAccess"];
 
                         console.log(trackingInfo[elem]); // for testing
 

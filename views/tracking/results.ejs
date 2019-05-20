@@ -118,13 +118,13 @@
                                                 <%- item %>
                                                 <% 
                                                     let logo_url = "";
-                                                    if(trackingInfo.localAccess == "5ce12d4421dad800176cf1c6") {
+                                                    if(trackingInfo[item].overseasAccess == "5ce12d4421dad800176cf1c6") {
                                                         logo_url = "images/dmc_logo.jpg";
 
-                                                    } else if(trackingInfo.localAccess == "5ce12cbc21dad800176cf1c5") {
+                                                    } else if(trackingInfo[item].overseasAccess == "5ce12cbc21dad800176cf1c5") {
                                                         logo_url = "images/fasttraxx_logo.png";
 
-                                                    } else if(trackingInfo.localAccess == "5cdf87ebcc89f70017be4452") {
+                                                    } else if(trackingInfo[item].overseasAccess == "5cdf87ebcc89f70017be4452") {
                                                         logo_url = "images/CargoFlex_LogoFull.png";
                                                     }
                                                 %>
