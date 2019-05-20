@@ -12,7 +12,7 @@ module.exports = function(app) {
     app.post("/tracking", (req,res) => {
 
         let user = "";
-        // check if user is a logged in user, to restrict sidebar view approperiately for staff and overseas
+        // check if user is a logged in user, to restrict sidebar view appropriately for staff and overseas
         if(req.isAuthenticated()) {
             user = req.user.local;
         } 
