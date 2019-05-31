@@ -103,6 +103,7 @@
                             </thead>
 
                             <tbody>
+                                <%- console.log(trackingInfo) %>
                                 <% for (let item in trackingInfo) { %>
                                     <% if (trackingInfo[item] == "No results returned") { %>
                                         <tr style="color: #cf5564;">
@@ -134,8 +135,38 @@
                                                     <img class="company_logo" src="<%- logo_url %>" height="50px">
                                                 <% } %>
                                             </td>
-                                            <td><%- sender %></td>
-                                            <td><%- receiver %></td>
+                                            <td>
+                                                <% let senderFirstName = trackingInfo[item].sender.firstName%>
+                                                <% let senderMiddleName = trackingInfo[item].sender.middleName%>
+                                                <% let senderLastName = trackingInfo[item].sender.lastName%>
+
+                                                <!-- This is assuming that there is always a last name given-->
+                                                <% if (senderMiddleName != undefined && senderFirstName != undefined) { %> <!-- T/T -->
+                                                <%- senderFirstName %> <%-senderMiddleName%> <%- senderLastName%>
+                                                <% } else if (senderFirstName !== undefined) { %> <!-- T/F -->
+                                                <%- senderFirstName %> <%- senderLastName %>
+                                                <% } else if (senderMiddleName !== undefined) { %> <!-- F/T -->
+                                                <%- senderMiddleName %> <%- senderLastName %>
+                                                <% } else { %>
+                                                    <%- senderLastName %>
+                                                <% } %>
+                                            </td>
+                                            <td>
+                                                <% let receiverFirstName = trackingInfo[item].receiver.firstName%>
+                                                <% let receiverMiddleName = trackingInfo[item].receiver.middleName%>
+                                                <% let receiverLastName = trackingInfo[item].receiver.lastName%>
+
+                                                <!-- This is assuming that there is always a last name given-->
+                                                <% if (receiverMiddleName != undefined && receiverFirstName != undefined) { %> <!-- T/T -->
+                                                    <%- receiverFirstName %> <%-receiverMiddleName%> <%- receiverLastName%>
+                                                <% } else if (receiverFirstName !== undefined) { %> <!-- T/F -->
+                                                    <%- receiverFirstName %> <%- receiverLastName %>
+                                                <% } else if (receiverMiddleName !== undefined) { %> <!-- F/T -->
+                                                    <%- receiverMiddleName %> <%- receiverLastName %>
+                                                <% } else { %>
+                                                    <%- receiverLastName %>
+                                                <% } %>
+                                            </td>
                                             <td class="status-item-col" colspan="2">
 
                                             <% 
