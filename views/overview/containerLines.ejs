@@ -300,8 +300,18 @@ $(document).ready(function() {
 			],
 	});
 });
+
+
+$(function () {
+	// add color to different tracking statuses
+	$('td:contains("At Departing Port")').addClass('atDepartingPort');
+	$('td:contains("On Transit")').addClass('onTransit');
+	$('td:contains("At Destination Port")').addClass('atDestinationPort');
+	$('td:contains("At Customs")').addClass('atCustoms');
+	$('td:contains("For Dispatch")').addClass('forDispatch');
+	$('td:contains("For Delivery")').addClass('forDelivery');
+	$('td:contains("Delivered")').addClass('delivered');
+});
 </script>
 <%- include("../partials/footer") -%>
-
-
 

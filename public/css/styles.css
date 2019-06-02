@@ -247,6 +247,25 @@ div.dt-buttons {
     vertical-align: middle;
 }
 
-/*.dataTables_scrollBody {
-    overflow-x:hidden !important;
-}*/
+/*Status Colors*/
+.atDepartingPort {
+  color: black;
+}
+.onTransit {
+  color: pink;
+}
+.atDestinationPort {
+  color: blue;
+}
+.atCustoms {
+  color: red;
+}
+.forDispatch {
+  color: orange;
+}
+.forDelivery {
+  color: yellow;
+}
+.delivered {
+  color: green;
+}
