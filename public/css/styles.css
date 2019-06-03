@@ -53,26 +53,27 @@ a:focus {
 .company_logo {
     margin-top: 10px;
 }
-#trackingNumber-field {
+.trackingNumber-field {
     margin: 0 0 25px 18px;
     width: 360px;
     height: 32px;
     font-size: 15px;
 }
 
-#surname-field {
+.surname-field {
     margin: 10px 0 25px 18px;
     width: 360px;
     height: 32px;
     font-size: 15px;
 }
+
 .track-btn {
-    width: 150px; 
+    width: 100%;
     background-color: #2039bc; 
     color: #FFFFFF;
-    margin-left: 5px;
     height: 30px;
 }
+
 
 .close { color: #cf5564; }
 .close:hover {
