@@ -74,6 +74,12 @@ a:focus {
     height: 30px;
 }
 
+.tracking-instruction-text {
+    color:grey; 
+    width: 400px; 
+    font-size: 12px; 
+    margin: 0 0 0 20px;
+}
 
 .close { color: #cf5564; }
 .close:hover {
@@ -82,14 +88,15 @@ a:focus {
 
 
 @media (max-width:641px), @media (min-width: 68em) {  
-   .track-btn {
-      width: 360px; 
-   }
+
+    #trackingform {
+        width: 220px;
+    }
+    .email-field, .password-field, .track-btn, .login-btn, .tracking-instruction-text {
+        width: 220px;
+    }
 }
 
-.tracking-form-container {
-    width: auto;
-}
 .form-horizontal .row div {
     margin-left: 18px;
 }

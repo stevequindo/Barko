@@ -7,11 +7,20 @@
   color: #555 !important;
   vertical-align: middle;
   border-radius: 4px;
-  max-width: 1030px;
   line-height: 22px;
   cursor: text;
-  min-width: 385px;
+  width: 92%;
+
 }
+
+@media (max-width:641px) {  
+
+  .bootstrap-tagsinput {
+      width: 220px;
+  }
+}
+
+
 .bootstrap-tagsinput input {
   border: none;
   box-shadow: none;
@@ -22,6 +31,7 @@
   width: auto;
   max-width: inherit;
 }
+
 .bootstrap-tagsinput.form-control input::-moz-placeholder {
   color: #777;
   opacity: 1;
