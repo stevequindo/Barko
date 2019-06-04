@@ -25,7 +25,7 @@
                             <h3>Parcel Tracking</h3>
                             <div class="form-horizontal" style="margin-bottom: -20px;">
                                 <div class="row">
-                                    <form class="tracking-form" action="/tracking"  method="post">
+                                    <form id="tracking-form" action="/tracking"  method="post">
                                         <input
                                             autocomplete="off"
                                             class="trackingNumber-field" 
@@ -268,8 +268,8 @@ function track() {
     var surname = $('.surname-field').val();
 
     // validate fields are not null
-    if($.trim(trackingNumber).length > 0 && $.trim(surname).length > 0) {
-        $('.tracking-form').submit();
+    if($.trim(trackingNum).length > 0 && $.trim(surname).length > 0) {
+        $('#tracking-form').submit();
     } else {
         alert("Please enter both tracking number and surname.");
     }
