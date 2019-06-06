@@ -260,20 +260,22 @@ div.dt-buttons {
   color: black;
 }
 .onTransit {
-  color: pink;
+  background-color: pink;
 }
 .atDestinationPort {
-  color: blue;
+  background-color: blue;
 }
 .atCustoms {
-  color: red;
+  background-color: red;
+  color: white;
 }
 .forDispatch {
-  color: orange;
+  background-color: orange;
 }
 .forDelivery {
-  color: yellow;
+  background-color: yellow;
 }
 .delivered {
-  color: green;
+  background-color: green;
+  color: white;
 }
