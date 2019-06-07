@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="Description" content="Barko is a software as a service (SaaS) looking to
+        unify information transfer between freight agencies.">
+
+
+    <link rel="shortcut icon" href="images/icon.png"/>
+    <title>Fasttraxx</title>
+
+     <!-- Roboto Font -->
+     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" async>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/styles.css" async></link>
+
+    <!-- Input Tag CSS -->
+    <link rel="stylesheet" href="/css/bootstrap-tagsinput.css">
+
+</head>
+<body id="background">
+    <div class="container">
+      <div class="d-flex justify-content-center align-items-center" style="margin-top: 4%;">
+
+        <div class="row">
+          <div class="tracking-form-container border border-light p-5" style="border-radius: 5px; background-color: #FFFFFF">
+              <p class="h4 mb-4 text-center" style="color: #000000; ">
+                <img src="/images/fasttraxx_logo.png" alt="Fasttraxx Logo" height="50px" style="margin: 0 5px 4px">
+              </p>
+              <div class="form-horizontal" style="margin-bottom: -20px;">
+                  <div class="row">
+                      <form id="trackingform" action="/tracking" method="post">
+                          <input
+                              autocomplete="off"
+                              class="trackingNumber-field" 
+                              type="text" 
+                              name="trackingNumber" 
+                              value="" 
+                              data-role="tagsinput" 
+                              placeholder="Enter tracking number"
+                              required /><br><br>
+                          <input 
+                              class="surname-field" 
+                              type="text" 
+                              name="surname" 
+                              value="" 
+                              data-role="tagsinput" 
+                              placeholder="Enter surname" 
+                              required />
+                          <p class="tracking-instruction-text">
+                              For multiple tracking numbers and surnames, press enter. 
+                          </p>
+                      </form>
+                  </div>
+                  <!-- Button placed ouside of form so that form doesnt auto submit when enter is pressed, to allow input tag to work -->
+                  <button type="submit" class="btn btn-block my-3 btn-sm track-btn text-white" onclick="track();">
+                      Track parcel
+                  </button>
+                  <hr style="width: 40%; float: left;"><hr style="width: 40%; float: right;">
+                  <p style="z-index: 1; margin-left: 47%;">or</p>
+                  <!-- Button to Open login Modal -->
+                  <button type="button" class="btn btn-block my-3 btn-sm login-btn" data-toggle="modal" data-target="#loginModal" style="background-color: #d6d9e7; color: #000000">Log in</button>
+                  </div>
+          </div>
+        </div>
+
+           <!-- Login Modal -->
+          <div class="modal" id="loginModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title"><span class="fa fa-sign-in"></span> Login</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <!-- LOGIN FORM -->
+                  <form id="loginForm" action="/login" method="post">
+                      <div class="form-group">
+                          <input type="text" class="form-control email-field" name="email" placeholder="Enter Username" required>
+                      </div>
+                      <div class="form-group">
+                          <input type="password" class="form-control password-field" name="password" placeholder="Enter Password" required>
+                      </div>
+
+                      <button type="submit" class="btn btn-block btn-sm" style="background-color: #2039bc; color: #FFFFFF">Login</button>
+                      <button type="button" class="btn btn-block btn-sm" data-dismiss="modal" style="background-color: #d6d9e7; color: #000000">Close</button>
+                  </form>
+
+<!--                   <p style="color: black">Need an account? <a href="/signup">Sign Up</a></p>-->
+                  <% if(message.length) { %>
+                      <div id="message" class="alert alert-danger"><%= message %></div>
+                  <% } %>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.0.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
+<script  src="js/bootstrap-tagsinput.js"></script>
+
+<% if(message.length) { %> 
+<script type="text/javascript">$('#loginModal').modal('show');</script>
+<% } %>
+
+<script type="text/javascript">
+  
+// onclick submit function for track button
+function track() {
+
+    // get form values
+    var trackingNum = $('.trackingNumber-field').val();
+    var surname = $('.surname-field').val();
+
+    // validate fields are not null
+    if($.trim(trackingNum).length > 0 && $.trim(surname).length > 0) {
+        $('#trackingform').submit();
+    } else {
+        alert("Please enter both tracking number and surname.");
+    }
+    
+}
+
+</script>
