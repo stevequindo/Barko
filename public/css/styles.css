@@ -86,13 +86,16 @@ a:focus {
   cursor: pointer;
 }
 
+.email-field, .password-field {
+    width: 100%;
+}
 
 @media (max-width:641px), @media (min-width: 68em) {  
 
     #trackingform {
         width: 220px;
     }
-    .email-field, .password-field, .track-btn, .login-btn, .tracking-instruction-text {
+    .track-btn, .login-btn, .tracking-instruction-text {
         width: 220px;
     }
 }
@@ -227,7 +230,7 @@ a:focus {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-}
+  height: 100vh;}
 
 /***************** TABLE ********************/
 .main-content .dataTables_wrapper {
