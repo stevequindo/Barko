@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <link rel="shortcut icon" href="images/icon.png"/>
+        <title>Tracking</title>
+
+        <%- include("../partials/style-declarations")%>
+
+    </head>
+<body>
+    <div class="s-layout">
+        <!-- Sidebar -->
+        <%- include("../partials/cargoflex-sidebar.ejs", {user: user})%>
+
+        <!-- Content -->
+        <main class="s-layout__content">
+            <div class="container">
+                <div>
+                    <div class="row">
+                        <div class="tracking-form-container">
+                            <h3>Parcel Tracking</h3>
+                            <div class="form-horizontal" style="margin-bottom: -20px;">
+                                <div class="row">
+                                    <form id="tracking-form" action="/tracking"  method="post">
+                                        <input
+                                            autocomplete="off"
+                                            class="trackingNumber-field" 
+                                            type="text" 
+                                            name="trackingNumber" 
+                                            value="<%= trackingNumber %>" 
+                                            data-role="tagsinput" 
+                                            placeholder="Enter tracking number"
+                                            required /><br><br>
+                                        <input 
+                                            class="surname-field" 
+                                            type="text" 
+                                            name="surname" 
+                                            value="<%= trackingSurname %>" 
+                                            data-role="tagsinput" 
+                                            placeholder="Enter surname"
+                                            required />
+                                        <p style="color:grey; width: 400px; font-size: 12px; margin: 0 0 0 20px;">
+                                            For multiple tracking numbers and surnames, press enter. 
+                                        </p>
+                                    </form>
+                                </div>
+                                <!-- Button placed ouside of form so that form doesnt auto submit when enter is pressed, to allow input tag to work -->
+                                <button type="submit" class="btn btn-block my-3 btn-sm track-btn text-white" onclick="track();">
+                                    Track parcel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div><br /></div>
+                <div class="row">
+                <h5>Tracking: </h5>
+                 <%  
+                    let isValid = false;
+                    let validTrackingNum = [];
+                    let invalidTrackingNum = [];
+
+                    for (let item in trackingInfo) {
+                        if (trackingInfo[item] == "No results returned") {
+
+                            invalidTrackingNum.push(item); %>
+                            <div style="margin: 0 0 10px 10px">
+                                <span class="badge badge-pill error-msg" style="background-color: #cf5564; color: #FFFFFF; font-size: 16px;">
+                                    <%- item %><i class="fas fa-times" style="padding-left: 5px"></i>
+                                </span>
+                            </div>
+                        <%
+                        } else {
+
+                            validTrackingNum.push(item);
+                            isValid = true; %>
+                            <div style="margin: 0 0 10px 10px">
+                                <span class="badge badge-pill error-msg" style="background-color: #C4C4C4; color: #FFFFFF; font-size: 16px">
+                                    <%- item %><i class="fas fa-check" style="padding-left: 5px"></i>
+                                </span>
+                            </div>
+                    <%  }
+                    } 
+
+                    if(isValid) { %>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th width="160px">Tracking Number</th>
+                                    <th>Sender</th>
+                                    <th>Receiver</th>
+                                    <th class="status-col" width="100%" colspan="2">Status</th>
+                                    <th width="100px" colspan="2">Notes</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <%- console.log(trackingInfo) %>
+                                <% for (let item in trackingInfo) { %>
+                                    <% if (trackingInfo[item] == "No results returned") { %>
+                                        <tr style="color: #cf5564;">
+                                            <td colspan="6">! <%= item %> does not match with surname 
+                                                "<%- trackingSurname %>". 
+                                                Please enter a valid tracking number and surname.
+                                            </td>
+                                            <td><span class="close">&times;</span></td>
+                                        </tr>
+                                    <% } else { %>
+                                        <tr>
+                                            <td>
+                                                <%- item %>
+                                                <% 
+                                                    let logo_url = "";
+                                                    if(trackingInfo[item].overseasAccess == "5ce12d4421dad800176cf1c6") {
+                                                        logo_url = "images/dmc_logo.jpg";
+
+                                                    } else if(trackingInfo[item].overseasAccess == "5ce12cbc21dad800176cf1c5"|| 
+                                                              trackingInfo[item].overseasAccess == "5cef256bd4af00001730688a" || 
+                                                              trackingInfo[item].overseasAccess == "5cef2530d4af000017306889" ) {
+
+                                                        logo_url = "images/fasttraxx_logo.png";
+
+                                                    } else if(trackingInfo[item].overseasAccess == "5cdf87ebcc89f70017be4452") {
+                                                        logo_url = "images/CargoFlex_LogoFull.png";
+                                                    }
+                                                %>
+
+                                                <% if(logo_url) { %>
+                                                    <br> 
+                                                    <img class="company_logo" src="<%- logo_url %>" height="50px">
+                                                <% } %>
+                                            </td>
+                                            <td>
+                                                <% let senderFirstName = trackingInfo[item].sender.firstName%>
+                                                <% let senderMiddleName = trackingInfo[item].sender.middleName%>
+                                                <% let senderLastName = trackingInfo[item].sender.lastName%>
+
+                                                <!-- This is assuming that there is always a last name given-->
+                                                <% if (senderMiddleName != undefined && senderFirstName != undefined) { %> <!-- T/T -->
+                                                <%- senderFirstName %> <%-senderMiddleName%> <%- senderLastName%>
+                                                <% } else if (senderFirstName !== undefined) { %> <!-- T/F -->
+                                                <%- senderFirstName %> <%- senderLastName %>
+                                                <% } else if (senderMiddleName !== undefined) { %> <!-- F/T -->
+                                                <%- senderMiddleName %> <%- senderLastName %>
+                                                <% } else { %>
+                                                    <%- senderLastName %>
+                                                <% } %>
+                                            </td>
+                                            <td>
+                                                <% let receiverFirstName = trackingInfo[item].receiver.firstName%>
+                                                <% let receiverMiddleName = trackingInfo[item].receiver.middleName%>
+                                                <% let receiverLastName = trackingInfo[item].receiver.lastName%>
+
+                                                <!-- This is assuming that there is always a last name given-->
+                                                <% if (receiverMiddleName != undefined && receiverFirstName != undefined) { %> <!-- T/T -->
+                                                    <%- receiverFirstName %> <%-receiverMiddleName%> <%- receiverLastName%>
+                                                <% } else if (receiverFirstName !== undefined) { %> <!-- T/F -->
+                                                    <%- receiverFirstName %> <%- receiverLastName %>
+                                                <% } else if (receiverMiddleName !== undefined) { %> <!-- F/T -->
+                                                    <%- receiverMiddleName %> <%- receiverLastName %>
+                                                <% } else { %>
+                                                    <%- receiverLastName %>
+                                                <% } %>
+                                            </td>
+                                            <td class="status-item-col" colspan="2">
+
+                                            <% 
+                                                status_msg = "";
+                                                let status = [
+                                                    "At Departing Port", 
+                                                    "On Transit", 
+                                                    "At Destination Port", 
+                                                    "At Customs", 
+                                                    "For Dispatch", 
+                                                    "For Delivery",
+                                                    "Delivered"
+                                                ];
+
+                                                let classStyles = ["passive", "passive", "passive", "passive", "passive", "passive" , "passive"];
+
+                                                for (let i = 0; i < status.length; i++) {
+
+                                                    if(trackingInfo[item].status.stage.toUpperCase() === status[i].toUpperCase()) {
+                                                        classStyles[i] = "active";
+
+                                                        if(i == 0 || i == 1) {
+
+                                                            if(trackingInfo[item].status.estPortArrivalDate) {
+                                                                estPortArrivalDate = new Date(trackingInfo[item].status.estPortArrivalDate);
+
+                                                                status_msg = "Estimated date to destination port: " 
+                                                                    + estPortArrivalDate.getDate() + "-" 
+                                                                    + (estPortArrivalDate.getMonth()+1) + "-" 
+                                                                    + estPortArrivalDate.getFullYear();
+                                                            }
+
+                                                        } else if (i == 2 || i == 3 || i == 4 || i == 5) {
+
+                                                            if(trackingInfo[item].status.estDeliveryDate) {
+                                                                estDeliveryDate = new Date(trackingInfo[item].status.estDeliveryDate);
+
+                                                                status_msg = "Estimated date to delivery: " 
+                                                                    + estDeliveryDate.getDate() + "-" 
+                                                                    + (estDeliveryDate.getMonth()+1) + "-" 
+                                                                    + estDeliveryDate.getFullYear();
+                                                            }
+
+                                                        } else if (i == 6) {
+                                                            if(trackingInfo[item].status.receivedBy) {
+                                                                status_msg = "Delivered and received by " + trackingInfo[item].status.receivedBy;
+                                                            } else {
+                                                                status_msg = "Delivered"
+                                                            }
+                                                        }
+                                                    }
+                                                } %>
+
+                                                <p><%- status_msg %></p>
+                                                <a href="#" data-toggle="tooltip" data-placement="top" title="<%- status_msg %>">
+                                                <ul class="progressbar">
+                                                    <li class="<%- classStyles[0] %>">NZ Port</li>
+                                                    <li class="<%- classStyles[1] %>">On Transit</li>
+                                                    <li class="<%- classStyles[2] %>">Arrived Port</li>
+                                                    <li class="<%- classStyles[3] %>">Customs</li>
+                                                    <li class="<%- classStyles[4] %>">For Dispatch</li>
+                                                    <li class="<%- classStyles[5] %>">For Delivery</li>
+                                                    <li class="<%- classStyles[6] %>">Delivered</li>
+                                                </ul>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <!-- notes goes here -->
+                                            </td>
+                                            <td><span class="close">&times;</span></td>
+                                        </tr>
+                                    <% }%>
+                                <% } %>
+                            </tbody>
+                        </table>
+                <%  } else { %>
+                        <div style="margin: 0 0 10px 10px">
+                            <p style="color: #cf5564;"> 
+                                No results found. Please enter a valid tracking number and surname.
+                            </p>
+                        </div>
+                <%  } %>
+                </div>
+            </div>
+
+            <!-- End of container -->
+        </main>
+    </div>
+
+</body> 
+</html>
+<script type="text/javascript">
+
+// onclick submit function for track button
+function track() {
+
+    // get form values
+    var trackingNum = $('.trackingNumber-field').val();
+    var surname = $('.surname-field').val();
+
+    // validate fields are not null
+    if($.trim(trackingNum).length > 0 && $.trim(surname).length > 0) {
+        $('#tracking-form').submit();
+    } else {
+        alert("Please enter both tracking number and surname.");
+    }
+    
+}
+
+
+// script for closing items in the table
+var closebtns = document.getElementsByClassName("close");
+var i;
+
+for (i = 0; i < closebtns.length; i++) {
+    closebtns[i].addEventListener("click", function() {
+        this.parentElement.parentElement.style.display = 'none';
+    });
+}
+
+// for popup estimated date messages
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
+<script  src="js/bootstrap-tagsinput.js"></script>
+

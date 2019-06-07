@@ -1,0 +1,71 @@
+<!-- Sidebar -->
+<div class="s-layout__sidebar">
+    <a class="s-sidebar__trigger" href="#0">
+        <i class="fa fa-bars" style="color: #f4f5f6;"></i>
+    </a>
+
+    <nav class="s-sidebar__nav">
+        <ul>
+            <li>
+                <a class="s-sidebar__nav-header" href="/profile">
+                    <!-- for the trial only, remove afterwards -->
+                    <% if(user.email == "cargoflexhaulers@trial.com") { %>
+                         <h4 style="color: white; text-shadow: 2px 2px 4px #000000; margin: 5% 0 10% 20%;"><img src="/images/CargoFlex_LogoFull.png" height="80px" alt="CargoFlex Logo" style="margin: -2% 0 0 -10%;"></h4>
+
+                    <% } else if(user.email == "dmc@trial.com") { %>
+                         <h4 style="color: white; text-shadow: 2px 2px 4px #000000; margin: 5% 0 10% 30%;"><img src="/images/dmc_logo.jpg" height="60px" alt="CargoFlex Logo" style="margin: -2% 0 0 -10%;"></h4>
+
+                    <% } else if(user.email == "fasttraxx@trial.com" || 
+                            user.email == "Cfbm@fasttraxxcargo.com" || 
+                            user.email == "fasttraxxph@gmail.com" ) { %>
+                         <h4 style="color: white; text-shadow: 2px 2px 4px #000000; margin: 5% 0 10% 20%;"><img src="/images/fasttraxx_logo.png" height="35px" alt="CargoFlex Logo" style="margin: -2% 0 0 -10%;"></h4>
+
+                    <% } else if(user.email == "edwinquindoNZ@trial.com" || user.email == "edwinquindo@trial.com" ) { %>
+                         <h4 style="color: white; text-shadow: 2px 2px 4px #000000; margin: 5% 0 10% 30%;"><img src="/images/quindo.png" height="100px" alt="CargoFlex Logo" style="margin: -2% 0 0 -10%;"></h4>
+
+                    <% } else { %>
+                    
+                        <h4 style="color: white; text-shadow: 2px 2px 4px #000000; margin: 5% 0 10% 20%;"><img src="/images/CargoFlex_LogoFull.png" height="80px" alt="CargoFlex Logo" style="margin: -2% 0 0 -10%;"></h4>
+                    
+                    <% } %>
+                </a>
+            </li>
+
+            <!-- display side bar links only if user is logged in -->
+            <% if(user.role == "overseas" || user.role == "staff") { %>
+                <!-- overseas company view -->
+                <li>
+                    <a class="s-sidebar__nav-link" href="/recent">
+                        <em><strong>Recent Manifest</strong></em>
+                    </a>
+                </li>
+                <li>
+                    <a class="s-sidebar__nav-link" href="/upload">
+                        <em><strong>Upload a File</strong></em>
+                    </a>
+                </li>
+                <li>
+                    <a class="s-sidebar__nav-link" href="/overview">
+                        <em><strong>Manifest Files</strong></em>
+                    </a>
+                </li>
+                <li>
+                    <a class="s-sidebar__nav-link" href="/tracking">
+                        <em><strong>Tracking</strong></em>
+                    </a>
+                </li>
+                <li>
+                    <a class="s-sidebar__nav-link" href="/logout">
+                    <em><strong>Logout</strong></em>
+                    </a>
+                </li>
+            <% } else { %>
+                <!-- 
+                    public view (not loggedin)
+                    display nothing on sidebar
+                -->
+            <% } %>
+            
+        </ul>
+    </nav>
+</div>

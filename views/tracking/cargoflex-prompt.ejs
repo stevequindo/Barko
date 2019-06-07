@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <link rel="shortcut icon" href="images/icon.png"/>
+        <title>Tracking</title>
+
+        <%- include("../partials/style-declarations")%>
+
+    </head>
+<body>
+    <div class="s-layout">
+        <!-- Sidebar -->
+    <%- include("../partials/cargoflex-sidebar", {user: user})%>
+    <div class="row">
+        <h1 >Track your Package</h1>
+    </div>
+    <div class="row">
+        <p>For multiple tracking numbers and surnames, separate them with comma or a new line.</p>
+    </div>
+    <div class="row">
+        <div class="tracking-form-container">
+            <h3>Parcel Tracking</h3>
+            <div class="form-horizontal" style="margin-bottom: -20px;">
+                <div class="row">
+                    <form id="tracking-form" action="/tracking" method="post">
+                        <input
+                            autocomplete="off"
+                            class="trackingNumber-field" 
+                            type="text" 
+                            name="trackingNumber" 
+                            value="" 
+                            data-role="tagsinput" 
+                            placeholder="Enter tracking number"
+                            required /><br><br>
+                        <input 
+                            class="surname-field" 
+                            type="text" 
+                            name="surname" 
+                            value="" 
+                            data-role="tagsinput" 
+                            placeholder="Enter surname"
+                            required />
+                        <p style="color:grey; width: 400px; font-size: 12px; margin: 0 0 0 20px;">
+                            For multiple tracking numbers and surnames, press enter. 
+                        </p>
+                    </form>
+                </div>
+                <!-- Button placed ouside of form so that form doesnt auto submit when enter is pressed, to allow input tag to work -->
+                <button type="submit" class="btn btn-block my-3 btn-sm track-btn text-white" onclick="track();">
+                    Track parcel
+                </button>
+            </div>
+        </div>
+    </div>
+    
+<%- include("../partials/footer") -%>
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
+<script  src="js/bootstrap-tagsinput.js"></script>
+<script type="text/javascript">
+
+// onclick submit function for track button
+function track() {
+
+    // get form values
+    var trackingNum = $('.trackingNumber-field').val();
+    var surname = $('.surname-field').val();
+
+    // validate fields are not null
+    if($.trim(trackingNum).length > 0 && $.trim(surname).length > 0) {
+        $('#tracking-form').submit();
+    } else {
+        alert("Please enter both tracking number and surname.");
+    }
+    
+}
+
+</script>
