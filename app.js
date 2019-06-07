@@ -10,6 +10,10 @@ app.use(express.static("public"));
 // Express.js initialisations
 app.set('view engine', 'ejs');
 
+// Force HTTPS
+const enforce = require('express-sslify');
+enforce.HTTPS({ trustProtoHeader: true });
+
 // Database operations
 const databases = require(__dirname + "/custom_node_modules/databases.js");
 
