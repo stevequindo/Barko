@@ -230,7 +230,9 @@ a:focus {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  height: 100vh;}
+  height: 100vh;
+  overflow-y: hidden;
+}
 
 /***************** TABLE ********************/
 .main-content .dataTables_wrapper {
