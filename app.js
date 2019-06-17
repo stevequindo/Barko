@@ -65,7 +65,6 @@ require(__dirname + '/routes/tracking.js')(app);
 /***************** SUBDOMAIN PAGE *****************/
 require(__dirname + '/routes/subdomain.js')(app);
 
-
 /***************** ERROR *****************/
 app.get("*", (req,res) => {
     res.send('Error 404: Page not found');

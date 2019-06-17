@@ -191,13 +191,18 @@ $(document).ready(function() {
 
 	// Initialise data table
 	let table = $('#comm-table').DataTable({
-		dom: 'lBfrtip',
+		"search" : {
+			"caseInsensitive": true,
+			"smart": false,
+			"regex": true
+		},
+		dom: '<lBfr<t>ip>',
 		buttons: [
             'selectAll',
 			{ extend: "edit",   editor: editor },
-			'settings',
+			{extend:'settings', text:'Container Settings'},
 			'excel',
-            'pdf',
+			{extend:'pdf', text: 'PDF Form'},
 	    ],
         lengthMenu: [[25, 50,100, -1], [25, 50,100, "All"]],
 		paginate: true,
@@ -299,6 +304,8 @@ $(document).ready(function() {
 				}
 			],
 	});
+
+
 });
 
 
