@@ -3,7 +3,7 @@ const func = require(__dirname + "/functions.js");
 
 // File processing
 let XLSX = require('xlsx');
-let fileID = "theFile";
+const FILE_ID = "theFile";
 
 // File folder names
 const serverFilesPath = "/server_files/";
@@ -36,7 +36,7 @@ module.exports = function(app) {
 			}
 
 	        // Retrieve file based on file ID
-	        let file = req.files[fileID];
+	        let file = req.files[FILE_ID];
 	        let pathName =  "." + serverFilesPath + file.name;
 
 	        // Move file to server_files and return pathname

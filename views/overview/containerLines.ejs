@@ -92,6 +92,27 @@ $(document).ready(function() {
 						placeholder: "Not set"
 					}
 				},
+				{
+					label: "Additional Delivery Info",
+					name: "deliveryInfoFiles",
+					type: "uploadMany",
+					display: function (fileId) {
+						return editor.file( 'files',fileId).fileName;
+					},
+					attr: {
+						placeholder: "Not set"
+					},
+					limit: 2,
+					ajax: {
+						type: 'POST',
+						url: `/overview/id/file/<%-id%>`,
+						contentType: 'application/json',
+						data: (d) => {
+							console.log(d);
+							return JSON.stringify(d);
+						}
+					}
+				}
 			],
 		<% } else { %>
 			fields : [
@@ -203,6 +224,7 @@ $(document).ready(function() {
 			{extend:'settings', text:'Container Settings'},
 			'excel',
 			{extend:'pdf', text: 'PDF Form'},
+			{extend: 'colvis'}
 	    ],
         lengthMenu: [[25, 50,100, -1], [25, 50,100, "All"]],
 		paginate: true,
@@ -301,13 +323,14 @@ $(document).ready(function() {
 				{
 					"data": "comment",
 					"defaultContent": ""
-				}
+				},
+				// {
+				// 	"data": "status.additionalFiles",
+				// 	"defaultContent": ""
+				// }
 			],
 	});
-
-
 });
-
 
 $(function () {
 	// add color to different tracking statuses
@@ -319,6 +342,7 @@ $(function () {
 	$('td:contains("For Delivery")').addClass('forDelivery');
 	$('td:contains("Delivered")').addClass('delivered');
 });
+
 </script>
 <%- include("../partials/footer") -%>
 

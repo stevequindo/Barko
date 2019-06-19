@@ -121,6 +121,18 @@ module.exports = function(app) {
             });
     });
 
+    app.post("/overview/id/file/:id", func.isLoggedIn, (req,res) => {
+        const user = req.user.local;
+        const id = req.params.id;
+
+        // Check if files were uploaded
+        if (Object.keys(req.files).length === 0) throw "No files were uploaded";
+
+        console.log(req.files);
+        console.log(req);
+        databases.uploadFile(id, req.files.upload);
+    });
+
     app.post("/overview/id/:id", func.isLoggedIn, async (req,res) => {
         const user = req.user.local;
         const id = req.params.id;
