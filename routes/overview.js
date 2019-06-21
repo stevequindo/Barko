@@ -84,7 +84,7 @@ module.exports = function(app) {
 
         databases.getContainerLines(id, req.user)
             .then((dbResponse) => {
-                console.log(dbResponse);
+
                 // Get response
                 let containerNo;
                 if (!dbResponse._doc.hasOwnProperty("containerNo")) {
@@ -157,7 +157,7 @@ module.exports = function(app) {
         ]));
     });
 
-    app.post("/overview/id/:id/file/", func.isLoggedIn, async (req, res) => {
+    app.post("/overview/id/:id/file", func.isLoggedIn, async (req, res) => {
         const user = req.user.local;
         const id = req.params.id;
         let rowIds = req.body.rowId.split(",");
@@ -170,8 +170,10 @@ module.exports = function(app) {
         // Check if files were uploaded
         if (Object.keys(req.files).length === 0) throw "No files were uploaded";
 
-        // Get object containing results to be sent back to datatables
+        // Get object containing results to be sent back to data-tables
         const resultsObj = await databases.uploadFile(id, req.files.upload, rowIds);
+
+        console.log(resultsObj);
 
         // Return as JSON
         res.contentType('application/json');
@@ -179,12 +181,12 @@ module.exports = function(app) {
     });
 
     app.get('/overview/id/:id/file/:fileId', async (req, res) => {
-		const id = req.params.id;
-		const fid = req.params.fileId;
+		const containerId = req.params.id;
+		const fileId = req.params.fileId;
 
-		const fileObj = await databases.getFileObjById(id, fid);
-		console.log(fileObj);
+		const fileObj = await databases.getFileObjById(containerId, fileId);
 
+		// Send file to client
 		res.writeHead(200, {
 			'Content-Type': fileObj.mimetype,
 			'Content-Disposition': `attachment; filename=${fileObj.name}`,

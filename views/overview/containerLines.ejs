@@ -2,48 +2,6 @@
 
 <h2><%-containerNo%></h2><br>
 
-<!-- download attribute forces the browser to download instead of navigating -->
-<!--<a download="sampleTrackingNumbers.txt" href='#' id="link">Download</a>-->
-
-<!--<script>-->
-<!--	let blob = new Blob([-->
-<!--		70,-->
-<!--		67,-->
-<!--		76,-->
-<!--		49,-->
-<!--		48,-->
-<!--		48,-->
-<!--		54,-->
-<!--		55,-->
-<!--		49,-->
-<!--		44,-->
-<!--		13,-->
-<!--		10,-->
-<!--		70,-->
-<!--		67,-->
-<!--		76,-->
-<!--		49,-->
-<!--		48,-->
-<!--		48,-->
-<!--		57,-->
-<!--		53,-->
-<!--		49,-->
-<!--		44,-->
-<!--		13,-->
-<!--		10,-->
-<!--		70,-->
-<!--		65,-->
-<!--		75,-->
-<!--		69,-->
-<!--		95,-->
-<!--		78,-->
-<!--		85,-->
-<!--		77-->
-<!--	], 'yes.txt', {type: 'txt'});-->
-<!--	link.href = URL.createObjectURL(blob);-->
-<!--</script>-->
-
-
 <table class="mdl-data-table mdl-js-data-table row-border compact" id="comm-table" style="width:100%">
 	<thead>
 		<tr>
@@ -156,10 +114,16 @@ $(document).ready(function() {
 					name: "status.additionalFiles",
 					type: "uploadMany",
 					display: function (file) {
-						let buttonHref = `<%-id%>/file/${file._id}`;
-						let buttonText = file.name;
+						if (typeof file === "object") {
+							const buttonHref = `<%-id%>/file/${file._id}`;
+							const buttonText = file.name;
+							return `<a download href=${buttonHref}>${buttonText}</a>`;
+						} else if (typeof file === "string") {
+							const buttonHref = `<%-id%>/file/${file}`;
+							const buttonText = file;
+							return `<a download href=${buttonHref}>${buttonText}</a>`;
+						}
 
-						return `<a download href=${buttonHref}>${buttonText}</a>`;
 					},
 					attr: {
 						placeholder: "Not set"
