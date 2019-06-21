@@ -37,6 +37,13 @@ var session      = require('express-session');
 // File uploading
 const fileUpload = require("express-fileupload");
 
+// DataTables server side
+let e = require('datatables.net-editor-server');
+
+let Editor = e.Editor;
+let Field = e.Field;
+let Validate = e.Validate;
+let Format = e.Format;
 
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
@@ -45,6 +52,7 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash());
 app.use(fileUpload());
+
 
 require('./custom_node_modules/passport')(passport);
 

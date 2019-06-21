@@ -2,6 +2,48 @@
 
 <h2><%-containerNo%></h2><br>
 
+<!-- download attribute forces the browser to download instead of navigating -->
+<!--<a download="sampleTrackingNumbers.txt" href='#' id="link">Download</a>-->
+
+<!--<script>-->
+<!--	let blob = new Blob([-->
+<!--		70,-->
+<!--		67,-->
+<!--		76,-->
+<!--		49,-->
+<!--		48,-->
+<!--		48,-->
+<!--		54,-->
+<!--		55,-->
+<!--		49,-->
+<!--		44,-->
+<!--		13,-->
+<!--		10,-->
+<!--		70,-->
+<!--		67,-->
+<!--		76,-->
+<!--		49,-->
+<!--		48,-->
+<!--		48,-->
+<!--		57,-->
+<!--		53,-->
+<!--		49,-->
+<!--		44,-->
+<!--		13,-->
+<!--		10,-->
+<!--		70,-->
+<!--		65,-->
+<!--		75,-->
+<!--		69,-->
+<!--		95,-->
+<!--		78,-->
+<!--		85,-->
+<!--		77-->
+<!--	], 'yes.txt', {type: 'txt'});-->
+<!--	link.href = URL.createObjectURL(blob);-->
+<!--</script>-->
+
+
 <table class="mdl-data-table mdl-js-data-table row-border compact" id="comm-table" style="width:100%">
 	<thead>
 		<tr>
@@ -15,6 +57,7 @@
 			<th class="mdl-data-table__cell--non-numeric">STATUS</th>
 			<th class="mdl-data-table__cell--non-numeric">ETA TO PORT</th>
 			<th class="mdl-data-table__cell--non-numeric">COMMENTS</th>
+			<th class="mdl-data-table__cell--non-numeric">FILES</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -86,6 +129,22 @@ $(document).ready(function() {
 					}
 				},
 				{
+					label: "Delivery Comments",
+					name: "commentCategory",
+					attr: {
+						placeholder: "Not set"
+					},
+					type: "select",
+					options: [
+						"Back-load",
+						"Un-located address",
+						"Consignee not available",
+						"Inclement weather conditions",
+						"Delivery vehicle breakdown",
+						"Other"
+					]
+				},
+				{
 					label: "Additional Comments",
 					name: "comment",
 					attr: {
@@ -94,10 +153,13 @@ $(document).ready(function() {
 				},
 				{
 					label: "Additional Delivery Info",
-					name: "deliveryInfoFiles",
+					name: "status.additionalFiles",
 					type: "uploadMany",
-					display: function (fileId) {
-						return editor.file( 'files',fileId).fileName;
+					display: function (file) {
+						let buttonHref = `<%-id%>/file/${file._id}`;
+						let buttonText = file.name;
+
+						return `<a href=${buttonHref}>${buttonText}</a>`;
 					},
 					attr: {
 						placeholder: "Not set"
@@ -105,10 +167,10 @@ $(document).ready(function() {
 					limit: 2,
 					ajax: {
 						type: 'POST',
-						url: `/overview/id/file/<%-id%>`,
+						url: `/overview/id/<%-id%>/file`,
 						contentType: 'application/json',
 						data: (d) => {
-							console.log(d);
+							d.rowId = rowID;
 							return JSON.stringify(d);
 						}
 					}
@@ -202,6 +264,11 @@ $(document).ready(function() {
         }
 	});
 
+	let rowID;
+	editor.on( 'initEdit', function () {
+		rowID = editor.ids( true );
+	});
+
 	// Create Settings button
 	$.fn.dataTable.ext.buttons.settings = {
 		text: 'Settings',
@@ -224,7 +291,7 @@ $(document).ready(function() {
 			{extend:'settings', text:'Container Settings'},
 			'excel',
 			{extend:'pdf', text: 'PDF Form'},
-			{extend: 'colvis'}
+			{extend: 'colvis', text:'Show/Hide Columns'}
 	    ],
         lengthMenu: [[25, 50,100, -1], [25, 50,100, "All"]],
 		paginate: true,
@@ -233,11 +300,6 @@ $(document).ready(function() {
 		stateSave: true,
 		"data":<%- contentArray %>,
 		deferRender: true,
-		// scrollY: true,
-		// "scrollX": true,
-		// scrollCollapse: true,
-		// scroller:       true,
-		// "autoWidth": false,
 		"deferLoading":<%-contentArray.length%>,
         columnDefs: [
 			{
@@ -324,13 +386,21 @@ $(document).ready(function() {
 					"data": "comment",
 					"defaultContent": ""
 				},
-				// {
-				// 	"data": "status.additionalFiles",
-				// 	"defaultContent": ""
-				// }
+				{
+					"data": "status.additionalFiles",
+					"defaultContent": "",
+					render: function (data,type,row) {
+						let count = row.status.additionalFiles.length;
+
+						return count === 0 ? 'No files' : `${count} files`;
+					}
+				}
 			],
 	});
+
+
 });
+
 
 $(function () {
 	// add color to different tracking statuses

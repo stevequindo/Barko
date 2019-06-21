@@ -59,8 +59,6 @@ module.exports = function(app) {
                 throw new TypeError();
             }
 
-            console.log(containerArray);
-
             // Render the container files
             res.render('overview/containers', {contentArray: containerArray, country: country, user: user});
         } catch (err) {
@@ -121,16 +119,60 @@ module.exports = function(app) {
             });
     });
 
-    app.post("/overview/id/file/:id", func.isLoggedIn, (req,res) => {
+    app.get('/overview/secret', (req,res) => {
+        res.contentType('text/plain');
+        res.send(new Buffer([
+            70,
+            67,
+            76,
+            49,
+            48,
+            48,
+            54,
+            55,
+            49,
+            44,
+            13,
+            10,
+            70,
+            67,
+            76,
+            49,
+            48,
+            48,
+            57,
+            53,
+            49,
+            44,
+            13,
+            10,
+            70,
+            65,
+            75,
+            69,
+            95,
+            78,
+            85,
+            77
+        ]));
+    });
+
+    app.post("/overview/id/:id/file/", func.isLoggedIn, async (req, res) => {
         const user = req.user.local;
         const id = req.params.id;
+        let rowIds = req.body.rowId.split(",");
+
+        // Slice off the # for the rows
+        for (let i = 0; i < rowIds.length; i++) {
+            rowIds[i] = rowIds[i].slice(1);
+        }
 
         // Check if files were uploaded
         if (Object.keys(req.files).length === 0) throw "No files were uploaded";
 
-        console.log(req.files);
-        console.log(req);
-        databases.uploadFile(id, req.files.upload);
+        const resultsObj = await databases.uploadFile(id, req.files.upload, rowIds);
+        res.contentType('application/json');
+        res.send(resultsObj);
     });
 
     app.post("/overview/id/:id", func.isLoggedIn, async (req,res) => {
