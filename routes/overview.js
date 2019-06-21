@@ -170,10 +170,24 @@ module.exports = function(app) {
         // Check if files were uploaded
         if (Object.keys(req.files).length === 0) throw "No files were uploaded";
 
+        // Get object containing results to be sent back to datatables
         const resultsObj = await databases.uploadFile(id, req.files.upload, rowIds);
+
+        // Return as JSON
         res.contentType('application/json');
         res.send(resultsObj);
     });
+
+    app.get('/overview/id/:id/file/:fileId', async (req, res) => {
+		const id = req.params.id;
+		const fid = req.params.fileId;
+
+		const fileObj = await databases.getFileObjById(id, fid);
+		console.log(fileObj);
+		res.contentType(fileObj.mimetype);
+		res.send(fileObj.data);
+	});
+
 
     app.post("/overview/id/:id", func.isLoggedIn, async (req,res) => {
         const user = req.user.local;
