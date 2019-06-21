@@ -184,8 +184,14 @@ module.exports = function(app) {
 
 		const fileObj = await databases.getFileObjById(id, fid);
 		console.log(fileObj);
-		res.contentType(fileObj.mimetype);
-		res.send(fileObj.data);
+
+		res.writeHead(200, {
+			'Content-Type': fileObj.mimetype,
+			'Content-Disposition': `attachment; filename=${fileObj.name}`,
+			'Content-Length': fileObj.size
+		});
+		res.end(fileObj.data);
+
 	});
 
 
