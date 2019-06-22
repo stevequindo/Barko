@@ -25,6 +25,17 @@ a:focus {
     transition: all 0.3s;
 }
 
+.delivery-files-list {
+    list-style-type: none;
+}
+
+.document-links:hover { text-decoration: underline; }
+
+.delivery-files-image {
+    width: 300px;
+    height: 200px;
+}
+
 /***************** CONTAINERS  *****************/
 .card-img-top {
     width: 100%;
@@ -124,12 +135,10 @@ a:focus {
 }
 .progressbar li {
     list-style-type: none;
-    min-width: 12%;  /* Width of the Progressbar Line */
-    width: auto;
+    font-size: 12px;
+    display: block;
     float: left;
-    font-size: 11px; 
-    position: relative;
-    text-align: center;
+    padding: 5px 5px 0 0;
     text-transform: uppercase;
     color: #79889d; /* light blue */
 }
@@ -145,6 +154,9 @@ a:focus {
     margin: 0 auto 10px auto;
     border-radius: 50%;
     background-color: white;
+    margin: 5px; /*for left and right*/
+    margin-top: -6px;
+    float: left;
 }
 .progressbar li:after { /*for the line*/
     width: 100%;
@@ -155,6 +167,9 @@ a:focus {
     top: 15px;
     left: -50%;
     z-index: -1;
+    float: left;
+    margin: 5px; /*for left and right*/
+    margin-top: -6px;
 }
 .progressbar li:first-child:after {
     content: none;
@@ -187,11 +202,13 @@ a:focus {
 .buttons-copy {
     margin-left: 10px;
 }
-
+.status-col, .status-item-col {
+    width: 200px;
+}
 
 @media (max-width:1281px) {
     .status-col {
-        width: 90px;
+        width: 200px;
     }
     .status-item-col {
         margin-left: 20px;

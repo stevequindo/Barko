@@ -94,9 +94,9 @@
                                     <th width="160px">Tracking Number</th>
                                     <th>Sender</th>
                                     <th>Receiver</th>
-                                    <th class="status-col" width="100%" colspan="2">Status</th>
+                                    <th class="status-col" colspan="2">Status</th>
                                     <th width="100px" colspan="2">Notes</th>
-                                    <th width='100px' colspan="2">Delivery Files</th>
+                                    <th colspan="2">Delivery Files</th>
                                 </tr>
                             </thead>
 
@@ -238,12 +238,16 @@
                                                 <!-- notes goes here -->
                                             </td>
                                             <td class="files-item-col" colspan="2">
-                                                <ul>
+                                                <ul class="delivery-files-list">
                                                     <% for (let file of additionalFilesInfo) { %>
                                                         <% const fileLink = `overview/id/${file.containerId}/file/${file.fileId}`%>
                                                         <% const fileName = file.fileName %>
                                                         <li>
-                                                            <%- `<a href=${fileLink}>${fileName}</a>` %>
+                                                            <% if(fileName.includes(".png") || fileName.includes(".jpg")) { %>
+                                                            <img class="delivery-files-image" src="<%- fileLink %>">
+                                                            <% } else { %>
+                                                            <%- `<a class="document-links" href=${fileLink}>${fileName}</a>` %>
+                                                            <% } %>
                                                         </li>
                                                     <% } %>
                                                 </ul>
