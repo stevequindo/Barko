@@ -96,6 +96,7 @@
                                     <th>Receiver</th>
                                     <th class="status-col" width="100%" colspan="2">Status</th>
                                     <th width="100px" colspan="2">Notes</th>
+                                    <th width='100px' colspan="2">Delivery Files</th>
                                 </tr>
                             </thead>
 
@@ -235,6 +236,17 @@
                                             </td>
                                             <td>
                                                 <!-- notes goes here -->
+                                            </td>
+                                            <td class="files-item-col" colspan="2">
+                                                <ul>
+                                                    <% for (let file of additionalFilesInfo) { %>
+                                                        <% const fileLink = `overview/id/${file.containerId}/file/${file.fileId}`%>
+                                                        <% const fileName = file.fileName %>
+                                                        <li>
+                                                            <%- `<a href=${fileLink}>${fileName}</a>` %>
+                                                        </li>
+                                                    <% } %>
+                                                </ul>
                                             </td>
                                             <td><span class="close">&times;</span></td>
                                         </tr>

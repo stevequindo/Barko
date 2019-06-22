@@ -173,8 +173,6 @@ module.exports = function(app) {
         // Get object containing results to be sent back to data-tables
         const resultsObj = await databases.uploadFile(id, req.files.upload, rowIds);
 
-        console.log(resultsObj);
-
         // Return as JSON
         res.contentType('application/json');
         res.send(resultsObj);

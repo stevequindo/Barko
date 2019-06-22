@@ -9,7 +9,8 @@ module.exports = function(app) {
         res.render("tracking/prompt", {user: user}); // this tracking search view is for loggedin users only
     });
 
-    app.post("/tracking", (req,res) => {
+    app.post("/tracking",(req,res) => {
+        // TODO: Refactor this ugly ass function
 
         let user = "";
         // check if user is a logged in user, to restrict sidebar view appropriately for staff and overseas
@@ -52,6 +53,7 @@ module.exports = function(app) {
         async function parseStatus() {
             let trackingInfo = {};
             let status, sender, receiver, eta;
+            let additionalFilesInfo = [];
 
             // Iterate over every tracking number
             for (let elem of trackingNumArray) {
@@ -74,7 +76,17 @@ module.exports = function(app) {
                         status = trackingInfo[elem].status.stage;
                         eta = trackingInfo[elem].status.estPortArrivalDate;
 
-                        break; // breaks out pf surnameArray loop to move on searching with next tracking number
+                        const additionalFilesArray = trackingInfo[elem].status.additionalFiles;
+
+                        for (let file of additionalFilesArray) {
+                            additionalFilesInfo.push({
+                                containerId : results._id.toString(),
+                                fileId: file._id.toString(),
+                                fileName: file.name
+                            });
+                        }
+
+                        break; // breaks out of surnameArray loop to move on searching with next tracking number
 
                     } catch(err) {
                         trackingInfo[elem] = err;
@@ -90,6 +102,7 @@ module.exports = function(app) {
                 sender: sender,
                 receiver: receiver,
                 status: status,
+                additionalFilesInfo: additionalFilesInfo,
                 eta: eta,
                 user: user
             });
