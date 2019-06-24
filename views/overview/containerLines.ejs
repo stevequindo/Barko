@@ -114,20 +114,16 @@ $(document).ready(function() {
 					name: "status.additionalFiles",
 					type: "uploadMany",
 					display: function (file) {
-						if (typeof file === "object") {
-							const buttonHref = `<%-id%>/file/${file._id}`;
-							const buttonText = file.name;
-							return `<a download href=${buttonHref}>${buttonText}</a>`;
-						} else if (typeof file === "string") {
-							const buttonHref = `<%-id%>/file/${file}`;
-							const buttonText = file;
-							return `<a download href=${buttonHref}>${buttonText}</a>`;
-						}
+						console.log(file);
+						const buttonHref = `<%-id%>/file/${file._id}`;
+						const buttonText = file.name;
+						return `<a download href=${buttonHref}>${buttonText}</a>`;
+
 					},
 					attr: {
 						placeholder: "Not set"
 					},
-					limit: 2,
+					limit: 10,
 					ajax: {
 						type: 'POST',
 						url: `/overview/id/<%-id%>/file`,
@@ -137,7 +133,6 @@ $(document).ready(function() {
 							return JSON.stringify(d);
 						}
 					},
-
 				}
 			],
 		<% } else { %>
@@ -226,10 +221,19 @@ $(document).ready(function() {
         }
 	});
 
+	// Change rowID based on which row the user wants to edit
 	let rowID;
 	editor.on( 'initEdit', function () {
 		rowID = editor.ids( true );
 	});
+
+	// Listen for removal of remove file button
+	// editor.field('status.additionalFiles').input().on('upload.editor', function (event, value) {
+	// 	console.log('Upload done');
+	// 	console.log(`event ${event}`);
+	// 	console.log(`value ${value}`);
+	//
+	// });
 
 	// Create Settings button
 	$.fn.dataTable.ext.buttons.settings = {
