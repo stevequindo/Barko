@@ -119,44 +119,6 @@ module.exports = function(app) {
             });
     });
 
-    app.get('/overview/secret', (req,res) => {
-        res.contentType('text/plain');
-        res.send(new Buffer([
-            70,
-            67,
-            76,
-            49,
-            48,
-            48,
-            54,
-            55,
-            49,
-            44,
-            13,
-            10,
-            70,
-            67,
-            76,
-            49,
-            48,
-            48,
-            57,
-            53,
-            49,
-            44,
-            13,
-            10,
-            70,
-            65,
-            75,
-            69,
-            95,
-            78,
-            85,
-            77
-        ]));
-    });
-
     app.post("/overview/id/:id/file", func.isLoggedIn, async (req, res) => {
         const user = req.user.local;
         const id = req.params.id;
