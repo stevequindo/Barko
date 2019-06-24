@@ -2,8 +2,22 @@ const _ = require('lodash');
 const databases = require("../custom_node_modules/databases.js");
 const func = require(__dirname + "/functions.js");
 
-module.exports = function(app) {
+module.exports = function(app, passport) {
     
+    // temporary fix for sub domain failure redirect problem - duplicating login route here
+    // TO DO: need to remodel the routes to be more dynamic for sub domains
+    app.post('/cargoflex-login', passport.authenticate('local-login', {
+        successRedirect : '/profile', // redirect to the secure profile section
+        failureRedirect : '/cargoflex', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+    }));
+
+
+    app.get('/cargoflex-profile', func.isLoggedIn, function(req, res){
+        res.redirect('/recent');
+    });
+
+
     app.get('/cargoflex', function(req,res){
 	    res.render('subdomains/cargoflex.ejs', {message: req.flash('loginMessage')});
 	});
@@ -102,4 +116,5 @@ module.exports = function(app) {
 
         parseStatus();
     });
+
 };

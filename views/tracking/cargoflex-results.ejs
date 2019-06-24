@@ -25,7 +25,7 @@
                             <h3>Parcel Tracking</h3>
                             <div class="form-horizontal" style="margin-bottom: -20px;">
                                 <div class="row">
-                                    <form id="tracking-form" action="/tracking"  method="post">
+                                    <form id="tracking-form" action="/cargoflextracking"  method="post">
                                         <input
                                             autocomplete="off"
                                             class="trackingNumber-field" 
@@ -94,8 +94,9 @@
                                     <th width="160px">Tracking Number</th>
                                     <th>Sender</th>
                                     <th>Receiver</th>
-                                    <th class="status-col" width="100%" colspan="2">Status</th>
+                                    <th class="status-col" colspan="2">Status</th>
                                     <th width="100px" colspan="2">Notes</th>
+                                    <th colspan="2">Delivery Files</th>
                                 </tr>
                             </thead>
 
@@ -235,6 +236,21 @@
                                             </td>
                                             <td>
                                                 <!-- notes goes here -->
+                                            </td>
+                                            <td class="files-item-col" colspan="2">
+                                                <ul class="delivery-files-list">
+                                                    <% for (let file of additionalFilesInfo) { %>
+                                                        <% const fileLink = `overview/id/${file.containerId}/file/${file.fileId}`%>
+                                                        <% const fileName = file.fileName %>
+                                                        <li>
+                                                            <% if(fileName.includes(".png") || fileName.includes(".jpg")) { %>
+                                                            <img class="delivery-files-image" src="<%- fileLink %>">
+                                                            <% } else { %>
+                                                            <%- `<a class="document-links" href=${fileLink}>${fileName}</a>` %>
+                                                            <% } %>
+                                                        </li>
+                                                    <% } %>
+                                                </ul>
                                             </td>
                                             <td><span class="close">&times;</span></td>
                                         </tr>

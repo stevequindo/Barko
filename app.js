@@ -72,7 +72,7 @@ require(__dirname + '/routes/upload.js')(app);
 require(__dirname + '/routes/tracking.js')(app);
 
 /***************** SUBDOMAIN PAGE *****************/
-require(__dirname + '/routes/subdomain.js')(app);
+require(__dirname + '/routes/subdomain.js')(app, passport);
 
 /***************** ERROR *****************/
 app.get("*", (req,res) => {

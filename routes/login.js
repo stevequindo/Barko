@@ -31,13 +31,4 @@ module.exports = function(app, passport) {
 	    req.logout();
 	    res.redirect('/');
 	});
-
-	// Function to authenticate page routes, else redirects to login page
-	function isLoggedIn(req, res, next){ 
-	    if(req.isAuthenticated())
-	        return next();
-
-	    res.redirect('/');
-	}
-
 };
