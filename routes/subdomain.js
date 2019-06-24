@@ -71,6 +71,7 @@ module.exports = function(app, passport) {
         async function parseStatus() {
             let trackingInfo = {};
             let status, sender, receiver, eta;
+            let additionalFilesInfo = [];
 
             // Iterate over every tracking number
             for (let elem of trackingNumArray) {
@@ -93,6 +94,16 @@ module.exports = function(app, passport) {
                         status = trackingInfo[elem].status.stage;
                         eta = trackingInfo[elem].status.estPortArrivalDate;
 
+                        const additionalFilesArray = trackingInfo[elem].status.additionalFiles;
+
+                        for (let file of additionalFilesArray) {
+                            additionalFilesInfo.push({
+                                containerId : results._id.toString(),
+                                fileId: file._id.toString(),
+                                fileName: file.name
+                            });
+                        }
+
                         break; // breaks out pf surnameArray loop to move on searching with next tracking number
 
                     } catch(err) {
@@ -106,6 +117,7 @@ module.exports = function(app, passport) {
                 trackingInfo: trackingInfo, 
                 trackingNumber: req.body.trackingNumber,
                 trackingSurname: req.body.surname,
+                additionalFilesInfo: additionalFilesInfo,
                 sender: sender,
                 receiver: receiver,
                 status: status,
