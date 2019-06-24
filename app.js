@@ -22,9 +22,10 @@ const bodyParser = require("body-parser");
 
 app.use(bodyParser.urlencoded({
     extended : true,
-    useNewUrlParser : true
+    useNewUrlParser : true,
+    limit: '10mb', extended: true
 }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '10mb', extended: true}));
 
 // For Login Authentication
 var mongoose = require('mongoose');

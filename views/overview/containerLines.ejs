@@ -114,7 +114,6 @@ $(document).ready(function() {
 					name: "status.additionalFiles",
 					type: "uploadMany",
 					display: function (file) {
-						console.log(file);
 						const buttonHref = `<%-id%>/file/${file._id}`;
 						const buttonText = file.name;
 						return `<a download href=${buttonHref}>${buttonText}</a>`;
