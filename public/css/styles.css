@@ -287,7 +287,9 @@ div.dt-buttons {
 }
 .atDestinationPort {
   background-color: blue;
+  color: white;
 }
+
 .atCustoms {
   background-color: red;
   color: white;
