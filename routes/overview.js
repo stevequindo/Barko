@@ -146,7 +146,6 @@ module.exports = function(app) {
 
 		const fileObj = await databases.getFileObjById(containerId, fileId);
 
-		console.log(fileObj);
 		// Send file to client
 		res.writeHead(200, {
 			'Content-Type': fileObj.mimetype,
