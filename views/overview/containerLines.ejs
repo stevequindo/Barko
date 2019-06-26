@@ -363,20 +363,20 @@ $(document).ready(function() {
 	//
 	// });
 
-	// // Add styling to delivery info
-	// let addDeliveryStyles = function () {
-	// 	// add color to different tracking statuses
-	// 	$('td:contains("At Departing Port")').addClass('atDepartingPort');
-	// 	$('td:contains("On Transit")').addClass('onTransit');
-	// 	$('td:contains("At Destination Port")').addClass('atDestinationPort');
-	// 	$('td:contains("At Customs")').addClass('atCustoms');
-	// 	$('td:contains("For Dispatch")').addClass('forDispatch');
-	// 	$('td:contains("For Delivery")').addClass('forDelivery');
-	// 	$('td:contains("Delivered")').addClass('delivered');
-	// };
-	//
-	// $(addDeliveryStyles);
-	//
+	// Add styling to delivery info
+	let addDeliveryStyles = function () {
+		// add color to different tracking statuses
+		$('td:contains("At Departing Port")').addClass('atDepartingPort');
+		$('td:contains("On Transit")').addClass('onTransit');
+		$('td:contains("At Destination Port")').addClass('atDestinationPort');
+		$('td:contains("At Customs")').addClass('atCustoms');
+		$('td:contains("For Dispatch")').addClass('forDispatch');
+		$('td:contains("For Delivery")').addClass('forDelivery');
+		$('td:contains("Delivered")').addClass('delivered');
+	};
+
+	$(addDeliveryStyles);
+
 	// // Remove styling classes before edit occurs
 	// editor.on('preEdit', function( e, json, data, id ) {
 	// 	console.log(e, json, data, id);
@@ -392,10 +392,6 @@ $(document).ready(function() {
 	//
 	// editor.on('edit', addDeliveryStyles);
 });
-
-
-
-
 </script>
 <%- include("../partials/footer") -%>
 
