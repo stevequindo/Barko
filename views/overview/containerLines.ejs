@@ -220,20 +220,6 @@ $(document).ready(function() {
         }
 	});
 
-	// Change rowID based on which row the user wants to edit
-	let rowID;
-	editor.on( 'initEdit', function () {
-		rowID = editor.ids( true );
-	});
-
-	// Listen for removal of remove file button
-	// editor.field('status.additionalFiles').input().on('upload.editor', function (event, value) {
-	// 	console.log('Upload done');
-	// 	console.log(`event ${event}`);
-	// 	console.log(`value ${value}`);
-	//
-	// });
-
 	// Create Settings button
 	$.fn.dataTable.ext.buttons.settings = {
 		text: 'Settings',
@@ -363,20 +349,52 @@ $(document).ready(function() {
 			],
 	});
 
+	// Change rowID based on which row the user wants to edit
+	let rowID;
+	editor.on( 'initEdit', function () {
+		rowID = editor.ids( true );
+	});
 
+	// Listen for removal of remove file button
+	// editor.field('status.additionalFiles').input().on('upload.editor', function (event, value) {
+	// 	console.log('Upload done');
+	// 	console.log(`event ${event}`);
+	// 	console.log(`value ${value}`);
+	//
+	// });
+
+	// // Add styling to delivery info
+	// let addDeliveryStyles = function () {
+	// 	// add color to different tracking statuses
+	// 	$('td:contains("At Departing Port")').addClass('atDepartingPort');
+	// 	$('td:contains("On Transit")').addClass('onTransit');
+	// 	$('td:contains("At Destination Port")').addClass('atDestinationPort');
+	// 	$('td:contains("At Customs")').addClass('atCustoms');
+	// 	$('td:contains("For Dispatch")').addClass('forDispatch');
+	// 	$('td:contains("For Delivery")').addClass('forDelivery');
+	// 	$('td:contains("Delivered")').addClass('delivered');
+	// };
+	//
+	// $(addDeliveryStyles);
+	//
+	// // Remove styling classes before edit occurs
+	// editor.on('preEdit', function( e, json, data, id ) {
+	// 	console.log(e, json, data, id);
+	//
+	// 	// Get row from id
+	// 	let row = table.row(`#${id}`);
+	// 	console.log(row);
+	//
+	// 	// Get last class from row and remove
+	// 	const lastClass = row.attr('class').split(' ').pop();
+	// 	row.removeClass(lastClass);
+	// })
+	//
+	// editor.on('edit', addDeliveryStyles);
 });
 
 
-$(function () {
-	// add color to different tracking statuses
-	$('td:contains("At Departing Port")').addClass('atDepartingPort');
-	$('td:contains("On Transit")').addClass('onTransit');
-	$('td:contains("At Destination Port")').addClass('atDestinationPort');
-	$('td:contains("At Customs")').addClass('atCustoms');
-	$('td:contains("For Dispatch")').addClass('forDispatch');
-	$('td:contains("For Delivery")').addClass('forDelivery');
-	$('td:contains("Delivered")').addClass('delivered');
-});
+
 
 </script>
 <%- include("../partials/footer") -%>
