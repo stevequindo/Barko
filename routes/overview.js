@@ -153,21 +153,21 @@ module.exports = function(app) {
 			'Content-Length': fileObj.size
 		});
 		res.end(fileObj.data);
-
 	});
-
 
     app.post("/overview/id/:id", func.isLoggedIn, async (req,res) => {
         const user = req.user.local;
         const id = req.params.id;
 
-        // Get JSON data
-        const updateEntriesArr = req.body;
+        // Get incoming data
+        const updatedEntries = req.body;
+
+        // Form results object and return
+        const resultsObj = getReturnUpdateObj(updatedEntries);
+        res.send(JSON.stringify(resultsObj));
 
         // Update the entries
-        const resultsJSON = await databases.updateEntries(updateEntriesArr, req.user, id);
-
-        res.send(JSON.stringify(resultsJSON));
+        databases.updateEntries(resultsObj, user, id);
     });
 
     app.get("/overview/id/:id/settings", func.isLoggedIn, async (req, res) => {
@@ -214,3 +214,25 @@ module.exports = function(app) {
     });
 };
 
+let getReturnUpdateObj = function(updatedEntries) {
+    let resultsObj = {
+        data: []
+    };
+    for (const id in updatedEntries) {
+        const entry = {
+            _id: id,
+            comment: updatedEntries[id].comment,
+            status: {
+                stage: updatedEntries[id].status.stage,
+                estPortArrivalDate: updatedEntries[id].status.estPortArrivalDate,
+                actPortArrivalDate: updatedEntries[id].status.actPortArrivalDate,
+                estDeliveryDate: updatedEntries[id].status.estDeliveryDate,
+                actDeliveryDate: updatedEntries[id].status.actDeliveryDate,
+                receivedBy: updatedEntries[id].status.receivedBy
+            }
+        };
+
+        resultsObj.data.push(entry);
+    }
+    return resultsObj;
+};
