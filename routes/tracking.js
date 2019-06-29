@@ -12,71 +12,30 @@ module.exports = function(app) {
     app.post("/tracking",(req,res) => {
         // TODO: Refactor this ugly ass function
 
-        let user = "";
         // check if user is a logged in user, to restrict sidebar view appropriately for staff and overseas
-        if(req.isAuthenticated()) {
-            user = req.user.local;
-        } 
         // otherwise this tracking page is still accessible without login, with nothing on the sidebar
+        let user = req.isAuthenticated() ? req.user.local : "";
 
-        // Retrieve tracking number & surname from form
-        let trackingNumberString = req.body.trackingNumber.trim();
-        let surnameString = req.body.surname.trim();
-
-        // Split the string by newline
-        let trackingNumArray = _.split(trackingNumberString, "\r\n");
-        let surnameArray = _.split(surnameString, "\r\n");
-        
-        // Split the string by comma
-        function splitComma(elem) {
-            return _.split(elem, ",");
-        }
-        
-        trackingNumArray = _.flatMapDeep(trackingNumArray, splitComma);
-        surnameArray = _.flatMapDeep(surnameArray, splitComma);
-        
-        // Remove all spaces
-        function removeSpace(elem) {
-            return _.replace(elem, " ", "");
-        }
-
-        trackingNumArray = _.flatMapDeep(trackingNumArray, removeSpace);
-        surnameArray = _.flatMapDeep(surnameArray, removeSpace);
-
-        // Remove empty elements
-        _.remove(trackingNumArray, (elem) => {return elem == ""});
-        _.remove(surnameArray, (elem) => {return elem == ""});
-
-        // Retrieve object with key = tracking num, value = status
-        // https://lavrton.com/javascript-loops-how-to-handle-async-await-6252dd3c795/
+        let trackingNumberArray = getCleanArray(req.body.trackingNumber);
+        let surnameArray = getCleanArray(req.body.surname);
 
         async function parseStatus() {
             let trackingInfo = {};
-            let status, sender, receiver, eta;
             let additionalFilesInfo = [];
 
             // Iterate over every tracking number
-            for (let elem of trackingNumArray) {
-                for (let s of surnameArray) {
+            for (let trackingNumber of trackingNumberArray) {
+                for (let surname of surnameArray) {
                     try {
-                        let results = await databases.findStatusInfo(elem, s);
-                        trackingInfo[elem] = results["containerLine"][0];
-                        trackingInfo[elem].overseasAccess = results["overseasAccess"];
+
+                        let results = await databases.findStatusInfo(trackingNumber, surname);
+
+                        trackingInfo[trackingNumber] = results["containerLine"][0];
+                        trackingInfo[trackingNumber].overseasAccess = results["overseasAccess"];
 
                         // console.log(trackingInfo[elem]); // for testing
 
-                        sender = trackingInfo[elem].sender.firstName + " " 
-                            + trackingInfo[elem].sender.middleName + " "
-                            + trackingInfo[elem].sender.lastName;
-
-                        receiver = trackingInfo[elem].receiver.firstName + " " 
-                            + trackingInfo[elem].receiver.middleName + " "
-                            + trackingInfo[elem].receiver.lastName;
-
-                        status = trackingInfo[elem].status.stage;
-                        eta = trackingInfo[elem].status.estPortArrivalDate;
-
-                        const additionalFilesArray = trackingInfo[elem].status.additionalFiles;
+                        const additionalFilesArray = trackingInfo[trackingNumber].status.additionalFiles;
 
                         for (let file of additionalFilesArray) {
                             additionalFilesInfo.push({
@@ -89,7 +48,7 @@ module.exports = function(app) {
                         break; // breaks out of surnameArray loop to move on searching with next tracking number
 
                     } catch(err) {
-                        trackingInfo[elem] = err;
+                        trackingInfo[trackingNumber] = err;
                         continue;
                     }
                 }
@@ -99,11 +58,7 @@ module.exports = function(app) {
                 trackingInfo: trackingInfo, 
                 trackingNumber: req.body.trackingNumber,
                 trackingSurname: req.body.surname,
-                sender: sender,
-                receiver: receiver,
-                status: status,
                 additionalFilesInfo: additionalFilesInfo,
-                eta: eta,
                 user: user
             });
         }
@@ -111,3 +66,29 @@ module.exports = function(app) {
         parseStatus();
     });
 };
+
+// Split the string by comma
+function splitComma(str) { return _.split(str, ","); }
+
+// Remove all spaces
+function removeSpace(str) { return _.replace(str, " ", ""); }
+
+// Function that returns clean set of array from string
+function getCleanArray(str) {
+
+    let temp_str = str;
+
+    // Trim white spaces from front and back & Split string by newline
+    let str_array = _.split(str.trim(), "\r\n");
+    
+    // Split the string by comma
+    str_array = _.flatMapDeep(str_array, splitComma);
+    
+    // Remove all spaces
+    str_array = _.flatMapDeep(str_array, removeSpace);
+
+    // Remove empty elements
+    _.remove(str_array, (str) => { return str == "" });
+
+    return str_array;
+}
