@@ -17,6 +17,10 @@ module.exports = function(app, passport) {
         res.redirect('/recent');
     });
 
+    app.get('/cargoflex-logout', function(req, res){
+        req.logout();
+        res.redirect('/cargoflex');
+    });
 
     app.get('/cargoflex', function(req,res){
 	    res.render('subdomains/cargoflex.ejs', {message: req.flash('loginMessage')});

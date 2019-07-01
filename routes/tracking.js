@@ -15,7 +15,7 @@ module.exports = function(app) {
         // check if user is a logged in user, to restrict sidebar view appropriately for staff and overseas
         // otherwise this tracking page is still accessible without login, with nothing on the sidebar
         let user = req.isAuthenticated() ? req.user.local : "";
-
+        
         let trackingNumberArray = getCleanArray(req.body.trackingNumber);
         let surnameArray = getCleanArray(req.body.surname);
 

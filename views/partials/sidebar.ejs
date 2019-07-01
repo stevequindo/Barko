@@ -55,9 +55,15 @@
                     </a>
                 </li>
                 <li>
-                    <a class="s-sidebar__nav-link" href="/logout">
-                    <em><strong>Logout</strong></em>
-                    </a>
+                    <% if(user.email == "cargoflexhaulers@trial.com") { %>
+                        <a class="s-sidebar__nav-link" href="/cargoflex-logout">
+                        <em><strong>Logout</strong></em>
+                        </a>
+                    <% } else { %>
+                        <a class="s-sidebar__nav-link" href="/logout">
+                        <em><strong>Logout</strong></em>
+                        </a>
+                    <% } %>
                 </li>
             <% } else { %>
                 <!-- 
