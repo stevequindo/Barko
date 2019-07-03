@@ -26,6 +26,16 @@
 
 <script>
 $(document).ready(function() {
+	// Constants for delivery status
+	const
+			DEPARTING_PORT = "At Departing Port",
+			ON_TRANSIT = "On Transit",
+			DESTINATION_PORT = 'At Destination Port',
+			CUSTOMS = 'At Customs',
+			DISPATCH = 'For Dispatch',
+			DELIVERY = 'For Delivery',
+			DELIVERED = 'Delivered';
+
 	// Initialise editor
 	let editor = new $.fn.dataTable.Editor({
 		table: '#comm-table',
@@ -38,13 +48,14 @@ $(document).ready(function() {
 					name: "status.stage",
 					type: "select",
 					options: [
-						"At Departing Port",
-						"On Transit",
-						"At Destination Port",
-						"At Customs",
-						"For Dispatch",
-						"For Delivery",
-						"Delivered"]
+						DEPARTING_PORT,
+						ON_TRANSIT,
+						DESTINATION_PORT,
+						CUSTOMS,
+						DISPATCH,
+						DELIVERY,
+						DELIVERED
+					]
 				},
 				{
 					label:"Estimated Arrival Date to Port",
@@ -346,9 +357,9 @@ $(document).ready(function() {
 						if (files) return files.length === 0 ? 'No files' : `${files.length} files`;
 					}
 				}
-
 			],
 	});
+
 
 	// Change rowID based on which row the user wants to edit
 	let rowID;
@@ -366,32 +377,41 @@ $(document).ready(function() {
 
 	// Add styling to delivery info
 	let addDeliveryStyles = function () {
+		// DEPARTING_PORT,
+		// 		ON_TRANSIT,
+		// 		DESTINATION_PORT,
+		// 		CUSTOMS,
+		// 		DISPATCH,
+		// 		DELIVERY,
+		// 		DELIVERED
 		// add color to different tracking statuses
-		$('td:contains("At Departing Port")').addClass('atDepartingPort');
-		$('td:contains("On Transit")').addClass('onTransit');
-		$('td:contains("At Destination Port")').addClass('atDestinationPort');
-		$('td:contains("At Customs")').addClass('atCustoms');
-		$('td:contains("For Dispatch")').addClass('forDispatch');
-		$('td:contains("For Delivery")').addClass('forDelivery');
-		$('td:contains("Delivered")').addClass('delivered');
+		$(`td:contains(${DEPARTING_PORT})`).addClass('atDepartingPort');
+		$(`td:contains(${ON_TRANSIT})`).addClass('onTransit');
+		$(`td:contains(${DESTINATION_PORT})`).addClass('atDestinationPort');
+		$(`td:contains(${CUSTOMS})`).addClass('atCustoms');
+		$(`td:contains(${DISPATCH})`).addClass(`forDispatch`);
+		$(`td:contains(${DELIVERY})`).addClass(`forDelivery`);
+		$(`td:contains(${DELIVERED})`).addClass(`delivered`);
 	};
 
 	$(addDeliveryStyles);
 
-	// // Remove styling classes before edit occurs
-	// editor.on('preEdit', function( e, json, data, id ) {
-	// 	console.log(e, json, data, id);
+	// Change styling classes after edit
+	// editor.on('edit', function( e, json, data, id ) {
+	// 	// console.log(e, json, data, id);
+	// 	const newStatus = data.status.stage;
 	//
 	// 	// Get row from id
 	// 	let row = table.row(`#${id}`);
 	// 	console.log(row);
 	//
-	// 	// Get last class from row and remove
-	// 	const lastClass = row.attr('class').split(' ').pop();
-	// 	row.removeClass(lastClass);
-	// })
+	// 	// // Set class based on new status
+	// 	// switch (newStatus) {
+	// 	// 	default:
+	// 	// 		pass
+	// 	// }
 	//
-	// editor.on('edit', addDeliveryStyles);
+	// });
 });
 </script>
 <%- include("../partials/footer") -%>
