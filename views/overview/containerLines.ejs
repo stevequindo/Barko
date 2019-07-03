@@ -11,7 +11,7 @@
 			<th class="mdl-data-table__cell--non-numeric">AREA</th>
 			<th class="mdl-data-table__cell--non-numeric">SENDER</th>
 			<th class="mdl-data-table__cell--non-numeric">RECEIVER</th>
-			<th class="mdl-data-table__cell--non-numeric">DELIVERY ADDRESS</th>
+			<th class="mdl-data-table__cell-gi-non-numeric">DELIVERY ADDRESS</th>
 			<th class="mdl-data-table__cell--non-numeric">STATUS</th>
 			<th class="mdl-data-table__cell--non-numeric">ETA TO PORT</th>
 			<th class="mdl-data-table__cell--non-numeric">COMMENTS</th>
@@ -362,30 +362,14 @@ $(document).ready(function() {
 			],
 	});
 
-
 	// Change rowID based on which row the user wants to edit
 	let rowID;
 	editor.on( 'initEdit', function () {
 		rowID = editor.ids( true );
 	});
 
-	// Listen for removal of remove file button
-	// editor.field('status.additionalFiles').input().on('upload.editor', function (event, value) {
-	// 	console.log('Upload done');
-	// 	console.log(`event ${event}`);
-	// 	console.log(`value ${value}`);
-	//
-	// });
-
 	// Add styling to delivery info
 	let addDeliveryStyles = function () {
-		// DEPARTING_PORT,
-		// 		ON_TRANSIT,
-		// 		DESTINATION_PORT,
-		// 		CUSTOMS,
-		// 		DISPATCH,
-		// 		DELIVERY,
-		// 		DELIVERED
 		// add color to different tracking statuses
 		$(`td:contains(${DEPARTING_PORT})`).addClass('atDepartingPort');
 		$(`td:contains(${ON_TRANSIT})`).addClass('onTransit');
@@ -400,13 +384,12 @@ $(document).ready(function() {
 
 	// Change styling classes after edit
 	editor.on('edit', function( e, json, data, id ) {
-		// console.log(e, json, data, id);
 		const newStatus = data.status.stage;
 
+		// Get status cell
 		let cell = table.cell(`#${id}`, 'status_stage:name').node();
 
-		// Set class based on new status
-		console.log(newStatus);
+		// Set class of cell based on new status
 		switch (newStatus) {
 			case DEPARTING_PORT:
 				$(cell).attr('class', `dt-left atDepartingPort`);
@@ -433,7 +416,6 @@ $(document).ready(function() {
 				$(cell).attr('class', `dt-left`);
 				break;
 		}
-
 	});
 });
 </script>
