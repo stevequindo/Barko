@@ -241,6 +241,7 @@ $(document).ready(function() {
 
 	// Initialise data table
 	let table = $('#comm-table').DataTable({
+		rowId: '_id',
 		"search" : {
 			"caseInsensitive": true,
 			"smart": false,
@@ -397,21 +398,29 @@ $(document).ready(function() {
 	$(addDeliveryStyles);
 
 	// Change styling classes after edit
-	// editor.on('edit', function( e, json, data, id ) {
-	// 	// console.log(e, json, data, id);
-	// 	const newStatus = data.status.stage;
-	//
-	// 	// Get row from id
-	// 	let row = table.row(`#${id}`);
-	// 	console.log(row);
-	//
-	// 	// // Set class based on new status
-	// 	// switch (newStatus) {
-	// 	// 	default:
-	// 	// 		pass
-	// 	// }
-	//
-	// });
+	editor.on('edit', function( e, json, data, id ) {
+		// console.log(e, json, data, id);
+		const newStatus = data.status.stage;
+
+		// Get row from id
+		let row = table.row(`#${id}`);
+		console.log(row);
+
+
+		// Set class based on new status
+		switch (newStatus) {
+			case DEPARTING_PORT:
+			case ON_TRANSIT:
+			case DESTINATION_PORT:
+			case CUSTOMS:
+			case DISPATCH:
+			case DELIVERY:
+			case DELIVERED:
+			default:
+				pass
+		}
+
+	});
 });
 </script>
 <%- include("../partials/footer") -%>
