@@ -1,0 +1,23 @@
+.Tracking-Results-Wrapper {
+	margin-top: 5%;
+	margin-bottom: 5%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	min-height: 100vh;
+
+}
+
+.Image-file {
+
+    width: 300px;
+    height: 200px;
+}
+
+.Spinner-Wrapper {
+  display: flex; 
+  justify-content: center; 
+  height: 100vh;
+  align-items: center;
+}
