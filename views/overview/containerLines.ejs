@@ -99,12 +99,13 @@ $(document).ready(function() {
 				},
 				{
 					label: "Delivery Comments",
-					name: "commentCategory",
+					name: "deliveryComment",
 					attr: {
-						placeholder: "Not set"
+						placeholder: "As Usual"
 					},
 					type: "select",
 					options: [
+						"As Usual",
 						"Back-load",
 						"Un-located address",
 						"Consignee not available",
@@ -226,7 +227,10 @@ $(document).ready(function() {
             	type: 'POST',
                 url: `/overview/id/<%-id%>`,
 				contentType: 'application/json',
-                data: (d) => {return JSON.stringify(d.data);}
+                data: (d) => {
+                	console.log(d);
+                	return JSON.stringify(d.data);
+                }
             }
         }
 	});

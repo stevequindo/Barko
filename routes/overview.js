@@ -222,6 +222,7 @@ let getReturnUpdateObj = function(updatedEntries) {
         const entry = {
             _id: id,
             comment: updatedEntries[id].comment,
+            deliveryComment: updatedEntries[id].deliveryComment,
             status: {
                 stage: updatedEntries[id].status.stage,
                 estPortArrivalDate: updatedEntries[id].status.estPortArrivalDate,
