@@ -38,6 +38,6 @@ require("./config/passport")(passport);
 app.use("/api/users", users);
 app.use("/api/tracking", tracking);
 
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
-app.listen(port, () => console.log(`Server up and running on port ${port} !`));
+app.listen(PORT, () => console.log(`Server up and running on port ${PORT} !`));
