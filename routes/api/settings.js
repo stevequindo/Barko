@@ -2,6 +2,7 @@ const settings = require('express').Router();
 
 // @route GET api/containers/:containerId/settings
 // @desc
+// 	Gets the settings for a given container based on the cId
 // @access
 settings.get('/', (req, res, next) => {
 	const containerId = req.containerId;
@@ -11,6 +12,7 @@ settings.get('/', (req, res, next) => {
 
 // @route PUT api/containers/:containerId/files/:fileId
 // @desc
+// 	Updates the settings for a given container based on the cId
 // @access
 settings.put('/', (req, res, next) => {
 	const containerId = req.containerId;
