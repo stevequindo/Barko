@@ -4,8 +4,9 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const cors = require('cors');
 
-const users = require("./routes/api/users");
-const tracking = require("./routes/api/tracking");
+const usersRouter = require("./routes/api/users");
+const trackingRouter = require("./routes/api/tracking");
+const containersRouter = require('./routes/api/containers');
 
 const app = express();
 
@@ -40,8 +41,9 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 // Routes
-app.use("/api/users", users);
-app.use("/api/tracking", tracking);
+app.use("/api/users", usersRouter);
+app.use("/api/tracking", trackingRouter);
+app.use('/api/containers', containersRouter);
 
 const PORT = process.env.PORT || 5000;
 
