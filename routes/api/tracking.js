@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
     let trackingNumberArray = getCleanArray(req.body.trackingNumber);
     let surnameArray = getCleanArray(req.body.surname);
 
-    let trackingInfo = [], additionalFilesInfo = [], additionalFilesArray = [];
+    let trackingInfo = {};
 
     // Iterate over every tracking number & surname to find status info in database
     for (let trackingNumber of trackingNumberArray) {
@@ -19,39 +19,44 @@ router.get("/", async (req, res) => {
             try {
                 let results = await databases.findStatusInfo(trackingNumber, surname);
 
-                console.log(results);
                 trackingInfo[trackingNumber] = results["containerLine"][0];
-                trackingInfo[trackingNumber].overseasAccess = results["overseasAccess"];
                 trackingInfo[trackingNumber].containerId = results._id.toString();
+                trackingInfo[trackingNumber].files = [];
+
+                const additionalFilesArray = trackingInfo[trackingNumber].status.additionalFiles;
+
+                for (let file of additionalFilesArray) {
+                    trackingInfo[trackingNumber].files.push({
+                        containerId : results._id.toString(),
+                        fileId: file._id.toString(),
+                        fileName: file.name
+                    });
+                }
 
                 break; // breaks out of surnameArray loop to move on searching with next tracking number
 
             } catch (err) {
                 trackingInfo[trackingNumber] = err;
-                continue;
             }
         }
     }
 
     let trackingResults = [];
-    let resultsArray = trackingInfo;
 
     // build json for response
-    for (let item in resultsArray) {
-
+    for (let item in trackingInfo) {
         trackingResults.push({
             trackingNumber: item,
-            sender: nameBuilder(resultsArray[item].sender.firstName,
-                resultsArray[item].sender.middleName,
-                resultsArray[item].sender.lastName),
-            receiver: nameBuilder(resultsArray[item].receiver.firstName,
-                resultsArray[item].receiver.middleName,
-                resultsArray[item].receiver.lastName),
-            status: resultsArray[item].status.stage,
-            eta: getETA(resultsArray[item].status.stage, resultsArray[item].status),
-            companyId: resultsArray[item].overseasAccess,
-            files: resultsArray[item].status,
-            containerId: resultsArray[item].containerId
+            sender: nameBuilder(trackingInfo[item].sender.firstName,
+                trackingInfo[item].sender.middleName,
+                trackingInfo[item].sender.lastName),
+            receiver: nameBuilder(trackingInfo[item].receiver.firstName,
+                trackingInfo[item].receiver.middleName,
+                trackingInfo[item].receiver.lastName),
+            stage: trackingInfo[item].status.stage,
+            eta: getETA(trackingInfo[item].status),
+            containerId: trackingInfo[item].containerId,
+            files: trackingInfo[item].files,
         });
     }
 
@@ -66,9 +71,6 @@ function removeSpace(str) { return _.replace(str, " ", ""); }
 
 // Function that returns clean set of array from string
 function getCleanArray(str) {
-
-    let temp_str = str;
-
     // Trim white spaces from front and back & Split string by newline
     let str_array = _.split(_.trim(str), "\r\n");
     
@@ -79,7 +81,7 @@ function getCleanArray(str) {
     str_array = _.flatMapDeep(str_array, removeSpace);
 
     // Remove empty elements
-    _.remove(str_array, (str) => { return str == "" });
+    _.remove(str_array, (str) => { return str === "" });
 
     return str_array;
 }
@@ -88,19 +90,18 @@ function getCleanArray(str) {
 function nameBuilder(firstName, middleName, lastName) {
     let fullName = "";
 
-    if(middleName != undefined || middleName == "") {
+    if (middleName !== undefined || middleName === "") {
         fullName = firstName + " " + middleName + " " + lastName;
-
     } else {
         fullName = firstName + " " + lastName;
     }
+
     return fullName;
 }
 
-// function to get appropriate ETA
-function getETA(status, eta) {
-
-    let status_msg = "";
+// Constructs an appropriate ETA message given the status of an order
+function getETA(status) {
+    let statusMessage = "";
     let stages = [
       "At Departing Port", 
       "On Transit", 
@@ -111,42 +112,36 @@ function getETA(status, eta) {
       "Delivered"
     ];
 
-    for (let i = 0; i < stages.length; i++) {
-      if(status.toUpperCase() === stages[i].toUpperCase()) {
+    // find index of stage in stages
+    let index = stages.indexOf(status.stage);
 
-        if(i === 0 || i === 1) {
-            if(eta.estPortArrivalDate) {
-                let estPortArrivalDate = new Date(eta.estPortArrivalDate);
+    if (index === 0 || index === 1) {
+        if (status.estPortArrivalDate) {
+            let estPortArrivalDate = new Date(status.estPortArrivalDate);
 
-                status_msg = "Estimated date to destination port: " 
-                    + estPortArrivalDate.getDate() + "-" 
-                    + (estPortArrivalDate.getMonth()+1) + "-" 
-                    + estPortArrivalDate.getFullYear();
-            }
-
-        } else if (i === 2 || i === 3 || i === 4 || i === 5) {
-
-            if(eta.estDeliveryDate) {
-                let estDeliveryDate = new Date(eta.estDeliveryDate);
-
-                status_msg = "Estimated date to delivery: " 
-                    + estDeliveryDate.getDate() + "-" 
-                    + (estDeliveryDate.getMonth()+1) + "-" 
-                    + estDeliveryDate.getFullYear();
-            }
-
-        } else if (i === 6) {
-            if(eta.receivedBy) {
-                status_msg = "Delivered and received by " + eta.receivedBy;
-            } else {
-                status_msg = "Delivered"
-            }
+            statusMessage = "Estimated date to destination port: "
+                + estPortArrivalDate.getDate() + "-"
+                + (estPortArrivalDate.getMonth()+1) + "-"
+                + estPortArrivalDate.getFullYear();
         }
-      } 
-    } // End of for loop
+    } else if (index > 1 && index < 6) {
+        if (status.estDeliveryDate) {
+            let estDeliveryDate = new Date(status.estDeliveryDate);
 
-    return status_msg;
+            statusMessage = "Estimated date to delivery: "
+                + estDeliveryDate.getDate() + "-"
+                + (estDeliveryDate.getMonth()+1) + "-"
+                + estDeliveryDate.getFullYear();
+        }
+    } else {
+            if(status.receivedBy) {
+                statusMessage = "Delivered and received by " + status.receivedBy;
+            } else {
+                statusMessage = "Delivered"
+            }
+    }
 
+    return statusMessage;
 }
 
 module.exports = router;

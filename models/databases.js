@@ -162,18 +162,19 @@ exports.parseJsonWorkbook = async function(jsonWorkbook, userData, userType, con
    return summary;
 };
 
-exports.findStatusInfo = function(trackingNum, Surname) {
+exports.findStatusInfo = function(trackingNum, surname) {
 	/**
 	 * This function finds the status information given a tracking number and the SENDER's surname
 	 *
 	 * Params:
 	 * 	- trackingNum (String) representing the tracking number
-	 * 	- Surname (String) representing the surname of the sender
+	 * 	- surname (String) representing the surname of the sender
 	 * Returns:
 	 *  - Promise containing an object of the specific container line
 	 */
+	// TODO: Remove querying of file data
 	return new Promise((resolve, reject) => {
-		let lastName = '^'+Surname+'$';
+		let lastName = '^'+surname+'$';
 		let trackingNumber = '^'+trackingNum+'$';
 
 		Container
@@ -198,8 +199,7 @@ exports.findStatusInfo = function(trackingNum, Surname) {
 								'$regex': lastName, $options:'i'
 							}
 						}
-					},
-					'overseasAccess' : 1
+					}
 				})
 			.populate('containerLine[0].sender containerLine[0].receiver containerLine[0].status')
 			.exec((err, docs) => {
