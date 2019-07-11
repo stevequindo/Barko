@@ -8,8 +8,8 @@ const router = express.Router();
 // @access Public
 router.get("/", async (req, res) => {
     // cleans input req string and parses to array
-    let trackingNumberArray = getCleanArray(req.body.trackingNumber);
-    let surnameArray = getCleanArray(req.body.surname);
+    let trackingNumberArray = getCleanArray(req.query.trackingNumber);
+    let surnameArray = getCleanArray(req.query.surname);
 
     let trackingInfo = {};
 
