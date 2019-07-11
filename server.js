@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
+const cors = require('cors');
 
 const users = require("./routes/api/users");
 const tracking = require("./routes/api/tracking");
@@ -9,12 +10,16 @@ const tracking = require("./routes/api/tracking");
 const app = express();
 
 // Bodyparser middleware
+
 app.use(
   bodyParser.urlencoded({
     extended: false
   })
 );
 app.use(bodyParser.json());
+
+// Enable cross-origin resource sharing
+app.use(cors());
 
 // DB Config
 const db = require("./config/keys").mongoURI;

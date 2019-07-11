@@ -6,11 +6,11 @@ class Navbar extends Component {
   render() {
     return (
       <nav className="blue accent-3">
-        <div class="nav-wrapper">
+        <div className="nav-wrapper">
           <Link to="/" className="brand-logo">
             Barko
           </Link>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li><a href="/">...</a></li>
             <li><a href="/">...</a></li>
             <li><a href="/">...</a></li>

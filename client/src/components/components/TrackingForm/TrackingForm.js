@@ -15,19 +15,19 @@ class TrackingForm extends Component {
   trackParcel = async e => {
     e.preventDefault();
 
-    if(this.state.trackingNumber === "" && this.state.surname === "") {
+    if (this.state.trackingNumber === "" && this.state.surname === "") {
       this.setState({ response: "Please enter tracking number and surname." });
       this.trackingNumberInput.focus();
-    } else if(this.state.trackingNumber === "") {
+    } else if (this.state.trackingNumber === "") {
       this.setState({ response: "Please enter tracking number." });
       this.trackingNumberInput.focus();
 
-    } else if(this.state.surname === "") {
+    } else if (this.state.surname === "") {
       this.setState({ response: "Please enter surname." });
       this.surnameInput.focus();
     }
-    
-    if(this.state.trackingNumber && this.state.surname)
+
+    if (this.state.trackingNumber && this.state.surname)
       this.setState({ formValidated: true });
   };
 

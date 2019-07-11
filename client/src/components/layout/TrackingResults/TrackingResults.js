@@ -12,24 +12,23 @@ class TrackingResults extends Component {
 
   async componentDidMount() {
 
-    try {
-      const res = await axios.post("./api/tracking", {
+    const trackingNumber = this.props.location.trackingRequest.trackingNumber;
+    const surname = this.props.location.trackingRequest.surname;
 
-          trackingNumber: this.props.location.trackingRequest.trackingNumber,
-          surname: this.props.location.trackingRequest.surname
-        }
-      );
-
-      console.log(res.data);
-
-      this.setState({ trackingResults: res.data.trackingResults });
-      console.log(this.state.trackingResults);
-
-      console.log(res.data.trackingInfo);
-
-    } catch (err) {
-      this.setState({ error: err.message });
-    }
+    fetch(`/api/tracking?trackingNumber=${trackingNumber}&surname=${surname}`, {
+        method: 'GET',
+        mode: 'cors', // todo change
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        redirect: 'follow',
+        referrer: 'no-referrer'
+        })
+    .then(res => res.json())
+    .then(res => this.setState({ trackingResults: res.trackingResults }))
+    .catch(err => this.setState({error:err.message}));
   }   
 
   render() {
@@ -37,25 +36,31 @@ class TrackingResults extends Component {
 
     if(this.state.error) return (<h4>Error: { this.state.error }</h4>);
     
-    if(this.state.trackingResults)
-      results =
-        this.state.trackingResults &&
-        this.state.trackingResults.map(result => (
-          <tr>
-            <td>{result.trackingNumber}</td> 
-            <td>{result.sender}</td>
-            <td>{result.receiver}</td>
-            <td>{result.status}</td>
-            <td>{result.eta}</td>
-            <td>{result.files.additionalFiles.map(file => (
-                  <p>{file.name}</p>
-                  // <img className="Image-file" src={"overview/id/" + result.containerId + "/file/" + file._id}/>
-              ))}
-            </td>
-            
-          </tr>
-        ));
-    else return <div className="Spinner-Wrapper"> <GridLoader color={'#333'} /> </div>;
+    if (this.state.trackingResults) {
+        results =
+            this.state.trackingResults &&
+            this.state.trackingResults.map(result => (
+                <tr key={result.trackingNumber}>
+                    <td>{result.trackingNumber}</td>
+                    <td>{result.sender}</td>
+                    <td>{result.receiver}</td>
+                    <td>{result.status}</td>
+                    <td>{result.eta}</td>
+                    <td>{
+                            result.files.map(file => {
+                                const fileLink = '/api/';
+                                return (
+                                    <a className="document-links" key={file.fileId}>{file.fileName}</a>
+                                )
+                            })
+                    }
+
+                    </td>
+                    </tr>
+            ));
+    } else {
+        return (<div className="Spinner-Wrapper"> <GridLoader color={'#333'} /> </div>)
+    }
 
     return (
       <div className="Tracking-Results-Wrapper">
@@ -76,8 +81,6 @@ class TrackingResults extends Component {
             {results}
           </tbody>
         </table>
-
-      
       </div>
     );
   }
