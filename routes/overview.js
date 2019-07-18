@@ -170,6 +170,23 @@ module.exports = function(app) {
         databases.updateEntries(resultsObj, user, id);
     });
 
+    app.delete('/overview/id/:id', func.isLoggedIn, (req,res) => {
+        const user = req.user.local;
+        const userId = req.user._id;
+        const containerId = req.params.id;
+
+        try {
+            databases.deleteContainer(userId, containerId);
+            res.status(200).json({deleteSuccess: true});
+        } catch(err) {
+            res.render("error/message", {
+                user: user,
+                messageHeader: "It appears an unknown error has occurred.",
+                messageBody: `Please contact us <a href='mailto:nchong128@gmail.com'>here</a> giving us the error message <strong>${err}</strong>`,
+            });
+        }
+    });
+
     app.get("/overview/id/:id/settings", func.isLoggedIn, async (req, res) => {
         const user = req.user.local;
         const id = decodeURIComponent(req.params.id);
@@ -212,6 +229,8 @@ module.exports = function(app) {
                 res.send(response);
             });
     });
+
+
 };
 
 let getReturnUpdateObj = function(updatedEntries) {

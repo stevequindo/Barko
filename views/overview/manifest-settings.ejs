@@ -103,8 +103,12 @@
     <a onclick="goBack()" class="link" >Overview</a>
 </div>
 
-<div class="row btn btn-primary" style="cursor:pointer">
+<div class="row btn btn-primary mr-5" style="cursor:pointer">
     <a onclick="goToContainer()" class="link" >Manifest</a>
+</div>
+    
+<div class="row btn btn-danger" style="cursor:pointer">
+    <a onclick="deleteContainer()" class="link">Delete Container</a>
 </div>
 
 </form>
@@ -152,6 +156,31 @@ function goBack() {
 function goToContainer() {
     window.location.href = window.location.href.slice(0, window.location.href.length - 9);
 }
+
+function deleteContainer() {
+	const containerLink = window.location.href.slice(0, window.location.href.length - 9);
+
+	console.log(containerLink);
+	fetch(containerLink, {
+		method: 'DELETE',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		}
+	})
+		.then((data) => {
+			console.log(data);
+			if (data.status == 200) {
+				window.location.href = '/overview';
+			} else {
+				// Pop failure alert
+				$('#failureAlert').css('display','block');
+			}
+
+		})
+		.catch((err) => console.log(err));
+}
+
 </script>
 
 
