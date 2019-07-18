@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee34331e-2a9b-45c9-a927-6d8d0a11d824" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/node_modules/barko/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/client/node_modules/barko/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/node_modules/barko/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/node_modules/barko/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/node_modules/barko/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/node_modules/barko/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/tracking/cargoflex-results.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/tracking/cargoflex-results.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/tracking/results.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/tracking/results.ejs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,11 +33,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/tracking/results.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="238" column="51" selection-start-line="238" selection-start-column="51" selection-end-line="238" selection-end-column="51" />
+            <state relative-caret-position="136">
+              <caret line="237" selection-start-line="237" selection-end-line="238" selection-end-column="97" />
+              <folding>
+                <element signature="n#td#0;n#tr#1;n#tbody#0;n#table#0;n#div#2;n#div#0;n#main#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#td#1;n#tr#1;n#tbody#0;n#table#0;n#div#2;n#div#0;n#main#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#td#2;n#tr#1;n#tbody#0;n#table#0;n#div#2;n#div#0;n#main#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/views/tracking/cargoflex-results.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="241" column="61" lean-forward="true" selection-start-line="241" selection-start-column="61" selection-end-line="241" selection-end-column="61" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/css/styles.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="158">
+              <caret line="205" column="14" selection-start-line="205" selection-start-column="14" selection-end-line="205" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -69,8 +87,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getresul</find>
-      <find>cosnole.</find>
       <find>contentarr</find>
       <find>responsive</find>
       <find>CUST</find>
@@ -99,6 +115,8 @@
       <find>delivery</find>
       <find>status</find>
       <find>snde</find>
+      <find>stastus</find>
+      <find>delivery s</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -141,6 +159,7 @@
         <option value="$PROJECT_DIR$/routes/api/files.js" />
         <option value="$PROJECT_DIR$/routes/api/settings.js" />
         <option value="$PROJECT_DIR$/views/tracking/results.ejs" />
+        <option value="$PROJECT_DIR$/views/tracking/cargoflex-results.ejs" />
       </list>
     </option>
   </component>
@@ -187,6 +206,17 @@
               <item name="Barko" type="b2602c69:ProjectViewProjectNode" />
               <item name="Barko" type="462c0819:PsiDirectoryNode" />
               <item name="routes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Barko" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Barko" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Barko" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Barko" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="tracking" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -285,12 +315,12 @@
       <workItem from="1562849993275" duration="4411000" />
       <workItem from="1562872568428" duration="5000" />
       <workItem from="1563420578801" duration="761000" />
-      <workItem from="1563422425432" duration="648000" />
+      <workItem from="1563422425432" duration="920000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="151237000" />
+    <option name="totallyTimeSpent" value="151509000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -357,8 +387,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/src/Pages/Home/Home.js" />
-    <entry file="file://$PROJECT_DIR$/client/src/components/TrackingForm/TrackingForm.js" />
     <entry file="file://$PROJECT_DIR$/client/src/components/Footer/Footer.js" />
     <entry file="file://$PROJECT_DIR$/backend/routes/login.js" />
     <entry file="file://$PROJECT_DIR$/backend/routes/overview.js" />
@@ -448,10 +476,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="205" column="14" selection-start-line="205" selection-start-column="14" selection-end-line="205" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/views/tracking/results.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="238" column="51" selection-start-line="238" selection-start-column="51" selection-end-line="238" selection-end-column="51" />
+        <state relative-caret-position="136">
+          <caret line="237" selection-start-line="237" selection-end-line="238" selection-end-column="97" />
+          <folding>
+            <element signature="n#td#0;n#tr#1;n#tbody#0;n#table#0;n#div#2;n#div#0;n#main#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#td#1;n#tr#1;n#tbody#0;n#table#0;n#div#2;n#div#0;n#main#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#td#2;n#tr#1;n#tbody#0;n#table#0;n#div#2;n#div#0;n#main#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/tracking/cargoflex-results.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="241" column="61" lean-forward="true" selection-start-line="241" selection-start-column="61" selection-end-line="241" selection-end-column="61" />
         </state>
       </provider>
     </entry>
