@@ -229,8 +229,6 @@ module.exports = function(app) {
                 res.send(response);
             });
     });
-
-
 };
 
 let getReturnUpdateObj = function(updatedEntries) {
@@ -248,7 +246,8 @@ let getReturnUpdateObj = function(updatedEntries) {
                 actPortArrivalDate: updatedEntries[id].status.actPortArrivalDate,
                 estDeliveryDate: updatedEntries[id].status.estDeliveryDate,
                 actDeliveryDate: updatedEntries[id].status.actDeliveryDate,
-                receivedBy: updatedEntries[id].status.receivedBy
+                receivedBy: updatedEntries[id].status.receivedBy,
+                additionalFiles: updatedEntries[id].status.additionalFiles
             }
         };
 

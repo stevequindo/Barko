@@ -170,7 +170,7 @@ function deleteContainer() {
 	})
 		.then((data) => {
 			console.log(data);
-			if (data.status == 200) {
+			if (data.status === 200) {
 				window.location.href = '/overview';
 			} else {
 				// Pop failure alert

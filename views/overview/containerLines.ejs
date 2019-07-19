@@ -129,7 +129,6 @@ $(document).ready(function() {
 						const buttonHref = `<%-id%>/file/${file._id}`;
 						const buttonText = file.name;
 						return `<a download href=${buttonHref}>${buttonText}</a>`;
-
 					},
 					attr: {
 						placeholder: "Not set"
@@ -228,7 +227,6 @@ $(document).ready(function() {
                 url: `/overview/id/<%-id%>`,
 				contentType: 'application/json',
                 data: (d) => {
-                	console.log(d);
                 	return JSON.stringify(d.data);
                 }
             }
@@ -357,7 +355,7 @@ $(document).ready(function() {
 				{
 					"data": "status.additionalFiles",
 					"defaultContent": "No files",
-					render: function (data,type,row) {
+					render: function (data, type, row) {
 						const files = row.status.additionalFiles;
 
 						if (files) return files.length === 0 ? 'No files' : `${files.length} files`;
@@ -421,6 +419,7 @@ $(document).ready(function() {
 				break;
 		}
 	});
+
 });
 </script>
 <%- include("../partials/footer") -%>
