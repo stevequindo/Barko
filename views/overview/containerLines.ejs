@@ -8,8 +8,8 @@
 			<th>BATCH NO.</th>
 			<th class="mdl-data-table__cell--non-numeric">TRACKING NO.</th>
 			<th>COUNT</th>
-			<th class="mdl-data-table__cell--non-numeric">AREA</th>
 			<th class="mdl-data-table__cell--non-numeric">SENDER</th>
+			<th class="mdl-data-table__cell--non-numeric">AREA</th>
 			<th class="mdl-data-table__cell--non-numeric">RECEIVER</th>
 			<th class="mdl-data-table__cell-gi-non-numeric">DELIVERY ADDRESS</th>
 			<th class="mdl-data-table__cell--non-numeric">STATUS</th>
@@ -174,7 +174,7 @@ $(document).ready(function() {
 				{
 					label: "Area",
 					type: "text",
-					name: "area",
+					name: "sender.area",
 					attr: {
 						placeholder: "Not set"
 					}
@@ -286,10 +286,6 @@ $(document).ready(function() {
 					"defaultContent": "<i>Not set</i>"
 				},
 				{
-					"data": "area",
-					"defaultContent": "<i>Not set</i>"
-				},
-				{
 					"data": null,
 					render: function (data, type, row) {
 						let firstName = row.sender.firstName;
@@ -305,6 +301,10 @@ $(document).ready(function() {
 							return `${firstName} ${lastName}`;
 						}
 					}
+				},
+				{
+					"data": "sender.area",
+					"defaultContent": "<i>Not set</i>"
 				},
 				{
 					"data": null,
