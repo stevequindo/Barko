@@ -153,7 +153,6 @@ exports.parseJsonWorkbook = async function(jsonWorkbook, userData, userType, con
 	return summary;
 };
 
-
 exports.getCountries = function(userData) {
 	// Get all the countries associated with the given user and aggregate into different countries
 	return new Promise((resolve, reject) => {
@@ -483,7 +482,6 @@ exports.deleteContainer = function (userId, containerId) {
 	});
 };
 
-
 exports.findStatusInfo = function(trackingNum, surname) {
 	/**
 	 * This function finds the status information given a tracking number and the SENDER's surname
@@ -494,42 +492,37 @@ exports.findStatusInfo = function(trackingNum, surname) {
 	 * Returns:
 	 *  - Promise containing an object of the specific container line
 	 */
-	return new Promise((resolve, reject) => {
-		let lastName = '^'+surname+'$';
-		let trackingNumber = '^'+trackingNum+'$';
 
-		Container
-			.findOne({
-					'containerLine': {
-						$elemMatch: {
-							'trackingNo': {
-								'$regex': trackingNumber, $options:'i'
-							},
-							'sender.lastName': {
-								'$regex': lastName, $options:'i'
-							}
-						}
-					}},
-				{
-					'containerLine': {
-						$elemMatch: {
-							'trackingNo': {
-								'$regex': trackingNumber, $options:'i'
-							},
-							'sender.lastName': {
-								'$regex': lastName, $options:'i'
-							}
-						}
+	const lastName = `^${surname}$`;
+	const trackingNumber = `^${trackingNum}$`;
+
+	let errors = {};
+
+	return Container.findOne(
+		{
+			'containerLine': {
+				$elemMatch: {
+					'trackingNo': {
+						'$regex': trackingNumber, $options:'i'
 					},
-					'overseasAccess' : 1
-				})
-			.populate('containerLine[0].sender containerLine[0].receiver containerLine[0].status')
-			.exec((err, docs) => {
-				if (docs !== null && docs !== undefined)  {
-					resolve(docs);
-				} else {
-					reject("No results returned");
+					'sender.lastName': {
+						'$regex': lastName, $options:'i'
+					}
 				}
-			});
-	});
+			}
+		},
+		{
+			'containerLine': {
+				$elemMatch: {
+					'trackingNo': {
+						'$regex': trackingNumber, $options:'i'
+					},
+					'sender.lastName': {
+						'$regex': lastName, $options:'i'
+					}
+				}
+			}
+		})
+		.populate('containerLine[0].sender containerLine[0].receiver containerLine[0].status');
+
 };

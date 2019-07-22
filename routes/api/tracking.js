@@ -16,51 +16,41 @@ router.post("/", async (req, res) => {
     // Iterate over every tracking number & surname to find status info in database
     for (let trackingNumber of trackingNumberArray) {
         for (let surname of surnameArray) {
-            try {
-                let results = await databases.findStatusInfo(trackingNumber, surname);
+            let container = await databases.findStatusInfo(trackingNumber, surname);
+            let containerLine = container["containerLine"][0];
+            let errors = {};
 
-                trackingInfo[trackingNumber] = results["containerLine"][0];
-                trackingInfo[trackingNumber].containerId = results._id.toString();
-                trackingInfo[trackingNumber].files = [];
+            let results = {
+                containerId: container._id.toString(),
+                trackingNumber: containerLine.trackingNo,
+                sender: nameBuilder(containerLine.sender.firstName, containerLine.sender.middleName, containerLine.sender.lastName),
+                receiver: nameBuilder(containerLine.receiver.firstName, containerLine.receiver.middleName, containerLine.receiver.lastName),
+                stage: containerLine.status.stage,
+                eta: getETA(containerLine.status),
+                files: []
+            };
 
-                const additionalFilesArray = trackingInfo[trackingNumber].status.additionalFiles;
-
-                for (let file of additionalFilesArray) {
-                    trackingInfo[trackingNumber].files.push({
-                        containerId : results._id.toString(),
-                        fileId: file._id.toString(),
-                        fileName: file.name
-                    });
-                }
-
-                break; // breaks out of surnameArray loop to move on searching with next tracking number
-
-            } catch (err) {
-                trackingInfo[trackingNumber] = err;
+            // Place in file info
+            const additionalFilesArray = containerLine.status.additionalFiles;
+            for (let file of additionalFilesArray) {
+                results.files.push({
+                    containerId: results._id.toString(),
+                    fileId: file._id.toString(),
+                    fileName: file.name
+                });
             }
+
+            // Place all info
+            trackingInfo[results.containerId] = {
+                errors,
+                results
+            };
+
+            break;
         }
     }
 
-    let trackingResults = [];
-
-    // build json for response
-    for (let item in trackingInfo) {
-        trackingResults.push({
-            trackingNumber: item,
-            sender: nameBuilder(trackingInfo[item].sender.firstName,
-                trackingInfo[item].sender.middleName,
-                trackingInfo[item].sender.lastName),
-            receiver: nameBuilder(trackingInfo[item].receiver.firstName,
-                trackingInfo[item].receiver.middleName,
-                trackingInfo[item].receiver.lastName),
-            stage: trackingInfo[item].status.stage,
-            eta: getETA(trackingInfo[item].status),
-            containerId: trackingInfo[item].containerId,
-            files: trackingInfo[item].files,
-        });
-    }
-
-    res.json({trackingResults: trackingResults});
+    res.json(trackingInfo);
 });
 
 // Split the string by comma
