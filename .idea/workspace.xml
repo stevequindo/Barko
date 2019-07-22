@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee34331e-2a9b-45c9-a927-6d8d0a11d824" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/routes/api/containers.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api/containers.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api/files.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api/files.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api/settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/databases.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/databases.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,21 +33,12 @@
     <favorites_list name="Barko" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="47" column="13" selection-start-line="47" selection-start-column="13" selection-end-line="47" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
+    <leaf>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/routes/api/settings.js">
+        <entry file="file://$PROJECT_DIR$/models/databases.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="26" lean-forward="true" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
+            <state relative-caret-position="-8412">
+              <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -56,7 +47,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>GETCONAINER</find>
       <find>FINDSTAUS</find>
       <find>servers</find>
       <find>let get</find>
@@ -86,6 +76,7 @@
       <find>getETA</find>
       <find>class</find>
       <find>console.log</find>
+      <find>tracking</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -95,6 +86,7 @@
         <entry key="$PROJECT_DIR$" value="porting-to-react" />
       </map>
     </option>
+    <option name="RECENT_COMMON_BRANCH" value="master" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -119,7 +111,6 @@
         <option value="$PROJECT_DIR$/routes/overview.js" />
         <option value="$PROJECT_DIR$/routes/tracking.js" />
         <option value="$PROJECT_DIR$/views/tracking/results.ejs" />
-        <option value="$PROJECT_DIR$/models/databases.js" />
         <option value="$PROJECT_DIR$/client/src/components/components/TrackingForm/TrackingForm.js" />
         <option value="$PROJECT_DIR$/client/src/components/components/NavBar/NavBar.js" />
         <option value="$PROJECT_DIR$/routes/api/tracking.js" />
@@ -128,6 +119,7 @@
         <option value="$PROJECT_DIR$/routes/api/containers.js" />
         <option value="$PROJECT_DIR$/routes/api/files.js" />
         <option value="$PROJECT_DIR$/routes/api/settings.js" />
+        <option value="$PROJECT_DIR$/models/databases.js" />
       </list>
     </option>
   </component>
@@ -139,10 +131,11 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-12" />
+    <option name="y" value="-12" />
     <option name="width" value="981" />
-    <option name="height" value="1032" />
+    <option name="height" value="522" />
   </component>
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
@@ -150,8 +143,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -162,18 +155,17 @@
             <path>
               <item name="Barko" type="b2602c69:ProjectViewProjectNode" />
               <item name="Barko" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Barko" type="b2602c69:ProjectViewProjectNode" />
               <item name="Barko" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Barko" type="b2602c69:ProjectViewProjectNode" />
               <item name="Barko" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="validation" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -268,7 +260,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="149627000" />
+    <option name="totallyTimeSpent" value="153288000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -281,9 +273,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.54562384" visible="true" weight="0.25263157" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.54562384" visible="true" weight="0.22672065" />
       <window_info id="Debug" order="1" sideWeight="0.7746741" side_tool="true" weight="0.4680162" />
       <window_info id="Structure" order="2" sideWeight="0.45437616" side_tool="true" weight="0.23724696" />
       <window_info id="Designer" order="3" />
@@ -298,7 +289,7 @@
       <window_info anchor="bottom" id="Docker" order="5" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="6" weight="0.49348232" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.8696462" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.8696462" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.32960895" />
       <window_info anchor="bottom" id="Flutter Performance" order="10" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -335,7 +326,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/public/DataTables/datatables.js" />
     <entry file="file://$PROJECT_DIR$/client/src/Pages/Home/Home.js" />
     <entry file="file://$PROJECT_DIR$/client/src/components/TrackingForm/TrackingForm.js" />
     <entry file="file://$PROJECT_DIR$/client/src/components/Footer/Footer.js" />
@@ -360,12 +350,6 @@
     <entry file="file://$PROJECT_DIR$/routes/tracking.js" />
     <entry file="file://$PROJECT_DIR$/views/tracking/results.ejs" />
     <entry file="file://$PROJECT_DIR$/views/overview/containerLines.ejs" />
-    <entry file="file://$PROJECT_DIR$/config/passport.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/keys.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/dbSchema.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -407,13 +391,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/databases.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3043">
-          <caret line="179" column="4" selection-start-line="179" selection-start-column="4" selection-end-line="179" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -531,6 +508,24 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="22" column="26" lean-forward="true" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/validation/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-85" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/keys.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/passport.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/databases.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-8412">
+          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
         </state>
       </provider>
     </entry>

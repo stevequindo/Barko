@@ -1,3 +1,4 @@
+
 /***************** CONSTANTS AND NODE REQS*****************/
 const mongoose = require('mongoose');
 
@@ -14,11 +15,11 @@ let flags = require('country-flags-svg');
 let _ = require('lodash');
 
 // Import models
-const schema = require("./dbSchema");
+const schema = require("./models/dbSchema");
 const Container = schema.Container;
 const ContainerLine = schema.ContainerLine;
 const File = schema.File;
-const User = require('./User');
+const User = require('./models/users');
 
 /***************** FUNCTIONS *****************/
 exports.parseJsonWorkbook = async function(jsonWorkbook, userData, userType, containerNum) {
@@ -40,9 +41,9 @@ exports.parseJsonWorkbook = async function(jsonWorkbook, userData, userType, con
 		{
 			containerNo: containerNum,
 			$or: [
-					{overseasAccess: userData._id},
-					{localAccess: userData._id}
-				]
+				{overseasAccess: userData._id},
+				{localAccess: userData._id}
+			]
 		},
 		(err, res) => {
 			if (res){
@@ -52,154 +53,144 @@ exports.parseJsonWorkbook = async function(jsonWorkbook, userData, userType, con
 		});
 
 	// summary object for statistics
-   let summary = {
-   		containerNo: containerNum,
+	let summary = {
+		containerNo: containerNum,
 		containersAdded: 0,
 		sendersAdded: 0,
 		receiversAdded: 0,
 		transactionsAdded:0,
 		emptySheets: 0,
-   };
+	};
 
-   // Iterate over every sheet in the excel file
-   for (let sheet in jsonWorkbook) {
-	   // Obtain array of spreadsheet rows
-	   let arrayOfRows = jsonWorkbook[sheet];
+	// Iterate over every sheet in the excel file
+	for (let sheet in jsonWorkbook) {
+		// Obtain array of spreadsheet rows
+		let arrayOfRows = jsonWorkbook[sheet];
 
-	   // Update statistics
-	   if (arrayOfRows.length === 0) {
-		   console.log(`Sheet ${sheet} is empty. Skipping...`);
-		   summary.emptySheets ++;
-		   continue;
-	   } else {
-		   console.log(`Sheet ${sheet} is being processed...`);
-		   summary.containersAdded ++;
-	   }
+		// Update statistics
+		if (arrayOfRows.length === 0) {
+			console.log(`Sheet ${sheet} is empty. Skipping...`);
+			summary.emptySheets ++;
+			continue;
+		} else {
+			console.log(`Sheet ${sheet} is being processed...`);
+			summary.containersAdded ++;
+		}
 
-	   // Iterate over every row
-	   let transactionArray = [];
+		// Iterate over every row
+		let transactionArray = [];
 
-	   // Create container
-	   let container = new Container({
-		   _id: new mongoose.Types.ObjectId(),
-		   dateAdded: new Date(),
-		   dateLastAccessed: new Date(),
-		   containerLine: [],
-		   containerNo: containerNum
-	   });
+		// Create container
+		let container = new Container({
+			_id: new mongoose.Types.ObjectId(),
+			dateAdded: new Date(),
+			dateLastAccessed: new Date(),
+			containerLine: [],
+			containerNo: containerNum
+		});
 
-	   // Add access based on uploader's role
-	   if (userData.local.role === "overseas") {
-	       container.overseasAccess = userData._id;
+		// Add access based on uploader's role
+		if (userData.local.role === "overseas") {
+			container.overseasAccess = userData._id;
 
-	   } else if (userData.local.role === "staff") { //TODO: Change to "local" when doing whole refactor
-		   container.localAccess = userData._id;
-	   }
+		} else if (userData.local.role === "staff") { //TODO: Change to "local" when doing whole refactor
+			container.localAccess = userData._id;
+		}
 
-	   // Iterate over every row (besides the header row)
-	   for (let i = 0; i < arrayOfRows.length; i++) {
-		   let row = arrayOfRows[i];
+		// Iterate over every row (besides the header row)
+		for (let i = 0; i < arrayOfRows.length; i++) {
+			let row = arrayOfRows[i];
 
-		   // Get departure and arrival country based on first row
-		   if (i === 0) {
-		       container.departureCountry = row["Country"];
-		       container.targetCountry = row["Country_1"];
-		   }
+			// Get departure and arrival country based on first row
+			if (i === 0) {
+				container.departureCountry = row["Country"];
+				container.targetCountry = row["Country_1"];
+			}
 
-		   // Create ContainerLine object
-		   let containerLine = new ContainerLine({
-			   _id: new mongoose.Types.ObjectId(),
-			   count: row["Count"],
-			   batchNo: row["Batch No."],
-			   trackingNo: row["Tracking No."],
-			   area: row["Area"],
-			   status: {
-			   	   stage: "At Departing Port"
-			   },
-			   sender: {
-				   firstName: row["First Name"],
-				   middleName: row["Middle Name"],
-				   lastName: row["Last Name"],
-				   address: row["Address"],
-				   suburb: row["Suburb"],
-				   city: row["City"],
-				   postCode: row["Postal Code"],
-				   region: row["Region"],
-				   country: row["Country"],
-				   dob: row["DOB (mm/dd/yyyy)"],
-				   mobileNo: row["Mobile/Tel Nos."],
-				   email: row['Email Address']
-			   },
-			   receiver: {
-				   firstName: row["First Name_1"],
-				   middleName: row["Middle Name_1"],
-				   lastName: row["Last Name_1"],
-				   address: row["Address_1"],
-				   city: row["City_1"],
-				   province: row["Province"],
-				   country: row["Country_1"],
-				   contactNo: row["Contact Number/s"],
-				   email: row['Email Address_1']
-			   }
-		   });
+			// Create ContainerLine object
+			let containerLine = new ContainerLine({
+				_id: new mongoose.Types.ObjectId(),
+				count: row["Count"],
+				batchNo: row["Batch No."],
+				trackingNo: row["Tracking No."],
+				status: {
+					stage: "At Departing Port"
+				},
+				sender: {
+					lastName: row["Last Name"],
+					firstName: row["First Name"],
+					middleName: row["Middle Name"],
+					area: row["Area"],
+					country: row["Country"],
+					contactNo: row["Contact Number(s)"]
+				},
+				receiver: {
+					lastName: row["Last Name_1"],
+					firstName: row["First Name_1"],
+					middleName: row["Middle Name_1"],
+					address: row["Address"],
+					city: row["City"],
+					province: row["Province"],
+					country: row["Country_1"],
+					contactNo: row["Contact Number(s)_1"]
+				}
+			});
 
-		   // Add ContainerLine instance to Container instance
-		   container.containerLine.push(containerLine);
+			// Add ContainerLine instance to Container instance
+			container.containerLine.push(containerLine);
 
-		   // Increment counts
-		   summary.sendersAdded++; summary.transactionsAdded++; summary.receiversAdded++;
-	   }
+			// Increment counts
+			summary.sendersAdded++; summary.transactionsAdded++; summary.receiversAdded++;
+		}
 
-	   // Save user access
-	   await User.findOneAndUpdate({_id: userData._id}, {$push: {"local.access": container._id}}, {"upsert": true});
+		// Save user access
+		await User.findOneAndUpdate({_id: userData._id}, {$push: {"local.access": container._id}}, {"upsert": true});
 
-	   // Save container
-	   container.save();
-
-	   console.log(`Finished processing for ${sheet}`);
+		// Save container
+		container.save();
 	}
 
-   return summary;
+	return summary;
 };
 
-exports.findStatusInfo = function(trackingNum, surname) {
+exports.findStatusInfo = function(trackingNum, Surname) {
 	/**
 	 * This function finds the status information given a tracking number and the SENDER's surname
 	 *
 	 * Params:
 	 * 	- trackingNum (String) representing the tracking number
-	 * 	- surname (String) representing the surname of the sender
+	 * 	- Surname (String) representing the surname of the sender
 	 * Returns:
 	 *  - Promise containing an object of the specific container line
 	 */
-	// TODO: Remove querying of file data
 	return new Promise((resolve, reject) => {
-		let lastName = '^'+surname+'$';
+		let lastName = '^'+Surname+'$';
 		let trackingNumber = '^'+trackingNum+'$';
 
 		Container
-			.findOne({ 
-				'containerLine': { 
-					$elemMatch: {
-						'trackingNo': {
-							'$regex': trackingNumber, $options:'i'
-						},
-						'sender.lastName': {
-							'$regex': lastName, $options:'i'
-						}
-					}
-				}}, 
-				{
+			.findOne({
 					'containerLine': {
 						$elemMatch: {
 							'trackingNo': {
-							'$regex': trackingNumber, $options:'i'
+								'$regex': trackingNumber, $options:'i'
 							},
 							'sender.lastName': {
 								'$regex': lastName, $options:'i'
 							}
 						}
-					}
+					}},
+				{
+					'containerLine': {
+						$elemMatch: {
+							'trackingNo': {
+								'$regex': trackingNumber, $options:'i'
+							},
+							'sender.lastName': {
+								'$regex': lastName, $options:'i'
+							}
+						}
+					},
+					'overseasAccess' : 1
 				})
 			.populate('containerLine[0].sender containerLine[0].receiver containerLine[0].status')
 			.exec((err, docs) => {
@@ -427,6 +418,7 @@ exports.updateEntries = async function(resultsObj, userData, containerId) {
 				{
 					"$set": {
 						"containerLine.$.comment": entry.comment,
+						"containerLine.$.deliveryComment": entry.deliveryComment,
 						"containerLine.$.status.stage": entry.status.stage,
 						"containerLine.$.status.estPortArrivalDate": entry.status.estPortArrivalDate,
 						"containerLine.$.status.actPortArrivalDate": entry.status.actPortArrivalDate,
@@ -434,7 +426,7 @@ exports.updateEntries = async function(resultsObj, userData, containerId) {
 						"containerLine.$.status.actDeliveryDate": entry.status.actDeliveryDate,
 						"containerLine.$.status.receivedBy": entry.status.receivedBy,
 					}
-			});
+				});
 		}
 	} else if (userData.role === "overseas") {
 		// Iterate over every _id value
@@ -453,7 +445,7 @@ exports.updateEntries = async function(resultsObj, userData, containerId) {
 						"containerLine.$.receiver.lastName": entry.receiver.lastName,
 						"containerLine.$.receiver.address": entry.receiver.address,
 					}
-			});
+				});
 		}
 	}
 };
@@ -466,14 +458,14 @@ exports.uploadFile = async function (containerId, files, rowIds) {
 		- files: Object containing the file info
 		- rowIds: Array containing Strings of the row that contains the files
 	 */
-		let resultsObj = {
-			files: {},
-			upload: {
-				id:{}
-			}
-		};
+	let resultsObj = {
+		files: {},
+		upload: {
+			id:{}
+		}
+	};
 
-		resultsObj.files[containerId] = {};
+	resultsObj.files[containerId] = {};
 
 	// Iterate over every row to add the file
 	for (let index in rowIds) {
@@ -532,3 +524,12 @@ exports.getFileObjById = async function(containerId, fileId) {
 
 	return (wantedFile) ? wantedFile : new Error("File not found");
 };
+
+
+exports.deleteContainer = function (userId, containerId) {
+	Container.deleteOne({_id: containerId, localAccess: userId}, (err, res) => {
+		if (err) throw err;
+	});
+};
+
+

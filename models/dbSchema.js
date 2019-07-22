@@ -1,40 +1,35 @@
 const mongoose = require('mongoose');
-const User = require("./User");
+const User = require("./users");
 const Schema = mongoose.Schema;
 
 const senderSchema = new mongoose.Schema({
+	lastName: {
+		type: String
+	},
 	firstName: {
 		type: String
 	},
 	middleName: String,
-	lastName: {
+	area: {
 		type: String
 	},
-	address: String,
-	suburb: String,
-	city: String,
-	postCode: String,
-	region: String,
 	country: String,
-	dob: Date,
-	mobileNo: String,
-	email: String
+	contactNo: String
 });
 
 const receiverSchema = new mongoose.Schema({
+	lastName: {
+		type: String
+	},
 	firstName: {
 		type: String
 	},
 	middleName: String,
-	lastName: {
-		type: String
-	},
 	address: String,
 	city: String,
 	province: String,
 	country: String,
-	contactNo: String,
-	email: String,
+	contactNo: String
 });
 
 const fileSchema = new mongoose.Schema({
@@ -79,26 +74,29 @@ const statusSchema = new mongoose.Schema({
 		type: String
 	},
 	additionalFiles: {
-		type: [fileSchema]
+		type: [fileSchema],
+		default : []
 	}
 });
 
 const containerLineSchema = new mongoose.Schema({
 	_id: Schema.Types.ObjectId,
-	count: Number, 
+	count: Number,
 	batchNo: String,
 	trackingNo: {
-        type: String
+		type: String
 	},
-	area: {
-        type: String
+	status: {
+		type: statusSchema
 	},
-	status: statusSchema,
+	deliveryComment: {
+		type: String
+	},
 	comment: {
-        type: String
+		type: String
 	},
 	sender : {
-    	type: senderSchema,
+		type: senderSchema,
 		required: true
 	},
 	receiver : {
