@@ -1,15 +1,14 @@
 const _ = require('lodash');
-const databases = require("../../models/databases.js");
 const express = require("express");
 const router = express.Router();
 
-// @route GET api/tracking
-// @desc
+// @route POST api/tracking
+// @desc Provides tracking info based on given tracking numbers and surnames of the sender
 // @access Public
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
     // cleans input req string and parses to array
-    let trackingNumberArray = getCleanArray(req.query.trackingNumber);
-    let surnameArray = getCleanArray(req.query.surname);
+    let trackingNumberArray = getCleanArray(req.body.trackingNumber);
+    let surnameArray = getCleanArray(req.body.surname);
 
     let trackingInfo = {};
 
@@ -17,7 +16,7 @@ router.get("/", async (req, res) => {
     for (let trackingNumber of trackingNumberArray) {
         for (let surname of surnameArray) {
             try {
-                let results = await databases.findStatusInfo(trackingNumber, surname);
+                let results = await findStatusInfo(trackingNumber, surname);
 
                 trackingInfo[trackingNumber] = results["containerLine"][0];
                 trackingInfo[trackingNumber].containerId = results._id.toString();
@@ -71,7 +70,7 @@ function removeSpace(str) { return _.replace(str, " ", ""); }
 
 // Function that returns clean set of array from string
 function getCleanArray(str) {
-    // Trim white spaces from front and back & Split string by newline
+    // Trim white spaces from front and back & split string by newline
     let str_array = _.split(_.trim(str), "\r\n");
     
     // Split the string by comma
@@ -143,5 +142,57 @@ function getETA(status) {
 
     return statusMessage;
 }
+
+function findStatusInfo(trackingNum, surname) {
+    /**
+     * This function finds the status information given a tracking number and the SENDER's surname
+     *
+     * Params:
+     * 	- trackingNum (String) representing the tracking number
+     * 	- surname (String) representing the surname of the sender
+     * Returns:
+     *  - Promise containing an object of the specific container line
+     */
+    return new Promise((resolve, reject) => {
+        let lastName = '^'+surname+'$';
+        let trackingNumber = '^'+trackingNum+'$';
+
+        Container
+            .findOne({
+                    'containerLine': {
+                        $elemMatch: {
+                            'trackingNo': {
+                                '$regex': trackingNumber, $options:'i'
+                            },
+                            'sender.lastName': {
+                                '$regex': lastName, $options:'i'
+                            }
+                        }
+                    }},
+                {
+                    'containerLine': {
+                        $elemMatch: {
+                            'trackingNo': {
+                                '$regex': trackingNumber, $options:'i'
+                            },
+                            'sender.lastName': {
+                                '$regex': lastName, $options:'i'
+                            }
+                        }
+                    },
+                    'overseasAccess' : 1
+                })
+            .populate('containerLine[0].sender containerLine[0].receiver containerLine[0].status')
+            .exec((err, docs) => {
+                if (docs !== null && docs !== undefined)  {
+                    resolve(docs);
+                } else {
+                    reject("No results returned");
+                }
+            });
+    });
+}
+
+
 
 module.exports = router;

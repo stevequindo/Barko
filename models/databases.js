@@ -153,55 +153,6 @@ exports.parseJsonWorkbook = async function(jsonWorkbook, userData, userType, con
 	return summary;
 };
 
-exports.findStatusInfo = function(trackingNum, Surname) {
-	/**
-	 * This function finds the status information given a tracking number and the SENDER's surname
-	 *
-	 * Params:
-	 * 	- trackingNum (String) representing the tracking number
-	 * 	- Surname (String) representing the surname of the sender
-	 * Returns:
-	 *  - Promise containing an object of the specific container line
-	 */
-	return new Promise((resolve, reject) => {
-		let lastName = '^'+Surname+'$';
-		let trackingNumber = '^'+trackingNum+'$';
-
-		Container
-			.findOne({
-					'containerLine': {
-						$elemMatch: {
-							'trackingNo': {
-								'$regex': trackingNumber, $options:'i'
-							},
-							'sender.lastName': {
-								'$regex': lastName, $options:'i'
-							}
-						}
-					}},
-				{
-					'containerLine': {
-						$elemMatch: {
-							'trackingNo': {
-								'$regex': trackingNumber, $options:'i'
-							},
-							'sender.lastName': {
-								'$regex': lastName, $options:'i'
-							}
-						}
-					},
-					'overseasAccess' : 1
-				})
-			.populate('containerLine[0].sender containerLine[0].receiver containerLine[0].status')
-			.exec((err, docs) => {
-				if (docs !== null && docs !== undefined)  {
-					resolve(docs);
-				} else {
-					reject("No results returned");
-				}
-			});
-	});
-};
 
 exports.getCountries = function(userData) {
 	// Get all the countries associated with the given user and aggregate into different countries
