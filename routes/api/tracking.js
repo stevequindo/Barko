@@ -1,6 +1,7 @@
 const _ = require('lodash');
 const express = require("express");
 const router = express.Router();
+const databases = require('../../db/databases');
 
 // @route POST api/tracking
 // @desc Provides tracking info based on given tracking numbers and surnames of the sender
@@ -16,7 +17,7 @@ router.post("/", async (req, res) => {
     for (let trackingNumber of trackingNumberArray) {
         for (let surname of surnameArray) {
             try {
-                let results = await findStatusInfo(trackingNumber, surname);
+                let results = await databases.findStatusInfo(trackingNumber, surname);
 
                 trackingInfo[trackingNumber] = results["containerLine"][0];
                 trackingInfo[trackingNumber].containerId = results._id.toString();
@@ -142,57 +143,5 @@ function getETA(status) {
 
     return statusMessage;
 }
-
-function findStatusInfo(trackingNum, surname) {
-    /**
-     * This function finds the status information given a tracking number and the SENDER's surname
-     *
-     * Params:
-     * 	- trackingNum (String) representing the tracking number
-     * 	- surname (String) representing the surname of the sender
-     * Returns:
-     *  - Promise containing an object of the specific container line
-     */
-    return new Promise((resolve, reject) => {
-        let lastName = '^'+surname+'$';
-        let trackingNumber = '^'+trackingNum+'$';
-
-        Container
-            .findOne({
-                    'containerLine': {
-                        $elemMatch: {
-                            'trackingNo': {
-                                '$regex': trackingNumber, $options:'i'
-                            },
-                            'sender.lastName': {
-                                '$regex': lastName, $options:'i'
-                            }
-                        }
-                    }},
-                {
-                    'containerLine': {
-                        $elemMatch: {
-                            'trackingNo': {
-                                '$regex': trackingNumber, $options:'i'
-                            },
-                            'sender.lastName': {
-                                '$regex': lastName, $options:'i'
-                            }
-                        }
-                    },
-                    'overseasAccess' : 1
-                })
-            .populate('containerLine[0].sender containerLine[0].receiver containerLine[0].status')
-            .exec((err, docs) => {
-                if (docs !== null && docs !== undefined)  {
-                    resolve(docs);
-                } else {
-                    reject("No results returned");
-                }
-            });
-    });
-}
-
-
 
 module.exports = router;

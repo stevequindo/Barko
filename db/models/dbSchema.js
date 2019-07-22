@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const User = require("./users");
+const User = require("./User");
 const Schema = mongoose.Schema;
 
 const senderSchema = new mongoose.Schema({
@@ -126,4 +126,3 @@ const containerSchema = new mongoose.Schema({
 });
 
 module.exports.Container = mongoose.model("Container", containerSchema);
-git
