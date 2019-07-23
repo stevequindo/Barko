@@ -17,27 +17,35 @@ router.post("/", async (req, res) => {
     for (let trackingNumber of trackingNumberArray) {
         for (let surname of surnameArray) {
             let container = await databases.findStatusInfo(trackingNumber, surname);
-            let containerLine = container["containerLine"][0];
             let errors = {};
+            let results = {};
 
-            let results = {
-                containerId: container._id.toString(),
-                trackingNumber: containerLine.trackingNo,
-                sender: nameBuilder(containerLine.sender.firstName, containerLine.sender.middleName, containerLine.sender.lastName),
-                receiver: nameBuilder(containerLine.receiver.firstName, containerLine.receiver.middleName, containerLine.receiver.lastName),
-                stage: containerLine.status.stage,
-                eta: getETA(containerLine.status),
-                files: []
-            };
+            if (container !== null)  {
+                let containerLine = container["containerLine"][0];
 
-            // Place in file info
-            const additionalFilesArray = containerLine.status.additionalFiles;
-            for (let file of additionalFilesArray) {
-                results.files.push({
-                    containerId: results._id.toString(),
-                    fileId: file._id.toString(),
-                    fileName: file.name
-                });
+                results = {
+                    containerId: container._id.toString(),
+                    trackingNumber: containerLine.trackingNo,
+                    sender: nameBuilder(containerLine.sender.firstName, containerLine.sender.middleName, containerLine.sender.lastName),
+                    receiver: nameBuilder(containerLine.receiver.firstName, containerLine.receiver.middleName, containerLine.receiver.lastName),
+                    stage: containerLine.status.stage,
+                    eta: getETA(containerLine.status),
+                    files: []
+                };
+
+                // Place in file info
+                const additionalFilesArray = containerLine.status.additionalFiles;
+                for (let file of additionalFilesArray) {
+                    results.files.push({
+                        containerId: results._id.toString(),
+                        fileId: file._id.toString(),
+                        fileName: file.name
+                    });
+                }
+            } else {
+                errors = {
+                    containernotfound: "Container is not found"
+                };
             }
 
             // Place all info
