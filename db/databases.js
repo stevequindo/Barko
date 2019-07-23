@@ -428,11 +428,7 @@ exports.getFileObjById = async function(containerId, fileId) {
 	return (wantedFile) ? wantedFile : new Error("File not found");
 };
 
-exports.deleteContainer = function (userId, containerId) {
-	Container.deleteOne({_id: containerId, localAccess: userId}, (err, res) => {
-		if (err) throw err;
-	});
-};
+
 
 /***************************NEW STUFF********************************/
 
@@ -517,6 +513,8 @@ exports.findContainerById = function(userData, containerId) {
 	Params:
 	Return: Container
  	*/
+	const TEST_VAL =  '5cf5b50cbd8eb62cf04e86d9'; //TODO: DELETE. should be userData.id
+
 	if (userData.role === "staff") {
 		// Now return the container lines for the given container
 		return Container.findOneAndUpdate(
@@ -533,4 +531,20 @@ exports.findContainerById = function(userData, containerId) {
 			{fields : {"containerLine.status.additionalFiles.data" : 0}}
 		);
 	}
+};
+
+exports.deleteContainerById = async function (userData, containerId) {
+	const TEST_VAL = '5cf5b50cbd8eb62cf04e86d9'; //TODO: DELETE. should be userData.id
+
+	let jsonResult = {
+		containerDeleted : false
+	};
+
+	let res = await Container
+		.deleteOne({_id: containerId, localAccess: TEST_VAL})
+		.catch(err => jsonResult.error = err);
+
+	if (res.ok) {jsonResult.containerDeleted = true}
+
+	return jsonResult;
 };

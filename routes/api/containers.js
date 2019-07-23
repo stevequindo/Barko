@@ -53,8 +53,10 @@ containers.put('/:containerId', (req, res, next) => {
 // @desc
 // 	Deletes a container based on a cId
 // @access
-containers.delete('/:containerId', (req, res, next) => {
-	res.send('DELETE api/containers/containerId');
+containers.delete('/:containerId', async (req, res, next) => {
+	const id = req.params.containerId;
+	let result = await databases.deleteContainerById(req['authorizedData'], id);
+	res.json(result);
 });
 
 // Leads to routes that start with /api/containers/:containerId/files
