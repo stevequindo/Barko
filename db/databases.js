@@ -287,42 +287,6 @@ exports.updateContainerSettings = function(containerId, data, userData) {
 	});
 };
 
-exports.getContainerLines = async function(containerId, userData) {
-	/*
-	This function retrieves all of the transactions for a given container ID(usually given by the link).
-	Also updates the container's last accessed date.
-
-	- Excludes file metadata for higher query speeds
-
-	Params:
-	Return: Promise containing the transactions in the resolution
- 	*/
-
-	if (userData.local.role === "staff") {
-		// Now return the container lines for the given container
-		return Container.findOneAndUpdate(
-			{_id: containerId, localAccess: userData._id},
-			{dateLastAccessed: new Date()},
-			{
-				fields : {
-					"containerLine.status.additionalFiles.data" : 0
-				}
-			}
-		);
-	} else if (userData.local.role === "overseas") {
-		// Now return the container lines for the given container
-		return Container.findOneAndUpdate(
-			{_id: containerId, overseasAccess: userData._id},
-			{dateLastAccessed: new Date()},
-			{
-				fields : {
-					"containerLine.status.additionalFiles.data" : 0
-				}
-			}
-		);
-	}
-};
-
 exports.getLatestTransactionInfo = function(userData) {
 	/*
 	This function returns the _id and country of the most recent manifest. The most recent manifest is determined by
@@ -473,12 +437,29 @@ exports.deleteContainer = function (userId, containerId) {
 /***************************NEW STUFF********************************/
 
 exports.getContainersByUser = (userData) => {
-	const TEST_VAL =  '5cf5b50cbd8eb62cf04e86d9'; //TODO: DELETE
+	const TEST_VAL =  '5cf5b50cbd8eb62cf04e86d9'; //TODO: DELETE. should be userData.id
 
 	return Container.find(
 		{'localAccess': TEST_VAL},
 		{"containerLine.status.additionalFiles.data" : 0}
 	);
+};
+
+exports.getContainersByUserAndCountry = (userData, country) => {
+	const TEST_VAL =  '5cf5b50cbd8eb62cf04e86d9'; //TODO: DELETE. should be userData.id
+
+	if (userData.role === "staff") {
+		return Container.find(
+			{'localAccess': TEST_VAL, 'departureCountry': country},
+			{"containerLine.status.additionalFiles.data" : 0}
+		);
+	} else {
+		return Container.find(
+			{'localAccess': TEST_VAL, 'targetCountry': country},
+			{"containerLine.status.additionalFiles.data" : 0}
+		);
+	}
+
 };
 
 exports.findStatusInfo = function(trackingNum, surname) {
@@ -524,4 +505,32 @@ exports.findStatusInfo = function(trackingNum, surname) {
 		})
 		.populate('containerLine[0].sender containerLine[0].receiver containerLine[0].status');
 
+};
+
+exports.findContainerById = function(userData, containerId) {
+	/*
+	This function retrieves a Container given the container ID and user data
+	Also updates the container's last accessed date.
+
+	- Excludes file metadata for higher query speeds
+
+	Params:
+	Return: Container
+ 	*/
+	if (userData.role === "staff") {
+		// Now return the container lines for the given container
+		return Container.findOneAndUpdate(
+			{_id: containerId, localAccess: TEST_VAL},
+			{dateLastAccessed: new Date()},
+			{fields : {"containerLine.status.additionalFiles.data" : 0}}
+		);
+
+	} else if (userData.role === "overseas") {
+		// Now return the container lines for the given container
+		return Container.findOneAndUpdate(
+			{_id: containerId, overseasAccess: TEST_VAL},
+			{dateLastAccessed: new Date()},
+			{fields : {"containerLine.status.additionalFiles.data" : 0}}
+		);
+	}
 };

@@ -10,15 +10,16 @@ const databases = require('../../db/databases');
 // @desc
 // 	Gets all containers (that the user has access to)
 // 	Can add query parameter country to filter by countries
-// 	Can add query parameter recent to retrieve most recent container
-// @access
+// @access Requires user login
 containers.get('/', getJWTToken, async (req, res, next) => {
-	const country = decodeURIComponent(req.params.country);
-	const id = decodeURIComponent(req.params.id);
-
-	let containers = await databases.getContainersByUser(req['authorizedData']);
-
-	res.json(containers);
+	if (typeof req.query.country === 'undefined') { // do not filter by country
+		let containers = await databases.getContainersByUser(req['authorizedData']);
+		res.json(containers);
+	} else { 	// filter by country
+		let containers = await databases
+			.getContainersByUserAndCountry(req['authorizedData'], req.query.country);
+		res.json(containers);
+	}
 });
 
 // @route POST api/containers
@@ -34,8 +35,10 @@ containers.post('/', (req, res, next) => {
 // 	Gets a specific container based on a cId
 // 	Can add query parameters trackingNumber and surname to retrieve specific row from container
 // @access
-containers.get('/:containerId', (req, res, next) => {
-	res.send('GET api/containers/containerId');
+containers.get('/:containerId', getJWTToken, async (req, res, next) => {
+	const id = req.params.containerId;
+	let container = await databases.findContainerById(req['authorizedData'], id);
+	res.json(container);
 });
 
 // @route PUT api/containers/:containerId
