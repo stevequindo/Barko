@@ -2,6 +2,7 @@ const containers = require('express').Router();
 const files = require('./files');
 const settings = require('./settings');
 const getJWTToken = require('../../validation/jwttoken');
+const databases = require('../../db/databases');
 
 // Notes on child routing : https://gist.github.com/zcaceres/f38b208a492e4dcd45f487638eff716c
 
@@ -11,8 +12,13 @@ const getJWTToken = require('../../validation/jwttoken');
 // 	Can add query parameter country to filter by countries
 // 	Can add query parameter recent to retrieve most recent container
 // @access
-containers.get('/', getJWTToken, (req, res, next) => {
-	res.json(req.authorizedData);
+containers.get('/', getJWTToken, async (req, res, next) => {
+	const country = decodeURIComponent(req.params.country);
+	const id = decodeURIComponent(req.params.id);
+
+	let containers = await databases.getContainersByUser(req['authorizedData']);
+
+	res.json(containers);
 });
 
 // @route POST api/containers

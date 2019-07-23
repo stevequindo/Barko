@@ -17,7 +17,6 @@ exports.parseJsonWorkbook = async function(jsonWorkbook, userData, userType, con
 
 	Error Handling:
 		- Skips over empty sheets
-
 		- TODO: Adjust error handling for when sender/receiver has no last name or first name
 	Params:
 		jsonWorkbook: Object containing sheet info to be processed
@@ -203,6 +202,7 @@ exports.getContainers = async (country, userData) => {
 		return docs;
 	}
 };
+
 
 exports.getContainersByUser = async (userData) => {
 	if (userData.local.role === "overseas") {
@@ -468,6 +468,17 @@ exports.deleteContainer = function (userId, containerId) {
 	Container.deleteOne({_id: containerId, localAccess: userId}, (err, res) => {
 		if (err) throw err;
 	});
+};
+
+/***************************NEW STUFF********************************/
+
+exports.getContainersByUser = (userData) => {
+	const TEST_VAL =  '5cf5b50cbd8eb62cf04e86d9'; //TODO: DELETE
+
+	return Container.find(
+		{'localAccess': TEST_VAL},
+		{"containerLine.status.additionalFiles.data" : 0}
+	);
 };
 
 exports.findStatusInfo = function(trackingNum, surname) {
