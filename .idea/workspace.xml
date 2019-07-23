@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ee34331e-2a9b-45c9-a927-6d8d0a11d824" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/validation/jwttoken.js" beforeDir="false" afterPath="$PROJECT_DIR$/validation/jwttoken.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/databases.js" beforeDir="false" afterPath="$PROJECT_DIR$/db/databases.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api/users.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,30 +35,50 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/api/users.js">
+        <entry file="file://$PROJECT_DIR$/db/models/User.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1241">
-              <caret line="11" column="18" lean-forward="true" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+            <state relative-caret-position="340">
+              <caret line="20" column="4" lean-forward="true" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/api/containers.js">
+        <entry file="file://$PROJECT_DIR$/db/databases.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="3" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
+            <state relative-caret-position="578">
+              <caret line="465" selection-start-line="465" selection-end-line="465" />
+              <folding>
+                <element signature="e#774#4132#0" />
+                <element signature="e#4177#5110#0" />
+                <element signature="e#5166#5874#0" />
+                <element signature="e#5927#6392#0" />
+                <element signature="e#6458#7086#0" />
+                <element signature="e#7161#8251#0" />
+                <element signature="e#8320#9247#0" />
+                <element signature="e#9304#9875#0" />
+                <element signature="e#9952#11856#0" />
+                <element signature="e#11924#12883#0" />
+                <element signature="e#12947#13594#0" />
+                <element signature="e#13655#13763#0" />
+                <element signature="e#13822#14780#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/validation/jwttoken.js">
+        <entry file="file://$PROJECT_DIR$/routes/api/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="24" column="4" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
+            <state relative-caret-position="170">
+              <caret line="86" column="21" lean-forward="true" selection-start-line="86" selection-start-column="21" selection-end-line="86" selection-end-column="21" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/db/models/oldusers.js">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -136,12 +157,12 @@
         <option value="$PROJECT_DIR$/models/dbSchema.js" />
         <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/models/databases.js" />
-        <option value="$PROJECT_DIR$/db/databases.js" />
         <option value="$PROJECT_DIR$/routes/api/tracking.js" />
-        <option value="$PROJECT_DIR$/routes/api/users.js" />
         <option value="$PROJECT_DIR$/middleware/validation/jwttoken.js" />
         <option value="$PROJECT_DIR$/routes/api/containers.js" />
         <option value="$PROJECT_DIR$/validation/jwttoken.js" />
+        <option value="$PROJECT_DIR$/db/databases.js" />
+        <option value="$PROJECT_DIR$/routes/api/users.js" />
       </list>
     </option>
   </component>
@@ -172,6 +193,33 @@
             <path>
               <item name="Barko" type="b2602c69:ProjectViewProjectNode" />
               <item name="Barko" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Barko" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Barko" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Barko" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Barko" type="462c0819:PsiDirectoryNode" />
+              <item name="db" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Barko" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Barko" type="462c0819:PsiDirectoryNode" />
+              <item name="db" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Barko" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Barko" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Barko" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Barko" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -265,12 +313,12 @@
       <workItem from="1562755738605" duration="4070000" />
       <workItem from="1562833627016" duration="8162000" />
       <workItem from="1562849993275" duration="4411000" />
-      <workItem from="1563871213836" duration="4225000" />
+      <workItem from="1563871213836" duration="5577000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="170787000" />
+    <option name="totallyTimeSpent" value="172139000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -309,7 +357,7 @@
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Flutter Outline" order="4" />
       <window_info anchor="right" id="Flutter Inspector" order="5" />
-      <window_info anchor="right" id="Run" order="6" sideWeight="0.22532588" weight="0.39352226" />
+      <window_info active="true" anchor="right" id="Run" order="6" sideWeight="0.22532588" visible="true" weight="0.39352226" />
       <window_info anchor="right" id="Maven" order="7" weight="0.32955465" />
       <window_info anchor="right" id="SciView" order="8" />
       <window_info anchor="right" id="Palette&#9;" order="9" />
@@ -363,11 +411,6 @@
     <entry file="file://$PROJECT_DIR$/routes/tracking.js" />
     <entry file="file://$PROJECT_DIR$/views/tracking/results.ejs" />
     <entry file="file://$PROJECT_DIR$/views/overview/containerLines.ejs" />
-    <entry file="file://$PROJECT_DIR$/db/models/oldusers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-136" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/express/lib/router/layer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
@@ -415,20 +458,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/passport.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="36" column="22" lean-forward="true" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/models/User.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-34">
-          <caret line="8" column="4" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -533,13 +566,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db/databases.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8395">
-          <caret line="12" column="8" lean-forward="true" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/api/files.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -554,10 +580,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/api/users.js">
+    <entry file="file://$PROJECT_DIR$/validation/jwttoken.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1241">
-          <caret line="11" column="18" lean-forward="true" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+        <state relative-caret-position="153">
+          <caret line="9" column="32" lean-forward="true" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -566,15 +592,54 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/api/containers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="3" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
+        <state relative-caret-position="204">
+          <caret line="15" column="3" lean-forward="true" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/validation/jwttoken.js">
+    <entry file="file://$PROJECT_DIR$/config/passport.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="24" column="4" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
+        <state relative-caret-position="102">
+          <caret line="6" column="16" lean-forward="true" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/models/User.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="4" lean-forward="true" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/models/oldusers.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/databases.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="465" selection-start-line="465" selection-end-line="465" />
+          <folding>
+            <element signature="e#774#4132#0" />
+            <element signature="e#4177#5110#0" />
+            <element signature="e#5166#5874#0" />
+            <element signature="e#5927#6392#0" />
+            <element signature="e#6458#7086#0" />
+            <element signature="e#7161#8251#0" />
+            <element signature="e#8320#9247#0" />
+            <element signature="e#9304#9875#0" />
+            <element signature="e#9952#11856#0" />
+            <element signature="e#11924#12883#0" />
+            <element signature="e#12947#13594#0" />
+            <element signature="e#13655#13763#0" />
+            <element signature="e#13822#14780#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api/users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="86" column="21" lean-forward="true" selection-start-line="86" selection-start-column="21" selection-end-line="86" selection-end-column="21" />
         </state>
       </provider>
     </entry>

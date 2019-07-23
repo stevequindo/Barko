@@ -1,16 +1,5 @@
-
-/***************** CONSTANTS AND NODE REQS*****************/
 const mongoose = require('mongoose');
 
-// Connection URL
-// const url = 'mongodb+srv://nchong128:apple123@cluster0-7jrih.mongodb.net';
-// const databaseName = "balikbayanDB";
-// mongoose.connect(`${url}/${databaseName}`, {
-// 	useNewUrlParser: true,
-// 	useFindAndModify: false
-// });
-
-// Flags
 let flags = require('country-flags-svg');
 let _ = require('lodash');
 
@@ -474,7 +463,6 @@ exports.getFileObjById = async function(containerId, fileId) {
 
 	return (wantedFile) ? wantedFile : new Error("File not found");
 };
-
 
 exports.deleteContainer = function (userId, containerId) {
 	Container.deleteOne({_id: containerId, localAccess: userId}, (err, res) => {
