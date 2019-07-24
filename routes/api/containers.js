@@ -12,12 +12,14 @@ const databases = require('../../db/databases');
 // 	Can add query parameter country to filter by countries
 // @access Requires user login
 containers.get('/', getJWTToken, async (req, res, next) => {
+	const userData = req['authorizedData'];
+
 	if (typeof req.query.country === 'undefined') { // do not filter by country
-		let containers = await databases.getContainersByUser(req['authorizedData']);
+		let containers = await databases.getContainersByUser(userData);
 		res.json(containers);
 	} else { 	// filter by country
 		let containers = await databases
-			.getContainersByUserAndCountry(req['authorizedData'], req.query.country);
+			.getContainersByUserAndCountry(userData, req.query.country);
 		res.json(containers);
 	}
 });
@@ -36,8 +38,10 @@ containers.post('/', (req, res, next) => {
 // 	Can add query parameters trackingNumber and surname to retrieve specific row from container
 // @access
 containers.get('/:containerId', getJWTToken, async (req, res, next) => {
-	const id = req.params.containerId;
-	let container = await databases.findContainerById(req['authorizedData'], id);
+	const containerId = req.params.containerId;
+	const userData = req['authorizedData'];
+
+	let container = await databases.getContainerById(userData, containerId);
 	res.json(container);
 });
 
@@ -55,7 +59,9 @@ containers.put('/:containerId', (req, res, next) => {
 // @access
 containers.delete('/:containerId', async (req, res, next) => {
 	const id = req.params.containerId;
-	let result = await databases.deleteContainerById(req['authorizedData'], id);
+	const userData = req['authorizedData'];
+
+	let result = await databases.deleteContainerById(userData, id);
 	res.json(result);
 });
 

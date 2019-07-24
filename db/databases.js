@@ -402,34 +402,6 @@ exports.uploadFile = async function (containerId, files, rowIds) {
 	return resultsObj;
 };
 
-exports.getFileObjById = async function(containerId, fileId) {
-	// Get specific containerLine from database that matches the containerId and the fileId
-	let res = await Container.findOne(
-		{
-			"_id": containerId,
-			"containerLine.status.additionalFiles._id": fileId
-		},
-		{
-			'_id': 1,
-			'containerLine.$.status': 1
-		}
-	);
-
-	// Search for file
-	// if (!res.containerLine[0].status.hasOwnProperty('additionalFiles')) return new Error("test");
-	const fileArray = res.containerLine[0].status.additionalFiles;
-
-	let wantedFile;
-	for (let file of fileArray) {
-		if (file._id.toString() === fileId) wantedFile = file; // Found the file
-	}
-
-
-	return (wantedFile) ? wantedFile : new Error("File not found");
-};
-
-
-
 /***************************NEW STUFF********************************/
 
 exports.getContainersByUser = (userData) => {
@@ -503,7 +475,7 @@ exports.findStatusInfo = function(trackingNum, surname) {
 
 };
 
-exports.findContainerById = function(userData, containerId) {
+exports.getContainerById = function(userData, containerId) {
 	/*
 	This function retrieves a Container given the container ID and user data
 	Also updates the container's last accessed date.
@@ -547,4 +519,30 @@ exports.deleteContainerById = async function (userData, containerId) {
 	if (res.ok) {jsonResult.containerDeleted = true}
 
 	return jsonResult;
+};
+
+// exports.getContainerFilesById = async function(containerId, fileId) {
+exports.getFileById = async function(userData, containerId, fileId) {
+	// Get specific containerLine from database that matches the containerId and the fileId
+	let res = await Container.findOne(
+		{
+			"_id": containerId,
+			"containerLine.status.additionalFiles._id": fileId
+		},
+		{
+			'_id': 1,
+			'containerLine.$.status': 1
+		}
+	);
+
+	// Search for file
+	// if (!res.containerLine[0].status.hasOwnProperty('additionalFiles')) return new Error("test");
+	const fileArray = res.containerLine[0].status.additionalFiles;
+
+	let wantedFile;
+	for (let file of fileArray) {
+		if (file._id.toString() === fileId) wantedFile = file; // Found the file
+	}
+
+	return (wantedFile) ? wantedFile : new Error("File not found");
 };
