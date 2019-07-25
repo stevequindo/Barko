@@ -29,6 +29,7 @@ if (localStorage.jwtToken) {
   store.dispatch(setCurrentUser(decoded));
   // Check for expired token
   const currentTime = Date.now() / 1000; // to get in milliseconds
+
   if (decoded.exp < currentTime) {
     // Logout user
     store.dispatch(logoutUser());
@@ -38,7 +39,7 @@ if (localStorage.jwtToken) {
   }
 }
 class App extends Component {
-  render() {
+    render() {
     return (
       <Provider store={store}>
         <Router>

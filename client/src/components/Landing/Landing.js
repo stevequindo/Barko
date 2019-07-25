@@ -1,11 +1,20 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./Landing.css";
-
+import PropTypes from "prop-types";
+import {logoutUser} from "../../actions/authActions";
 import TrackingForm from "../TrackingForm/TrackingForm";
+import {connect} from "react-redux";
 
 class Landing extends Component {
-  render() {
+
+    componentDidMount() {
+        if (this.props.auth.isAuthenticated) {
+            this.props.history.push("/dashboard");
+        }
+    };
+
+    render() {
     return (
       <div style={{ height: "75vh" }} className="container valign-wrapper">
         <div className="row">
@@ -29,4 +38,16 @@ class Landing extends Component {
   }
 }
 
-export default Landing;
+Landing.propTypes = {
+    logoutUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+   auth: state.auth
+});
+
+export default connect(
+    mapStateToProps,
+    {logoutUser}
+)(Landing);

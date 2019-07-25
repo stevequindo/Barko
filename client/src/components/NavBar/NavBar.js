@@ -6,7 +6,6 @@ import {logoutUser} from "../../actions/authActions";
 import PropTypes from "prop-types";
 
 class NavBar extends Component {
-
     constructor(props) {
         super(props);
         this.onLogoutClick = this.onLogoutClick.bind(this);
@@ -18,8 +17,6 @@ class NavBar extends Component {
     };
 
     render() {
-        console.log(this.props);
-
         if (this.props.auth.isAuthenticated) {
             return (
               <nav className="blue accent-3">
@@ -30,7 +27,7 @@ class NavBar extends Component {
                   <ul id="nav-mobile" className="right hide-on-med-and-down">
                     <li><a href="/containers">Manifest Files</a></li>
                     <li><a href="/tracking">Tracking</a></li>
-                    <li><a href="/">Logout</a></li>
+                    <li><a onClick={this.onLogoutClick}>Logout</a></li>
                   </ul>
                 </div>
               </nav>
@@ -43,7 +40,7 @@ class NavBar extends Component {
                         Barko
                     </Link>
                     <ul id="nav-mobile" className="right hide-on-med-and-down">
-                        <li><a href="/tracking">Tragit cking</a></li>
+                        <li><a href="/tracking">Tracking</a></li>
                         <li><a href="/about">About Us</a></li>
                     </ul>
                     </div>
