@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./Landing.css";
 
-import TrackingForm from "../../components/TrackingForm/TrackingForm";
+import TrackingForm from "../TrackingForm/TrackingForm";
 
 class Landing extends Component {
   render() {

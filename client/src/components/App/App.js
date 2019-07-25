@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import setAuthToken from "./utils/setAuthToken";
+import setAuthToken from "../../utils/setAuthToken";
 
-import { setCurrentUser, logoutUser } from "./actions/authActions";
+import { setCurrentUser, logoutUser } from "../../actions/authActions";
 import { Provider } from "react-redux";
-import store from "./store";
+import store from "../../store";
 
-import NavBar from "./components/components/NavBar/NavBar"; 
-import Landing from "./components/layout/Landing/Landing";
-import Register from "./components/auth/Register";
-import Login from "./components/auth/Login";
-import PrivateRoute from "./components/private-route/PrivateRoute";
-import Dashboard from "./components/dashboard/Dashboard";
-import TrackingResults from "./components/layout/TrackingResults/TrackingResults";
+import NavBar from "../NavBar/NavBar";
+import Landing from "../Landing/Landing";
+import Register from "../auth/Register";
+import Login from "../auth/Login";
+import PrivateRoute from "../private-route/PrivateRoute";
+import Dashboard from "../Dashboard/Dashboard";
+import TrackingResults from "../TrackingResults/TrackingResults";
 
 import "./App.css";
 
