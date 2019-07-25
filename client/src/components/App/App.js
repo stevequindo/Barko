@@ -13,6 +13,7 @@ import Register from "../auth/Register";
 import Login from "../auth/Login";
 import PrivateRoute from "../private-route/PrivateRoute";
 import Dashboard from "../Dashboard/Dashboard";
+import Containers from "../Containers/Containers";
 import TrackingResults from "../TrackingResults/TrackingResults";
 
 import "./App.css";
@@ -49,6 +50,7 @@ class App extends Component {
             <Route exact path="/tracking" component={TrackingResults} />
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute exact path="/containers" component={Containers} />
             </Switch>
           </div>
         </Router>
