@@ -4,7 +4,7 @@ const databases = require('../../db/databases');
 
 // @route GET api/containers/:containerId/files
 // @desc Gets all files from a given container based on the cId
-// @access
+// @access Requires user login
 files.get('/', getJWTToken, (req, res, next) => {
 	const containerId = req.containerId;
 	const userData = req['authorizedData'];
@@ -14,7 +14,7 @@ files.get('/', getJWTToken, (req, res, next) => {
 
 // @route GET api/containers/:containerId/files/:fileId
 // @desc Gets a single file from a given container based on the cId and the fId
-// @access
+// @access Everyone
 files.get('/:fileId', async (req, res, next) => {
 	const containerId = req.containerId;
 	const fileId = req.params.fileId;

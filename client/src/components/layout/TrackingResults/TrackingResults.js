@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { GridLoader } from 'react-spinners';
 import './TrackingResults.css';
-const axios = require('axios');
 
 class TrackingResults extends Component {
 
@@ -15,46 +14,52 @@ class TrackingResults extends Component {
     const trackingNumber = this.props.location.trackingRequest.trackingNumber;
     const surname = this.props.location.trackingRequest.surname;
 
-    fetch(`/api/tracking?trackingNumber=${trackingNumber}&surname=${surname}`, {
-        method: 'GET',
-        mode: 'cors', // todo change
+    fetch(`/api/tracking`, {
+        method: 'POST',
+        mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
         },
+        body : JSON.stringify({
+            trackingNumber: trackingNumber,
+            surname: surname
+        }),
         redirect: 'follow',
         referrer: 'no-referrer'
         })
     .then(res => res.json())
-    .then(res => this.setState({ trackingResults: res.trackingResults }))
+    .then(res => this.setState({ trackingResults: res}))
     .catch(err => this.setState({error:err.message}));
   }   
 
   render() {
     let results;
 
-    if(this.state.error) return (<h4>Error: { this.state.error }</h4>);
-    
+    if(this.state.error) return (
+        <h4>Error: { this.state.error }</h4>
+    );
+
     if (this.state.trackingResults) {
         results =
             this.state.trackingResults &&
-            this.state.trackingResults.map(result => (
-                <tr key={result.trackingNumber}>
-                    <td>{result.trackingNumber}</td>
-                    <td>{result.sender}</td>
-                    <td>{result.receiver}</td>
-                    <td>{result.status}</td>
-                    <td>{result.eta}</td>
+            this.state.trackingResults.map(entry => (
+                <tr key={entry.results.trackingNumber}>
+                    <td>{entry.results.trackingNumber}</td>
+                    <td>{entry.results.sender}</td>
+                    <td>{entry.results.receiver}</td>
+                    <td>{entry.results.stage}</td>
+                    <td>{entry.results.eta}</td>
                     <td>{
-                            result.files.map(file => {
-                                const fileLink = '/api/';
+                            entry.results.files.map(file => {
+                                const fileLink = `api/containers/${file.containerId}/files/${file.fileId}`;
+                                // TODO: link doesnt proxy properly
                                 return (
-                                    <a className="document-links" key={file.fileId}>{file.fileName}</a>
+                                    <a className="document-links" key={file.fileId} href={fileLink}>{file.fileName}</a>
                                 )
                             })
                     }
-
                     </td>
                     </tr>
             ));

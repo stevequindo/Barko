@@ -12,8 +12,6 @@ class Navbar extends Component {
           </Link>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li><a href="/">...</a></li>
-            <li><a href="/">...</a></li>
-            <li><a href="/">...</a></li>
           </ul>
         </div>
       </nav>

@@ -11,7 +11,7 @@ router.post("/", async (req, res) => {
     let trackingNumberArray = getCleanArray(req.body.trackingNumber);
     let surnameArray = getCleanArray(req.body.surname);
 
-    let trackingInfo = {};
+    let trackingInfo = [];
 
     // Iterate over every tracking number & surname to find status info in database
     for (let trackingNumber of trackingNumberArray) {
@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
                 const additionalFilesArray = containerLine.status.additionalFiles;
                 for (let file of additionalFilesArray) {
                     results.files.push({
-                        containerId: results._id.toString(),
+                        containerId: results.containerId,
                         fileId: file._id.toString(),
                         fileName: file.name
                     });
@@ -49,10 +49,10 @@ router.post("/", async (req, res) => {
             }
 
             // Place all info
-            trackingInfo[results.containerId] = {
+            trackingInfo.push({
                 errors,
                 results
-            };
+            });
 
             break;
         }

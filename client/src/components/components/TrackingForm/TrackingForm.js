@@ -37,7 +37,7 @@ class TrackingForm extends Component {
 
       return ( 
         <Redirect to={{
-            pathname: "/track",
+            pathname: "/tracking",
             trackingRequest: {
               trackingNumber: this.state.trackingNumber,
               surname: this.state.surname
