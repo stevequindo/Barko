@@ -9,10 +9,17 @@ class NavBar extends Component {
 
     constructor(props) {
         super(props);
-        console.log(props);
+        this.onLogoutClick = this.onLogoutClick.bind(this);
     }
 
+    onLogoutClick = e => {
+        e.preventDefault();
+        this.props.logoutUser();
+    };
+
     render() {
+        console.log(this.props);
+
         if (this.props.auth.isAuthenticated) {
             return (
               <nav className="blue accent-3">
@@ -36,7 +43,8 @@ class NavBar extends Component {
                         Barko
                     </Link>
                     <ul id="nav-mobile" className="right hide-on-med-and-down">
-                        <li><a href="/tracking">Tracking</a></li>
+                        <li><a href="/tracking">Tragit cking</a></li>
+                        <li><a href="/about">About Us</a></li>
                     </ul>
                     </div>
                 </nav>

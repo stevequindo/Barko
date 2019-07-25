@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee34331e-2a9b-45c9-a927-6d8d0a11d824" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/client/src/utils/onLogoutClick.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Dashboard/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Dashboard/Dashboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/NavBar/NavBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/NavBar/NavBar.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,11 +47,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/components/Dashboard/Dashboard.js">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/NavBar/NavBar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="35" column="20" lean-forward="true" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
+            <state relative-caret-position="1">
+              <caret line="45" column="51" selection-start-line="45" selection-start-column="51" selection-end-line="45" selection-end-column="51" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -57,10 +60,15 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/NavBar/NavBar.js">
+        <entry file="file://$PROJECT_DIR$/client/src/utils/onLogoutClick.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/src/components/Dashboard/Dashboard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="49" column="14" selection-start-line="49" selection-start-column="14" selection-end-line="49" selection-end-column="14" />
+            <state relative-caret-position="36">
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -72,7 +80,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>arriv</find>
       <find>departing</find>
       <find>5ce26b7913d20a0017e49664</find>
       <find>ship_1</find>
@@ -102,6 +109,7 @@
       <find>fil</find>
       <find>Tracking:</find>
       <find>classnames</find>
+      <find>onLogoutUser</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -155,9 +163,11 @@
         <option value="$PROJECT_DIR$/client/src/components/auth/Login.js" />
         <option value="$PROJECT_DIR$/client/src/components/Landing/Landing.js" />
         <option value="$PROJECT_DIR$/client/src/components/Containers/Containers.js" />
-        <option value="$PROJECT_DIR$/client/src/components/Dashboard/Dashboard.js" />
         <option value="$PROJECT_DIR$/client/src/components/App/App.js" />
+        <option value="$PROJECT_DIR$/client/src/utils/logoutUser.js" />
+        <option value="$PROJECT_DIR$/client/src/utils/onLogoutClick.js" />
         <option value="$PROJECT_DIR$/client/src/components/NavBar/NavBar.js" />
+        <option value="$PROJECT_DIR$/client/src/components/Dashboard/Dashboard.js" />
       </list>
     </option>
   </component>
@@ -375,12 +385,12 @@
       <workItem from="1562833627016" duration="8162000" />
       <workItem from="1562849993275" duration="4411000" />
       <workItem from="1563871213836" duration="5577000" />
-      <workItem from="1564043246836" duration="7697000" />
+      <workItem from="1564043246836" duration="8322000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="193935000" />
+    <option name="totallyTimeSpent" value="194560000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -395,7 +405,7 @@
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.3482309" weight="0.27206478" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.3482309" visible="true" weight="0.27206478" />
       <window_info id="Debug" order="1" sideWeight="0.65735567" side_tool="true" weight="0.2825911" />
       <window_info id="Structure" order="2" sideWeight="0.66480446" side_tool="true" weight="0.2672065" />
       <window_info id="Designer" order="3" />
@@ -403,7 +413,7 @@
       <window_info id="Learn" order="5" show_stripe_button="false" />
       <window_info id="Favorites" order="6" sideWeight="0.6517691" side_tool="true" weight="0.2672065" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.7243948" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.7243948" />
       <window_info anchor="bottom" id="Cvs" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="3" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="4" weight="0.32960895" />
@@ -452,7 +462,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/routes/overview.js" />
     <entry file="file://$PROJECT_DIR$/routes/tracking.js" />
     <entry file="file://$PROJECT_DIR$/views/tracking/results.ejs" />
     <entry file="file://$PROJECT_DIR$/views/overview/containerLines.ejs" />
@@ -689,9 +698,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/utils/setAuthToken.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/App/App.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -752,20 +758,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/utils/setAuthToken.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/NavBar/NavBar.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="49" column="14" selection-start-line="49" selection-start-column="14" selection-end-line="49" selection-end-column="14" />
+        <state relative-caret-position="1">
+          <caret line="45" column="51" selection-start-line="45" selection-start-column="51" selection-end-line="45" selection-end-column="51" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/utils/onLogoutClick.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/Dashboard/Dashboard.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="35" column="20" lean-forward="true" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
+        <state relative-caret-position="36">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>

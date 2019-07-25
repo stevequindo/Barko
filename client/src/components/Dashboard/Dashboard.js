@@ -4,6 +4,11 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    this.onLogoutClick = this.onLogoutClick.bind(this);
+  }
+
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
