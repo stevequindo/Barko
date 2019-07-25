@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const cors = require('cors');
+const morgan = require('morgan')
 
 const usersRouter = require("./routes/api/users");
 const trackingRouter = require("./routes/api/tracking");
@@ -24,6 +25,9 @@ app.use(cors());
 
 // DB Config
 const db = require("./config/keys").mongoURI;
+
+// Log Requests
+app.use(morgan('dev'));
 
 // Connect to MongoDB
 mongoose
