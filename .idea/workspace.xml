@@ -2,7 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee34331e-2a9b-45c9-a927-6d8d0a11d824" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/client/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/.idea/client.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/images/home_background.png" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/assets/images/home_background.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/App/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Landing/Landing.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Landing/Landing.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,40 +40,6 @@
   <component name="FavoritesManager">
     <favorites_list name="Barko" />
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>ship_1</find>
-      <find>trim</find>
-      <find>additionalFilesInfo</find>
-      <find>additionalFilesArray</find>
-      <find>findst</find>
-      <find>f</find>
-      <find>getETA</find>
-      <find>class</find>
-      <find>console.log</find>
-      <find>tracking</find>
-      <find>databases.</find>
-      <find>firs</find>
-      <find>user</find>
-      <find>filesc</find>
-      <find>container</find>
-      <find>containerId</find>
-      <find>auth</find>
-      <find>headers</find>
-      <find>autho</find>
-      <find>header</find>
-      <find>authori</find>
-      <find>getcontainerlines</find>
-      <find>findoneand</find>
-      <find>.find</find>
-      <find>fil</find>
-      <find>Tracking:</find>
-      <find>classnames</find>
-      <find>onLogoutUser</find>
-      <find>console.</find>
-      <find>t</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -81,21 +57,24 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="jsx.switch.disabled" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../my-app" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/client" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
+    <property name="settings.editor.selected.configurable" value="editing.templates" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\LG4000\Desktop\Barko\client\src\assets\images" />
+      <recent name="C:\Users\LG4000\Desktop\Barko\client\public\images" />
       <recent name="C:\Users\LG4000\Desktop\Barko\client\src\components" />
       <recent name="C:\Users\LG4000\Desktop\Barko\client\src\components\App" />
-      <recent name="C:\Users\LG4000\Desktop\Barko\client\src\assets\images" />
       <recent name="C:\Users\LG4000\Desktop\Barko" />
-      <recent name="C:\Users\LG4000\Desktop\Barko\middleware" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -166,7 +145,11 @@
       <workItem from="1563871213836" duration="5577000" />
       <workItem from="1564043246836" duration="9292000" />
       <workItem from="1564073750586" duration="217000" />
-      <workItem from="1564074037788" duration="811000" />
+      <workItem from="1564074037788" duration="1295000" />
+      <workItem from="1564077333227" duration="385000" />
+      <workItem from="1564077757463" duration="262000" />
+      <workItem from="1564130984018" duration="33000" />
+      <workItem from="1564131032704" duration="1703000" />
     </task>
     <servers />
   </component>
@@ -215,21 +198,5 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>11</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>
