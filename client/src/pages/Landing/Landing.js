@@ -5,7 +5,6 @@ import "./Landing.css";
 
 // Components
 import TrackingForm from "../../components/TrackingForm/TrackingForm";
-// import LoginModal from "../../components/LoginModal/LoginModal";
 
 class Landing extends React.Component {
 

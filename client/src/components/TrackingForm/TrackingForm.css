@@ -14,9 +14,9 @@
 	color: black !important;
 }
 
+  /* changes text input field line color */
 .form-control:focus {
 	border-bottom: 1px solid !important;
-  box-shadow: 0 1px 0 0 !important;
-  /* changes text input field line color */
+  	box-shadow: 0 1px 0 0 !important;
 	border-color: var(--primary-color) !important;
 }

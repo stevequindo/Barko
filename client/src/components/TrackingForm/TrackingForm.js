@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import { Redirect } from 'react-router-dom';
 import './TrackingForm.css';
 
-class TrackingForm extends Component {
+class TrackingForm extends React.Component {
 	state = {
 		trackingNumber: "",
 		surname: "",
@@ -16,34 +16,33 @@ class TrackingForm extends Component {
 		e.preventDefault();
 
 		if(this.state.trackingNumber === "" && this.state.surname === "") {
-		this.setState({ response: "Please enter tracking number and surname." });
-		this.trackingNumberInput.focus();
+			this.setState({ response: "Please enter tracking number and surname." });
+			this.trackingNumberInput.focus();
 		} else if(this.state.trackingNumber === "") {
-		this.setState({ response: "Please enter tracking number." });
-		this.trackingNumberInput.focus();
+			this.setState({ response: "Please enter tracking number." });
+			this.trackingNumberInput.focus();
 
 		} else if(this.state.surname === "") {
-		this.setState({ response: "Please enter surname." });
-		this.surnameInput.focus();
+			this.setState({ response: "Please enter surname." });
+			this.surnameInput.focus();
 		}
 		
 		if(this.state.trackingNumber && this.state.surname)
-		this.setState({ formValidated: true });
+			this.setState({ formValidated: true });
 	};
 
 	render() {
 
 		if (this.state.formValidated === true) {
-
-		return ( 
-			<Redirect to={{
-				pathname: "/track",
-				trackingRequest: {
-				trackingNumber: this.state.trackingNumber,
-				surname: this.state.surname
-				}
-			}} />
-		);
+			return ( 
+				<Redirect to={{
+					pathname: "/track",
+					trackingRequest: {
+						trackingNumber: this.state.trackingNumber,
+						surname: this.state.surname
+					}
+				}} />
+			);
 		}
 
 		return (

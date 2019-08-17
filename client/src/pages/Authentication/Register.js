@@ -153,7 +153,7 @@ class Register extends Component {
                   }}
                   type="submit"
                   className="btn btn-large waves-effect waves-light hoverable"
-                  style={{backgroundColor: "var(--primary-color)"}}>
+                  style={{backgroundColor: "var(--primary-color)", width: "300px"}}>
                   Sign up
                 </button>
               </div>
