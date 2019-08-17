@@ -1,22 +1,19 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import setAuthToken from "../../utils/setAuthToken";
 
-import { setCurrentUser, logoutUser } from "../../actions/authActions";
+import store from "./store";
 import { Provider } from "react-redux";
-import store from "../../store";
+import setAuthToken from "./auth/utils/setAuthToken";
+import PrivateRoute from "./auth/private-route/PrivateRoute";
+import { setCurrentUser, logoutUser } from "./auth/actions/authActions";
 
-import NavBar from "../NavBar/NavBar";
-import Landing from "../Landing/Landing";
-import Register from "../auth/Register";
-import Login from "../auth/Login";
-import PrivateRoute from "../private-route/PrivateRoute";
-import Dashboard from "../Dashboard/Dashboard";
-import ManifestFiles from "../ManifestFiles/ManifestFiles";
-import TrackingResults from "../TrackingResults/TrackingResults";
-
-import "./App.css";
+// Pages
+import Landing from "./pages/Landing/Landing";
+import Login from "./pages/Authentication/Login";
+import Register from "./pages/Authentication/Register";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import TrackingResults from "./pages/TrackingResults/TrackingResults";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -29,7 +26,6 @@ if (localStorage.jwtToken) {
   store.dispatch(setCurrentUser(decoded));
   // Check for expired token
   const currentTime = Date.now() / 1000; // to get in milliseconds
-
   if (decoded.exp < currentTime) {
     // Logout user
     store.dispatch(logoutUser());
@@ -39,19 +35,17 @@ if (localStorage.jwtToken) {
   }
 }
 class App extends Component {
-    render() {
+  render() {
     return (
       <Provider store={store}>
         <Router>
           <div className="App">
-            <NavBar />
-            <Route exact path="/" component={Landing}/>
+            <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/tracking" component={TrackingResults} />
+            <Route exact path="/track" component={TrackingResults} />
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
-              <PrivateRoute exact path="/manifests" component={ManifestFiles} />
             </Switch>
           </div>
         </Router>
