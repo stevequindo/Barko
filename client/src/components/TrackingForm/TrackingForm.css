@@ -1,22 +1,9 @@
-.Track-Btn, .Track-Btn:hover {
+.Track-Btn {
 	width: 300px;
 	border-radius: 3px;
 	letter-spacing: 1.5px;
-	background-color: var(--primary-color);
 }
 
-.Validation-Message {
+.Response-Message {
 	color: red;
-	height: 5px;
-}
-
-.input-field input:focus + label {
-	color: black !important;
-}
-
-  /* changes text input field line color */
-.form-control:focus {
-	border-bottom: 1px solid !important;
-  	box-shadow: 0 1px 0 0 !important;
-	border-color: var(--primary-color) !important;
 }

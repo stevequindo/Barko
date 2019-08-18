@@ -12,6 +12,7 @@ const containersRouter = require('./routes/api/containers');
 const app = express();
 
 // Bodyparser middleware
+
 app.use(
   bodyParser.urlencoded({
     extended: false
@@ -51,16 +52,6 @@ app.use("/api/users", usersRouter);
 app.use("/api/tracking", trackingRouter);
 app.use('/api/containers', containersRouter);
 
+const PORT = process.env.PORT || 5000;
 
-// Production
-if (process.env.NODE_ENV === 'production') {
-  // Set static folder
-  app.use(express.static('client/build'));
-
-  app.get('*', (req, res) => {
-    res.sendfile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
-}
-
-const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Server up and running on port ${port} !`));
+app.listen(PORT, () => console.log(`Server up and running on port ${PORT} !`));

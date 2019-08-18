@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { registerUser } from "../../auth/actions/authActions";
+import { registerUser } from "../../actions/authActions";
 import classnames from "classnames";
 
 class Register extends Component {
@@ -152,8 +152,7 @@ class Register extends Component {
                     marginTop: "1rem"
                   }}
                   type="submit"
-                  className="btn btn-large waves-effect waves-light hoverable"
-                  style={{backgroundColor: "var(--primary-color)", width: "300px"}}>
+                  className="btn btn-large waves-effect waves-light hoverable blue accent-3">
                   Sign up
                 </button>
               </div>
