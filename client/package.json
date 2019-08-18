@@ -16,6 +16,7 @@
     "jquery": "^3.4.1",
     "jwt-decode": "^2.2.0",
     "pdfmake": "^0.1.58",
+    "is-empty": "^1.2.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-redux": "^5.1.1",

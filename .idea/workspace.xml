@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee34331e-2a9b-45c9-a927-6d8d0a11d824" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/ManifestFiles/Data.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/ManifestFiles/ManifestFileTable/ManifestFileTable.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/App/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Containers/Containers.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/ManifestFiles/ManifestFiles.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
