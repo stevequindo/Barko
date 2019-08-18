@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { GridLoader } from 'react-spinners';
 import './TrackingResults.css';
 
-class TrackingResults extends Component {
+class TrackingResults extends React.Component {
 
   state = {
     trackingResults: [],

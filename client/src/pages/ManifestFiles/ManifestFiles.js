@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -7,7 +7,7 @@ import data from './Data';
 
 const Fragment = React.Fragment;
 
-class ManifestFiles extends Component {
+class ManifestFiles extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {

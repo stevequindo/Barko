@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-class Containers extends Component {
+class Containers extends React.Component {
 	constructor(props) {
 		super(props);
 	}

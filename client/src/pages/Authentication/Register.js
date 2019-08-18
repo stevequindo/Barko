@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { registerUser } from "../../actions/authActions";
+import { registerUser } from "../../auth/actions/authActions";
 import classnames from "classnames";
 
-class Register extends Component {
+class Register extends React.Component {
   constructor() {
     super();
     this.state = {

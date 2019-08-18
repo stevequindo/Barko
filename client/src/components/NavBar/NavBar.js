@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import './NavBar.css';
 import {connect} from "react-redux";
-import {logoutUser} from "../../actions/authActions";
+import {logoutUser} from "../../auth/actions/authActions";
 import PropTypes from "prop-types";
 
 class NavBar extends Component {

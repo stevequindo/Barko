@@ -1,22 +1,22 @@
-import React, { Component } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import setAuthToken from "../../utils/setAuthToken";
-
-import { setCurrentUser, logoutUser } from "../../actions/authActions";
 import { Provider } from "react-redux";
 import store from "../../store";
+import setAuthToken from "../../auth/utils/setAuthToken";
+import { setCurrentUser, logoutUser } from "../../auth/actions/authActions";
+import PrivateRoute from "../../auth/private-route/PrivateRoute";
 
-import NavBar from "../NavBar/NavBar";
+// Components
+import NavBar from "../../components/NavBar/NavBar";
+
+// Pages
 import Landing from "../Landing/Landing";
-import Register from "../auth/Register";
-import Login from "../auth/Login";
-import PrivateRoute from "../private-route/PrivateRoute";
+import Register from "../Authentication/Register";
+import Login from "../Authentication/Login";
 import Dashboard from "../Dashboard/Dashboard";
 import ManifestFiles from "../ManifestFiles/ManifestFiles";
 import TrackingResults from "../TrackingResults/TrackingResults";
-
-import "./App.css";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -38,13 +38,13 @@ if (localStorage.jwtToken) {
     window.location.href = "./login";
   }
 }
-class App extends Component {
+class App extends React.Component {
     render() {
     return (
       <Provider store={store}>
         <Router>
           <div className="App">
-            <NavBar />
+            {/* <NavBar /> */}
             <Route exact path="/" component={Landing}/>
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
