@@ -4,7 +4,7 @@ My first tech startup that went a long way.
 A SaaS for the freight industry in the Philippines, unifying 4 types of end users into a central data hub.
 
 # Credits
-Two developers that worked on this start-up along with me. A huge thank you to them.
+Two developers that worked on this start-up with me. A huge thank you to them.
 1. [Nicholas](https://github.com/nchong128)
 2. [Kayee](https://github.com/kayeew)
 
