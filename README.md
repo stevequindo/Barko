@@ -1,3 +1,7 @@
+# Credits
+Two developers that worked on this start-up along with me. A huge thank you to them.
+1. [Nicholas](https://github.com/nchong128)
+2. [Kayee](https://github.com/kayeew)
 
 # BalikbayanCommFiles
 ## Key Changes finished before trial starts
